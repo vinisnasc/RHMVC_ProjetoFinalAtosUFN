@@ -1,0 +1,52 @@
+﻿@model RH.Domain.Dtos.Input.PagamentosDto
+
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+    </script>
+</head>
+<body>
+    <h2>Gerar folha de pagamentos</h2>
+
+    <form asp-action="GerarFolhaPagamento">
+        <div class="form-group">
+            <label asp-for="DataPagamento" class="control-label"></label>
+            <input asp-for="DataPagamento" class="form-control" />
+            <span asp-validation-for="DataPagamento" class="text-danger"></span>
+        </div>
+        <input type="submit" value="GerarFolhaPagamento" />
+    </form>
+
+    <br />
+    <hr />
+    <h2>Gerar 13º</h2>
+
+    <form asp-action="GerarDecimoTerceiro">
+        <div class="form-group">
+            <label asp-for="DataPagamento" class="control-label"></label>
+            <input asp-for="DataPagamento" class="form-control" />
+            <span asp-validation-for="DataPagamento" class="text-danger"></span>
+        </div>
+        <input type="submit" value="GerarDecimoTerceiro" />
+    </form>
+
+    <br />
+    <hr />
+    <h2>Gerar Férias</h2>
+
+    <form asp-action="GerarFerias">
+        <div>
+            <label asp-for="DataPagamento"></label>
+            <input asp-for="DataPagamento" />
+            <span asp-validation-for="DataPagamento"></span>
+        </div>
+        <div>
+            <label asp-for="FuncionarioId"></label>
+            <input asp-for="FuncionarioId" />
+            <span asp-validation-for="FuncionarioId"></span>
+        </div>
+        <input type="submit" value="GerarFerias" />
+    </form>
+</body>
+</html>

@@ -1,0 +1,28 @@
+﻿@model RH.Domain.Dtos.Input.DepartamentoCadastroDto
+
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+    <form asp-action="Cadastrar">
+        <h1>Cadastrar novo departamento</h1>
+        <br />
+        <div>
+            <label asp-for="NomeDepartamento"></label>
+            <input asp-for="NomeDepartamento" />
+            <span asp-validation-for="NomeDepartamento"></span>
+            <br />
+        </div>
+        <div>
+            <label asp-for="SubDepartamento"></label>
+            <input asp-for="SubDepartamento" />
+            <span asp-validation-for="SubDepartamento"></span>
+        </div>
+        <br />
+        <input type="submit" value="Cadastrar" />
+        <input type="button" value="Voltar" onclick="location.href='@Url.Action("Index","Departamentos")'"
+    </form>
+</body>
+</html>
