@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RH.Domain.Dtos.Input;
+using RH.Domain.Dtos.Views;
 using RH.Domain.Interfaces.Services;
 using System.Net;
 
@@ -95,6 +96,34 @@ namespace RH.MVC.Controllers
                 }
             }
             return View(dto);
+        }
+
+        public async Task<IActionResult> Demitir(Guid id)
+        {
+            if (id == Guid.Empty)
+                return NotFound();
+
+            var funcionario = await _funcionarioService.BuscarPorId(id);
+
+            if (funcionario == null)
+                return NotFound();
+
+            return View(funcionario);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Demitir(FuncionarioDemitirDto dto, Guid id)
+        {
+            try
+            {
+                await _funcionarioService.Demitir(id, dto.Demissao);
+                return RedirectToAction(nameof(Index));
+            }
+            catch(Exception ex)
+            {
+                ModelState.AddModelError("Demissao", ex.Message);
+                return View(new FuncionarioViewDtoResult() { Id = id, Demissao = dto.Demissao});
+            }
         }
     }
 }

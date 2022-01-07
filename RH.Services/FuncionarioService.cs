@@ -104,9 +104,20 @@ namespace RH.Services
         public async Task Demitir(Guid id, DateTime demissao)
         {
             var entity = await _unitOfWork.FuncionarioRepository.SelecionarPorId(id);
-            entity.Ativo = false;
-            entity.Demissao = demissao;
-            await _unitOfWork.FuncionarioRepository.Alterar(entity);
+            if (entity.Ativo)
+            {
+                if (entity.Admissao > demissao)
+                    throw new DemissaoException();
+
+                else
+                {
+                    entity.Ativo = false;
+                    entity.Demissao = demissao;
+                    await _unitOfWork.FuncionarioRepository.Alterar(entity);
+                }
+            }
+            else
+                throw new FuncionarioJaEstaDemitidoException();
         }
 
         private async Task<CepResponse> AtribuirEndereco(FuncionarioCadastroDto dto)

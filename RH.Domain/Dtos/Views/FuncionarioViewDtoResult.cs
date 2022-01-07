@@ -15,5 +15,6 @@ namespace RH.Domain.Dtos.Views
         public Guid FuncaoId { get; set; }
         public string Departamento { get; set; }
         public Guid DepartamentoId { get; set; }
+        public DateTime Demissao { get; set; }
     }
 }

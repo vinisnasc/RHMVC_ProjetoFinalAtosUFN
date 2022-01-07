@@ -12,13 +12,15 @@ namespace RH.Domain.Dtos.Input
     public class FuncionarioCadastroDto
     {
         // Funcionario
-        [Required]
+        [Required(ErrorMessage = "Necessário informar o nome do funcionário")]
         public string Nome { get; set; }
 
         [Display(Name = "Nome social")]
         public string? NomeSocial { get; set; }
 
         [Required]
+        [StringLength(11, MinimumLength =11, ErrorMessage = "CPF deve ter 11 digitos")]
+        [Display(Name = "CPF")]
         public string Cpf { get; set; }
 
         [Required]

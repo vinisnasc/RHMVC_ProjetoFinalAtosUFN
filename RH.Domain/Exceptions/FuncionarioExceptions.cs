@@ -11,4 +11,16 @@ namespace RH.Domain.Exceptions
         public FuncionarioJaExisteException() : base("Esse funcionário está ativo no sistema!")
         { }
     }
+
+    public class FuncionarioJaEstaDemitidoException : Exception
+    {
+        public FuncionarioJaEstaDemitidoException() : base("Funcionário já está demitido!")
+        { }
+    }
+
+    public class DemissaoException : Exception
+    {
+        public DemissaoException() : base("A data de demissao não pode ser antes da data de admissao!")
+        { }
+    }
 }

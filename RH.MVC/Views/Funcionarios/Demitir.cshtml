@@ -1,0 +1,20 @@
+﻿@model RH.Domain.Dtos.Views.FuncionarioViewDtoResult
+
+<!Doctype html>
+<html>
+<head>
+</head>
+<body>
+    <h1>Você tem certeza que vai demitir o funcionario @Model.Nome ?</h1>
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true);
+        <div>Data da demissão: </div>
+        <input type="date" name="Demissao">
+    @Html.ValidationMessageFor(f => f.Demissao)
+
+    <input type="submit" value="Demitir" class="btn btn-primary" />
+    }
+</body>
+</html>

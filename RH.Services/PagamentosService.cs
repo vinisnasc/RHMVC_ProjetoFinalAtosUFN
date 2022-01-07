@@ -2,11 +2,6 @@
 using RH.Domain.Exceptions;
 using RH.Domain.Interfaces.Repository;
 using RH.Domain.Interfaces.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RH.Services
 {
@@ -124,6 +119,48 @@ namespace RH.Services
                 throw new SemDireitoAFeriasException();
 
             return quantidade * funcao.Salario;
+        }
+
+        public async Task CalcularDemissao(Guid id)
+        {
+            var funcionario = await _unitOfWork.FuncionarioRepository.SelecionarPorId(id);
+
+            //double salarioMes = 
+        }
+
+        private async Task<double> CalcularSalarioMes(DateTime dataPagamento, Guid id)
+        {
+            var funcionario = await _unitOfWork.FuncionarioRepository.SelecionarPorId(id);
+            DateTime primeiroDiaMesTrabalhado = dataPagamento.Month == 1 ?
+                                     new DateTime(dataPagamento.Year - 1, 12, 1) :
+                                     new DateTime(dataPagamento.Year, dataPagamento.Month - 1, 1);
+            DateTime ultimoDiaMesTrabalhado = new DateTime(primeiroDiaMesTrabalhado.Year,
+                                                           primeiroDiaMesTrabalhado.Month,
+                                                           DateTime.DaysInMonth(primeiroDiaMesTrabalhado.Year, primeiroDiaMesTrabalhado.Month));
+
+            if (funcionario.Demissao == null && !await _unitOfWork.PagamentoRepository.VerificaSeExistePagamentoAsync(dataPagamento, id))
+            {
+                Pagamento pagamento = new(dataPagamento, id);
+                var salario = (await _unitOfWork.FuncaoRepository.SelecionarPorId(funcionario.FuncaoId)).Salario;
+
+                if (funcionario.Admissao < primeiroDiaMesTrabalhado)
+                    pagamento.Valor = salario;
+
+                else if (funcionario.Admissao > primeiroDiaMesTrabalhado)
+                {
+                    var diasNoMes = ultimoDiaMesTrabalhado.Day;
+                    var diaInicio = funcionario.Admissao.Day;
+                    var diasTrabalhados = diasNoMes - diaInicio + 1;
+                    pagamento.Valor = salario / 30 * diasTrabalhados;
+                }
+
+                await _unitOfWork.PagamentoRepository.Incluir(pagamento);
+            }
+            {
+
+            }
+
+            return 0;
         }
     }
 }
