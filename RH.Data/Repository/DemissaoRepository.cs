@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace RH.Data.Repository
 {
-    public class DecimoTerceiroRepository : BaseRepository<DecimoTerceiro>, IDecimoTerceiroRepository
+    public class DemissaoRepository : BaseRepository<Demissao>, IDemissaoRepository
     {
-        public DecimoTerceiroRepository(RhContext context) : base(context)
+        public DemissaoRepository(RhContext context) : base(context)
         {}
     }
 }

@@ -13,12 +13,15 @@ namespace RH.MVC.Controllers
         private readonly IFuncionarioService _funcionarioService;
         private readonly IDepartamentoService _departamentoService;
         private readonly IFuncaoService _funcaoService;
+        private readonly IPagamentosService _pagamentosService;  
 
-        public FuncionariosController(IFuncionarioService funcionarioService, IDepartamentoService departamentoService, IFuncaoService funcaoService)
+        public FuncionariosController(IFuncionarioService funcionarioService, IDepartamentoService departamentoService, 
+                                      IFuncaoService funcaoService, IPagamentosService pagamentosService)
         {
             _funcionarioService = funcionarioService;
             _departamentoService = departamentoService;
             _funcaoService = funcaoService;
+            _pagamentosService = pagamentosService;
         }
 
         public async Task<IActionResult> Index()
@@ -117,6 +120,7 @@ namespace RH.MVC.Controllers
             try
             {
                 await _funcionarioService.Demitir(id, dto.Demissao);
+                await _pagamentosService.CalcularDemissao(id);
                 return RedirectToAction(nameof(Index));
             }
             catch(Exception ex)

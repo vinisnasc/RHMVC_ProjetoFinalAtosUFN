@@ -12,11 +12,8 @@ namespace RH.Data.Repository
 {
     public class DepartamentoRepository : BaseRepository<Departamento>, IDepartamentoRepository
     {
-        private readonly RhContext _context;
         public DepartamentoRepository(RhContext context) : base(context)
-        {
-            _context = context;
-        }
+        {}
 
         public async Task<int> QuantidadeFuncionarioAsync(Guid id)
         {

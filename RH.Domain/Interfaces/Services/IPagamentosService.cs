@@ -11,5 +11,6 @@ namespace RH.Domain.Interfaces.Services
         Task GerarDecimoTerceiroAsync(DateTime dataPagamento);
         Task GerarFeriasAsync(DateTime dataPagamento, Guid idFunc);
         Task GerarFolhaPagamentoAsync(DateTime dataPagamento);
+        Task CalcularDemissao(Guid id);
     }
 }

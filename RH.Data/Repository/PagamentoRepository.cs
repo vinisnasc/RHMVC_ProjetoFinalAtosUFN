@@ -13,8 +13,7 @@ namespace RH.Data.Repository
     public class PagamentoRepository : BaseRepository<Pagamento>, IPagamentoRepository
     {
         public PagamentoRepository(RhContext context) : base(context)
-        {
-        }
+        {}
 
         public async Task<bool> VerificaSeExistePagamentoAsync(DateTime dataPagamento, Guid idFuncionario)
         {

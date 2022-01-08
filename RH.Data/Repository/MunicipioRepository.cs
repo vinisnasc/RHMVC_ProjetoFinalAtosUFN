@@ -12,11 +12,8 @@ namespace RH.Data.Repository
 {
     public class MunicipioRepository : BaseRepository<Municipio>, IMunicipioRepository
     {
-        private readonly RhContext _context;
         public MunicipioRepository(RhContext contexto) : base(contexto)
-        {
-            _context = contexto;
-        }
+        {}
 
         public async Task<Municipio> BuscarPorNomeUfAsync(string nome, Guid ufId)
         {

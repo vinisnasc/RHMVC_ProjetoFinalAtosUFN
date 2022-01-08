@@ -13,8 +13,7 @@ namespace RH.Data.Repository
     public class ContaBancariaRepository : BaseRepository<ContaBancaria>, IContaBancariaRepository
     {
         public ContaBancariaRepository(RhContext context) : base(context)
-        {
-        }
+        {}
 
         public async Task<ContaBancaria> BuscarContaAsync(int numBanco, string agencia, string conta)
         {

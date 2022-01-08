@@ -12,11 +12,8 @@ namespace RH.Data.Repository
 {
     public class EnderecoRepository : BaseRepository<Endereco>, IEnderecoRepository
     {
-        private readonly RhContext _context;
         public EnderecoRepository(RhContext contexto) : base(contexto)
-        {
-            _context = contexto;
-        }
+        {}
 
         public async Task<Endereco> ProcurarEndereco(string cep, int num, string compl)
         {

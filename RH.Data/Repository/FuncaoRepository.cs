@@ -13,8 +13,7 @@ namespace RH.Data.Repository
     public class FuncaoRepository : BaseRepository<Funcao>, IFuncaoRepository
     {
         public FuncaoRepository(RhContext context) : base(context)
-        {
-        }
+        {}
 
         public async Task<int> QuantidadeFuncionarioAsync(Guid id)
         {

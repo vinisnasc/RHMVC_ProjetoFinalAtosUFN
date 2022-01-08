@@ -21,6 +21,7 @@ namespace RH.Data.Repository
         public IDecimoTerceiroRepository DecimoTerceiroRepository { get; set; }
         public IFeriasRepository FeriasRepository { get; set; }
         public IPagamentoRepository PagamentoRepository { get; set; }
+        public IDemissaoRepository DemissaoRepository { get; set; }
 
         public UnitOfWork(RhContext context)
         {
@@ -35,6 +36,7 @@ namespace RH.Data.Repository
             DecimoTerceiroRepository = new DecimoTerceiroRepository(context);
             FeriasRepository = new FeriasRepository(context);
             PagamentoRepository = new PagamentoRepository(context);
+            DemissaoRepository = new DemissaoRepository(context);
         }
     }
 }

@@ -12,11 +12,8 @@ namespace RH.Data.Repository
 {
     public class UfRepository : BaseRepository<Uf>, IUfRepository
     {
-        private readonly RhContext _context;
         public UfRepository(RhContext contexto) : base(contexto)
-        {
-            _context = contexto;
-        }
+        {}
 
         public async Task<Guid> BuscarIdPorUfAsync(string uf)
         {

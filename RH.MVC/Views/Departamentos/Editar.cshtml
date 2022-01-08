@@ -3,19 +3,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+    <style>
+        #dpt {
+        }
+    </style>
 </head>
 <body>
     <form asp-action="Editar">
         <h1>Editar departamento @Model.NomeDepartamento / @Model.SubDepartamento</h1>
         <br />
-        <div>
+        <div id=dpt>
             <label asp-for="NomeDepartamento"></label>
             <input asp-for="NomeDepartamento" />
             <span asp-validation-for="NomeDepartamento"></span>
             <br />
         </div>
-        <div>
+        <div id="sdpt">
             <label asp-for="SubDepartamento"></label>
             <input asp-for="SubDepartamento" />
             <span asp-validation-for="SubDepartamento"></span>

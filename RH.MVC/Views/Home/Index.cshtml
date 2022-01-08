@@ -1,14 +1,31 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-<div>
-    <input type="button" value="Funcionarios" onclick="location.href='@Url.Action("Index","Funcionarios")'"/>
-     <input type="button" value="Departamentos" onclick="location.href='@Url.Action("Index","Departamentos")'"/>
-     <input type="button" value="Funções" onclick="location.href='@Url.Action("Index","Funcoes")'"/>
-     <input type="button" value="Pagamentos" onclick="location.href='@Url.Action("Index","Pagamentos")'"/>
-</div>
+<!Doctype html>
+<html>
+<head>
+    <style>
+        input{
+            border: double;
+            height: 100px; 
+            width: 100px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="text-center">
+        <h1 class="display-4">Bem vindo ao gerenciador de RH</h1>
+        <p>Caso ocorram dúvidas, me contate: <a href="mailto:vini.souza00@gmail.com" target="_blank">vini.souza00@gmail.com</a>.</p>
+    </div>
+    <div>
+        <label>
+        <input type="image" src="https://cdn-icons-png.flaticon.com/512/181/181548.png" value="Funcionarios" onclick="location.href='@Url.Action("Index","Funcionarios")'" />
+       Funcionarios
+        </label>
+        <input type="button" value="Departamentos" onclick="location.href='@Url.Action("Index","Departamentos")'" />
+        <input type="button" value="Funções" onclick="location.href='@Url.Action("Index","Funcoes")'" />
+        <input type="button" value="Pagamentos" onclick="location.href='@Url.Action("Index","Pagamentos")'" />
+    </div>
+</body>
+</html>

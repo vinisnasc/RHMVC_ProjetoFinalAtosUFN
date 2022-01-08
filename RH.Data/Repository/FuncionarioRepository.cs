@@ -12,11 +12,8 @@ namespace RH.Data.Repository
 {
     public class FuncionarioRepository : BaseRepository<Funcionario>, IFuncionarioRepository
     {
-        private readonly RhContext _context;
         public FuncionarioRepository(RhContext contexto) : base(contexto)
-        {
-            _context = contexto;
-        }
+        {}
 
         public override Task Incluir(Funcionario funcionario)
         {
@@ -25,7 +22,7 @@ namespace RH.Data.Repository
 
         public async Task<Funcionario> ProcurarPorCpfAtivo(string cpf)
         {
-            return await _context.Funcionario.FirstOrDefaultAsync(x => x.CPF == cpf && x.Demissao == null);
+            return await _context.Funcionario.FirstOrDefaultAsync(x => x.CPF == cpf && x.DataDemissao == null);
         }
 
         public async Task<int> AtribuirNumeroDeRegistro()

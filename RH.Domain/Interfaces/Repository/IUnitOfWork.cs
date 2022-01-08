@@ -17,6 +17,7 @@ namespace RH.Domain.Interfaces.Repository
         public IDepartamentoRepository DepartamentoRepository { get; set; }
         public IDecimoTerceiroRepository DecimoTerceiroRepository { get; set; }
         public IFeriasRepository FeriasRepository { get; set; }
+        public IDemissaoRepository DemissaoRepository { get; set; }
         public IPagamentoRepository PagamentoRepository { get; set; }
     }
 }

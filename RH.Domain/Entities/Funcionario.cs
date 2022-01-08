@@ -14,10 +14,12 @@ namespace RH.Domain.Entities
         public string Email { get; set; }
         public DateTime Admissao { get; set; }
         public Genero Sexo { get; set; }
-        public DateTime? Demissao { get; set; }
+        public DateTime? DataDemissao { get; set; }
         public bool Ativo { get; set; } = true;
 
         // Relacionamentos
+        public Guid DemissaoId { get; set; }
+        public Demissao Demissao { get; set; }
         public Guid ContaBancariaId { get; set; }
         public ContaBancaria ContaBancaria { get; set; }
         public Guid EnderecoId { get; set; }

@@ -112,7 +112,7 @@ namespace RH.Services
                 else
                 {
                     entity.Ativo = false;
-                    entity.Demissao = demissao;
+                    entity.DataDemissao = demissao;
                     await _unitOfWork.FuncionarioRepository.Alterar(entity);
                 }
             }
