@@ -24,7 +24,10 @@ namespace RH.Data.Repository
 
         public async Task<List<Pagamento>> PegarTodosPagamentosDataAsync(DateTime dataPagamento)
         {
-            return await _context.Pagamento.Where(x => x.DataPagamento == dataPagamento).Include(x => x.Funcionario).ThenInclude(x => x.ContaBancaria).ToListAsync();
+            return await _context.Pagamento.Where(x => x.DataPagamento.Month == dataPagamento.Month && 
+                                                       x.DataPagamento.Year == dataPagamento.Year)
+                                           .Include(x => x.Funcionario)
+                                           .ThenInclude(x => x.ContaBancaria).ToListAsync();
         }
     }
 }

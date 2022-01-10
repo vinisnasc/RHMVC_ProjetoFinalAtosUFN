@@ -24,6 +24,10 @@ namespace RH.Services
             {
                 Pagamento pagamento = new(dataPagamento, func.Id);
                 pagamento.Valor = await CalcularSalarioMes(dataPagamento, func.Id);
+
+                if (await _unitOfWork.PagamentoRepository.VerificaSeExistePagamentoAsync(dataPagamento, func.Id))
+                    pagamento.Valor = 0;
+
                 if (pagamento.Valor != 0)
                     await _unitOfWork.PagamentoRepository.Incluir(pagamento);
             }
@@ -38,14 +42,19 @@ namespace RH.Services
             foreach (var func in funcionarios)
             {
                 DecimoTerceiro decimoTerceiro = new(dataPagamento, func.Id);
-                decimoTerceiro.Valor = await CalcularDecimo(func, dataPagamento);
 
-                if (decimoTerceiro.Valor != 0)
+                // Se estiver sendo gerado em dezembro, ser[a considerado segunda parcela
+                if (dataPagamento.Month != 12)
+                    decimoTerceiro.Valor = await CalcularDecimo(func, dataPagamento, 1);
+                else
+                    decimoTerceiro.Valor = await CalcularDecimo(func, dataPagamento, 2);
+
+                if (decimoTerceiro.Valor != 0 && func.Ativo == true)
                     await _unitOfWork.DecimoTerceiroRepository.Incluir(decimoTerceiro);
             }
         }
 
-        private async Task<double> CalcularDecimo(Funcionario func, DateTime pagamento)
+        private async Task<double> CalcularDecimo(Funcionario func, DateTime pagamento, int parcela)
         {
             int quantidade;
             int anoAdmissao = func.Admissao.Year;
@@ -57,17 +66,48 @@ namespace RH.Services
 
             if (anoAdmissao > pagamento.Year)
                 quantidade = 0;
-            
+
             else if (anoAdmissao != pagamento.Year)
                 quantidade = 12;
-            
+
             else if (diasMesAdmissao - diaAdmissao >= 15)
                 quantidade = 13 - mesAdmissao;
-            
+
             else
                 quantidade = 12 - mesAdmissao;
-            
-            return funcao.Salario / 12 * quantidade;
+
+            if (func.Ativo == false)
+            {
+                if (await _unitOfWork.DemissaoRepository.ExistePagamentoDemissaoAsync(func.Id))
+                    quantidade = 0;
+
+                if (((DateTime)func.DataDemissao).Day > 15)
+                    quantidade += ((DateTime)func.DataDemissao).Month - 12;
+
+                else
+                    quantidade += ((DateTime)func.DataDemissao).Month - 13;
+            }
+
+            if (parcela == 1)
+            {
+                var primeiraParcela = await _unitOfWork.DecimoTerceiroRepository.BuscaPrimeiraParcelaAsync(func.Id, pagamento.Year);
+                
+                if (primeiraParcela == null)
+                    return (funcao.Salario / 12 * quantidade) / 2;
+
+                else
+                    return 0;
+            }
+
+            else
+            {
+                var primeiraParcela = await _unitOfWork.DecimoTerceiroRepository.BuscaPrimeiraParcelaAsync(func.Id, pagamento.Year);
+                if (primeiraParcela == null)
+                    return (funcao.Salario / 12 * quantidade);
+
+                else
+                    return (funcao.Salario / 12 * quantidade) - primeiraParcela.Valor;
+            }
         }
 
         public async Task GerarFeriasAsync(DateTime dataPagamento, Guid idFunc)
@@ -133,7 +173,7 @@ namespace RH.Services
                 demissao.FuncionarioId = id;
                 demissao.DataPagamento = ((DateTime)funcionario.DataDemissao).AddDays(10);
                 demissao.ValorMes = await CalcularSalarioMes((DateTime)funcionario.DataDemissao, id);
-                demissao.ValorDecimo = await CalcularDecimo(funcionario, (DateTime)funcionario.DataDemissao);
+                demissao.ValorDecimo = await CalcularDecimo(funcionario, (DateTime)funcionario.DataDemissao, 2);
                 demissao.ValorFerias = await CalcularFerias(funcionario, (DateTime)funcionario.DataDemissao);
             }
             else

@@ -9,5 +9,6 @@ namespace RH.Domain.Interfaces.Repository
 {
     public interface IDecimoTerceiroRepository : IBaseRepository<DecimoTerceiro>
     {
+        Task<DecimoTerceiro> BuscaPrimeiraParcelaAsync(Guid funcionarioid, int ano);
     }
 }

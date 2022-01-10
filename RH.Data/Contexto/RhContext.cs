@@ -19,6 +19,7 @@ namespace RH.Data.Contexto
         public DbSet<DecimoTerceiro> DecimoTerceiro { get; set; }
         public DbSet<Ferias> Ferias { get; set; }
         public DbSet<Pagamento> Pagamento { get; set; }
+        public DbSet<Demissao> Demissao { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

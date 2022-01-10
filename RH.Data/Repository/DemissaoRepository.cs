@@ -1,4 +1,5 @@
-﻿using RH.Data.Contexto;
+﻿using Microsoft.EntityFrameworkCore;
+using RH.Data.Contexto;
 using RH.Domain.Entities;
 using RH.Domain.Interfaces.Repository;
 using System;
@@ -13,5 +14,10 @@ namespace RH.Data.Repository
     {
         public DemissaoRepository(RhContext context) : base(context)
         {}
+
+        public async Task<bool> ExistePagamentoDemissaoAsync(Guid id)
+        {
+            return await _context.Demissao.AnyAsync(x => x.Id == id);
+        }
     }
 }

@@ -9,5 +9,6 @@ namespace RH.Domain.Interfaces.Repository
 {
     public interface IDemissaoRepository : IBaseRepository<Demissao>
     {
+        Task<bool> ExistePagamentoDemissaoAsync(Guid id);
     }
 }
