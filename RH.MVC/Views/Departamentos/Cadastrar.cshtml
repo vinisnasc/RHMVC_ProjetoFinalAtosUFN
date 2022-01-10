@@ -3,26 +3,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 </head>
 <body>
-    <form asp-action="Cadastrar">
-        <h1>Cadastrar novo departamento</h1>
+    <h1>Cadastrar novo departamento</h1>
+    <br />
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <strong> Departamento:</strong>
         <br />
-        <div>
-            <label asp-for="NomeDepartamento"></label>
-            <input asp-for="NomeDepartamento" />
-            <span asp-validation-for="NomeDepartamento"></span>
-            <br />
-        </div>
-        <div>
-            <label asp-for="SubDepartamento"></label>
-            <input asp-for="SubDepartamento" />
-            <span asp-validation-for="SubDepartamento"></span>
-        </div>
+        <input type="text" name="NomeDepartamento" placeholder="Digite o nome do departamento">
+        <strong class="text-danger">@Html.ValidationMessageFor(f => f.NomeDepartamento)</strong>
         <br />
-        <input type="submit" value="Cadastrar" />
-        <input type="button" value="Voltar" onclick="location.href='@Url.Action("Index","Departamentos")'"
-    </form>
+
+        <strong> Sub-Departamento:</strong>
+        <br />
+        <input type="text" name="SubDepartamento" placeholder="Informe o sub-departamento">
+        <strong class="text-danger">@Html.ValidationMessageFor(f => f.SubDepartamento)</strong>
+        <br />
+        <br />
+
+        <input class="btn btn-success" type="submit" value="Cadastrar" />
+        <input class="btn btn-secondary" type="button" value="Voltar" onclick="location.href='@Url.Action("Index","Departamentos")'" />
+    }
+
 </body>
 </html>

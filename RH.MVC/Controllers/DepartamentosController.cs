@@ -48,7 +48,7 @@ namespace RH.MVC.Controllers
                 catch(Exception ex)
                 {
                     ModelState.AddModelError("NomeDepartamento", ex.Message);
-                    return RedirectToAction(nameof(Index));
+                    return View(dto);
                 }
             }
             return View(dto);
@@ -70,7 +70,8 @@ namespace RH.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Editar(Guid id, DepartamentoEditarDto dto)
         {
-            if(ModelState.IsValid)
+            var depto = await _departamentoService.BuscarPorIdAsync(id);
+            if (ModelState.IsValid)
             {
                 try
                 {
@@ -80,10 +81,10 @@ namespace RH.MVC.Controllers
                 catch(Exception ex)
                 {
                     ModelState.AddModelError("NomeDepartamento", ex.Message);
-                    return View(dto);
+                    return View(depto);
                 }
             }
-            return View(dto);
+            return View(depto);
         }
 
         public async Task<IActionResult> Detalhes(Guid id)
@@ -91,17 +92,9 @@ namespace RH.MVC.Controllers
             if(ModelState.IsValid)
             {
                 var list = await _departamentoService.ListarFuncDeptoAsync(id);
-                if (list.Count() != 0)
+                
                     return View(list);
 
-                else
-                {
-                    // TODO: Lista vazia gera excessão
-                    /*
-                    ModelState.AddModelError("", "Nao existe func");
-                    return RedirectToAction(nameof(Index));
-                    */
-                }
             }
             return BadRequest(ModelState);
         }

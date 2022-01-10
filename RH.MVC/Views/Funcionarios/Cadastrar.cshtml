@@ -1,11 +1,5 @@
 ﻿@model RH.Domain.Dtos.Input.FuncionarioCadastroDto
 
-@{
-    //var sexo = ViewData["Sex"];
-    // ViewBag.Deptos = @Html.DropDownList("Deptos");
-   
-}
-
 
 <h1>Cadastrar novo funcionario</h1>
 
@@ -14,31 +8,31 @@
     @Html.ValidationSummary(true)
 
     <div>Nome:</div>
-    <input type="text" name="Nome" placeholder="Digite o nome do funcionario">
+    <input type="text" name="Nome" value=@(Model == null ? "" : @Model.Nome)>
     @Html.ValidationMessageFor(f => f.Nome)
 
     <br />
 
     <div>Nome Social:</div>
-    <input type="text" name="NomeSocial" placeholder="Digite o nome social do funcionario">
+    <input type="text" name="NomeSocial" value=@(Model == null ? "" : @Model.NomeSocial)>
     @Html.ValidationMessageFor(f => f.NomeSocial)
 
     <br />
 
     <div>CPF:</div>
-    <input type="text" name="CPF" placeholder="Digite o CPF do funcionario">
+    <input type="text" name="CPF" value=@(Model == null ? "" : @Model.Cpf)>
     @Html.ValidationMessageFor(f => f.Cpf)
 
     <br />
 
     <div>RG:</div>
-    <input type="text" name="RG" placeholder="Digite o RG do funcionario">
+    <input type="text" name="RG" value=@(Model == null ? "" : @Model.RG)>
     @Html.ValidationMessageFor(f => f.RG)
 
     <br />
 
     <div>Email:</div>
-    <input type="text" name="Email" placeholder="Digite o Email do funcionario">
+    <input type="text" name="Email" value=@(Model == null ? "" : @Model.Email)>
     @Html.ValidationMessageFor(f => f.Email)
 
     <br />
@@ -48,31 +42,31 @@
     @Html.ValidationMessageFor(f => f.Sexo)
     
     <div>Admissao:</div>
-    <input type="date" name="Admissao" >
+    <input type="date" name="Admissao" value=@(Model == null ? "" : @Model.Admissao)>
     @Html.ValidationMessageFor(f => f.Admissao)
 
     <div>Banco:</div>
-    <input type="text" name="Banco" >
+    <input type="text" name="Banco" value=@(Model == null ? "" : @Model.Banco)>
     @Html.ValidationMessageFor(f => f.Banco)
 
     <div>Agencia:</div>
-    <input type="text" name="Agencia" >
+    <input type="text" name="Agencia" value=@(Model == null ? "" : @Model.Agencia)>
     @Html.ValidationMessageFor(f => f.Agencia)
 
     <div>Conta:</div>
-    <input type="text" name="ContaCorrente" >
+    <input type="text" name="ContaCorrente" value=@(Model == null ? "" : @Model.ContaCorrente)>
     @Html.ValidationMessageFor(f => f.ContaCorrente)
 
     <div>Cep:</div>
-    <input type="text" name="Cep" >
+    <input type="text" name="Cep" value=@(Model == null ? "" : @Model.Cep)>
     @Html.ValidationMessageFor(f => f.Cep)
 
     <div>Numero:</div>
-    <input type="text" name="Numero">
+    <input type="text" name="Numero" value=@(Model == null ? "" : @Model.Numero)>
     @Html.ValidationMessageFor(f => f.Numero)
 
     <div>Complemento:</div>
-    <input type="text" name="Complemento">
+    <input type="text" name="Complemento" value=@(Model == null ? "" : @Model.Complemento)>
     @Html.ValidationMessageFor(f => f.Complemento)
 
     <div>Departamentos:</div>
@@ -85,72 +79,3 @@
 
     <input type="submit" value="Create" class="btn btn-primary" />
 }
-
-<!--
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Cadastrar">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Nome" class="control-label"></label>
-                <input asp-for="Nome" class="form-control" />
-                <span asp-validation-for="Nome" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NomeSocial" class="control-label"></label>
-                <input asp-for="NomeSocial" class="form-control" />
-                <span asp-validation-for="NomeSocial" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Cpf" class="control-label"></label>
-                <input asp-for="Cpf" class="form-control" />
-                <span asp-validation-for="Cpf" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="RG" class="control-label"></label>
-                <input asp-for="RG" class="form-control" />
-                <span asp-validation-for="RG" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Sexo" class="control-label"></label>
-                <select asp-for="Sexo"  asp-items="" class="form-control" />
-                <span asp-validation-for="Sexo" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <label asp-for="Admissao" class="control-label"></label>
-                <input asp-for="Admissao" class="form-control" />
-                <span asp-validation-for="Admissao" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Cep" class="control-label"></label>
-                <input asp-for="Cep" class="form-control" />
-                <span asp-validation-for="Cep" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Numero" class="control-label"></label>
-                <input asp-for="Numero" class="form-control" />
-                <span asp-validation-for="Numero" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Complemento" class="control-label"></label>
-                <input asp-for="Complemento" class="form-control" />
-                <span asp-validation-for="Complemento" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Departamentos" class="control-label"></label>
-                <select asp-for="Departamentos" class="form-control" />
-                <span asp-validation-for="Departamentos" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
--->

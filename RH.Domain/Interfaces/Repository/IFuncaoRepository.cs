@@ -10,6 +10,7 @@ namespace RH.Domain.Interfaces.Repository
     public interface IFuncaoRepository : IBaseRepository<Funcao>
     {
         Task<int> QuantidadeFuncionarioAsync(Guid id);
-        Task<bool> ExisteFuncao(string nome);
+        Task<bool> ExisteFuncaoAsync(string nome);
+        IEnumerable<Funcionario> BuscarFuncFuncao(Guid id);
     }
 }

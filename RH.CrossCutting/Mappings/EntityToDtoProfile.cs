@@ -16,6 +16,7 @@ namespace RH.CrossCutting.Mappings
             // Funcionarios
             CreateMap<Funcionario, FuncionarioViewDtoResult>();
             CreateMap<Funcionario, FuncionarioDepartamentoView>();
+            CreateMap<Funcionario, FuncionarioFuncaoView>();
 
             // Departamentos
             CreateMap<Departamento, DepartamentoViewDtoResult>();

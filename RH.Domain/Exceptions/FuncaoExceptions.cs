@@ -11,4 +11,10 @@ namespace RH.Domain.Exceptions
         public FuncaoJaExisteException() : base("Esta função já existe!")
         { }
     }
+
+    public class SalarioMenorException : Exception
+    {
+        public SalarioMenorException() : base("Não é possivel abaixar salário de funcionário!")
+        { }
+    }
 }

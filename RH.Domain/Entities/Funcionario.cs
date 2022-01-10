@@ -8,7 +8,7 @@ namespace RH.Domain.Entities
         // [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Registro { get; set; }
         public string Nome { get; set; }
-        public string NomeSocial { get; set; }
+        public string? NomeSocial { get; set; }
         public string CPF { get; set; }
         public string RG { get; set; }
         public string Email { get; set; }
@@ -18,7 +18,7 @@ namespace RH.Domain.Entities
         public bool Ativo { get; set; } = true;
 
         // Relacionamentos
-        public Guid DemissaoId { get; set; }
+        public Guid? DemissaoId { get; set; }
         public Demissao Demissao { get; set; }
         public Guid ContaBancariaId { get; set; }
         public ContaBancaria ContaBancaria { get; set; }

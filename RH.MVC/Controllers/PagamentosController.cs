@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using RH.Domain.Dtos.Input;
-using RH.Domain.Dtos.Views;
 using RH.Domain.Interfaces.Services;
 
 namespace RH.MVC.Controllers
@@ -8,14 +8,18 @@ namespace RH.MVC.Controllers
     public class PagamentosController : Controller
     {
         private readonly IPagamentosService _pagamentosService;
+        private readonly IFuncionarioService _funcionarioService;
 
-        public PagamentosController(IPagamentosService pagamentosService)
+        public PagamentosController(IPagamentosService pagamentosService, IFuncionarioService funcionarioService)
         {
             _pagamentosService = pagamentosService;
+            _funcionarioService = funcionarioService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            var funcionarios = await _funcionarioService.BuscarTodosAtivosAsync();
+            ViewBag.Funcionarios = new SelectList(funcionarios, "Id", "Nome");
             return View();
         }
 
@@ -36,6 +40,9 @@ namespace RH.MVC.Controllers
         {
             try
             {
+                var funcionarios = await _funcionarioService.BuscarTodosAtivosAsync();
+                ViewBag.Funcionarios = new SelectList(funcionarios, "ID", "Nome");
+
                 await _pagamentosService.GerarFeriasAsync(pagamento.DataPagamento, pagamento.FuncionarioId);
                 return RedirectToAction(nameof(Index));
             }

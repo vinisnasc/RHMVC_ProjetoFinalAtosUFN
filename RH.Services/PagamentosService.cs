@@ -1,4 +1,6 @@
-﻿using RH.Domain.Entities;
+﻿using RH.Domain.Dtos.Input;
+using RH.Domain.Dtos.Views;
+using RH.Domain.Entities;
 using RH.Domain.Exceptions;
 using RH.Domain.Interfaces.Repository;
 using RH.Domain.Interfaces.Services;
@@ -25,6 +27,9 @@ namespace RH.Services
                 if (pagamento.Valor != 0)
                     await _unitOfWork.PagamentoRepository.Incluir(pagamento);
             }
+
+            ExportadorService helper = new(_unitOfWork);
+            await helper.CriarArquivo("pagamento", dataPagamento);
         }
 
         public async Task GerarDecimoTerceiroAsync(DateTime dataPagamento)
@@ -51,22 +56,17 @@ namespace RH.Services
             int diasMesAdmissao = DateTime.DaysInMonth(anoAdmissao, mesAdmissao);
 
             if (anoAdmissao > pagamento.Year)
-            {
                 quantidade = 0;
-            }
+            
             else if (anoAdmissao != pagamento.Year)
-            {
                 quantidade = 12;
-            }
+            
             else if (diasMesAdmissao - diaAdmissao >= 15)
-            {
                 quantidade = 13 - mesAdmissao;
-            }
+            
             else
-            {
                 quantidade = 12 - mesAdmissao;
-            }
-
+            
             return funcao.Salario / 12 * quantidade;
         }
 
@@ -145,16 +145,16 @@ namespace RH.Services
             var funcionario = await _unitOfWork.FuncionarioRepository.SelecionarPorId(id);
             var salario = (await _unitOfWork.FuncaoRepository.SelecionarPorId(funcionario.FuncaoId)).Salario;
 
-            if (funcionario.DataDemissao == null && !await _unitOfWork.PagamentoRepository.VerificaSeExistePagamentoAsync(data, id))
-            {
-                // Para pagamento normal, calcular mes anterior, para demissao calcular mes corrente
-                DateTime primeiroDiaMesTrabalhado = data.Month == 1 ?
+            DateTime primeiroDiaMesTrabalhado = data.Month == 1 ?
                                      new DateTime(data.Year - 1, 12, 1) :
                                      new DateTime(data.Year, data.Month - 1, 1);
-                DateTime ultimoDiaMesTrabalhado = new DateTime(primeiroDiaMesTrabalhado.Year,
-                                                               primeiroDiaMesTrabalhado.Month,
-                                                               DateTime.DaysInMonth(primeiroDiaMesTrabalhado.Year, primeiroDiaMesTrabalhado.Month));
+            DateTime ultimoDiaMesTrabalhado = new DateTime(primeiroDiaMesTrabalhado.Year,
+                                                           primeiroDiaMesTrabalhado.Month,
+                                                           DateTime.DaysInMonth(primeiroDiaMesTrabalhado.Year, primeiroDiaMesTrabalhado.Month));
 
+            // Caso o funcionario esteja ativo, ou caso esteja demitido em data posterior ao mes corrente
+            if ((funcionario.DataDemissao == null || funcionario.DataDemissao > ultimoDiaMesTrabalhado) && !await _unitOfWork.PagamentoRepository.VerificaSeExistePagamentoAsync(data, id))
+            {
                 if (funcionario.Admissao < primeiroDiaMesTrabalhado)
                     return salario;
 
@@ -177,5 +177,6 @@ namespace RH.Services
             }
             return 0;
         }
+
     }
 }

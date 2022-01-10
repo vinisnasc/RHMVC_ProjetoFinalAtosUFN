@@ -4,28 +4,30 @@
 <html>
 <head>
     <style>
-        #dpt {
-        }
     </style>
 </head>
 <body>
-    <form asp-action="Editar">
-        <h1>Editar departamento @Model.NomeDepartamento / @Model.SubDepartamento</h1>
+    <h1>Editar departamento @Model.NomeDepartamento / @Model.SubDepartamento</h1>
+    <br />
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <strong> Departamento:</strong>
         <br />
-        <div id=dpt>
-            <label asp-for="NomeDepartamento"></label>
-            <input asp-for="NomeDepartamento" />
-            <span asp-validation-for="NomeDepartamento"></span>
-            <br />
-        </div>
-        <div id="sdpt">
-            <label asp-for="SubDepartamento"></label>
-            <input asp-for="SubDepartamento" />
-            <span asp-validation-for="SubDepartamento"></span>
-        </div>
+        <input type="text" name="NomeDepartamento" value="@Model.NomeDepartamento">
+        <strong class="text-danger">@Html.ValidationMessageFor(f => f.NomeDepartamento)</strong>
         <br />
-        <input type="submit" value="Atualizar" />
-        <input type="button" value="Voltar" onclick="location.href='@Url.Action("Index","Departamentos")'"
-    </form>
+
+        <strong> Sub-Departamento:</strong>
+        <br />
+        <input type="text" name="SubDepartamento" value="@Model.SubDepartamento">
+        <strong class="text-danger">@Html.ValidationMessageFor(f => f.SubDepartamento)</strong>
+        <br />
+        <br />
+
+        <input class="btn btn-warning" type="submit" value="Editar" />
+        <input class="btn btn-secondary" type="button" value="Voltar" onclick="location.href='@Url.Action("Index","Departamentos")'" />
+    }
 </body>
 </html>

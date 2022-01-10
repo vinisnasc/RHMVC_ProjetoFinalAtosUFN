@@ -5,27 +5,13 @@
 <html>
 <head>
     <style>
-        table {
-            font-family: Arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        td, th {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-
-        tr:nth-child(even) {
-            background-color: #dddddd;
-        }
     </style>
 </head>
 
 <body>
     <div>
         <input type="button" value="Cadastrar" onclick="location.href='@Url.Action("Cadastrar","Funcoes")'" />
+        <input type="button" value="Aumentar Salario" onclick="location.href='@Url.Action("AumentarTodosSalarios","Funcoes")'">
     </div>
 
     <table>
@@ -57,7 +43,8 @@
                     </td>
                     <td>
                         <a asp-action="Detalhes" asp-route-id="@item.Id">Detalhes</a> /
-                        <a asp-action="Editar" asp-route-id="@item.Id">Editar</a>
+                        <a asp-action="Editar" asp-route-id="@item.Id">Editar</a> /
+                        <a asp-action="AumentarSalario" asp-route-id="@item.Id">Aumentar Salário</a>
                     </td>
                 </tr>
             }

@@ -12,5 +12,10 @@ namespace RH.Domain.Interfaces.Services
     {
         Task<List<FuncaoViewDtoResult>> BuscarTodos();
         Task CadastrarAsync(FuncaoCadastroDto dto);
+        Task<FuncaoViewDtoResult> BuscarPorIdAsync(Guid id);
+        Task AtualizarAsync(Guid id, FuncaoEditarDto dto);
+        Task AumentarSalarioAsync(Guid id, FuncaoEditarSalarioDto dto);
+        Task<IEnumerable<FuncionarioFuncaoView>> ListarFuncFuncaoAsync(Guid id);
+        Task RealizarAumentoAsync(FuncaoAumentoSalarialDto dto);
     }
 }

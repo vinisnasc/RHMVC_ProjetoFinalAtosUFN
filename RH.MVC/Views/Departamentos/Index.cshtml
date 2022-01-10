@@ -4,30 +4,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        table {
-            font-family: Arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
-
-        td, th {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-
-        tr:nth-child(even) {
-            background-color: #dddddd;
-        }
-    </style>
 </head>
-
 <body>
-    <div>
-        <input type="button" value="Cadastrar" onclick="location.href='@Url.Action("Cadastrar","Departamentos")'" />
+    <div class="button-container">
+        <div class="button-list-container">
+            <input class="btn btn-secondary" type="button" value="Voltar" onclick="location.href='@Url.Action("Index","Home")'" />
+            <input class="btn btn-success" type="button" value="Cadastrar" onclick="location.href='@Url.Action("Cadastrar","Departamentos")'" />
+        </div>
     </div>
-
     <table>
         <thead>
             <tr>
@@ -55,14 +39,13 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.NumeroFuncionario)
                     </td>
-                    <td>
-                        <a asp-action="Detalhes" asp-route-id="@item.Id">Detalhes</a> /
-                        <a asp-action="Editar" asp-route-id="@item.Id">Editar</a>
+                    <td class="table-options">
+                        <a asp-action="Detalhes" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm">Detalhes</a> /
+                        <a asp-action="Editar" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm">Editar</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-    <input type="button" value="Voltar" onclick="location.href='@Url.Action("Index","Home")'"
 </body>
 </html>

@@ -17,12 +17,17 @@ namespace RH.Data.Repository
 
         public async Task<int> QuantidadeFuncionarioAsync(Guid id)
         {
-            return await _context.Funcionario.CountAsync(x => x.FuncaoId == id);
+            return await _context.Funcionario.CountAsync(x => x.FuncaoId == id && x.Ativo == true);
         }
 
-        public async Task<bool> ExisteFuncao(string nome)
+        public async Task<bool> ExisteFuncaoAsync(string nome)
         {
             return await _context.Funcao.AnyAsync(x => x.NomeFuncao == nome);
+        }
+
+        public IEnumerable<Funcionario> BuscarFuncFuncao(Guid id)
+        {
+            return _context.Funcionario.Where(x => x.FuncaoId == id && x.Ativo == true);
         }
     }
 }

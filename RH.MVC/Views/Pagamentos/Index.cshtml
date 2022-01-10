@@ -35,18 +35,19 @@
     <hr />
     <h2>Gerar Férias</h2>
 
-    <form asp-action="GerarFerias">
-        <div>
-            <label asp-for="DataPagamento"></label>
-            <input asp-for="DataPagamento" />
-            <span asp-validation-for="DataPagamento"></span>
-        </div>
-        <div>
-            <label asp-for="FuncionarioId"></label>
-            <input asp-for="FuncionarioId" />
-            <span asp-validation-for="FuncionarioId"></span>
-        </div>
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        <div>Data de pagamento:</div>
+        <input type="date" name="DataPagamento">
+        @Html.ValidationMessageFor(f => f.DataPagamento)
+
+        <div>Funcionario:</div>
+        <select name="Funcionario" items="@Html.DropDownList("Funcionarios")"></select>
+        @Html.ValidationMessageFor(f => f.FuncionarioId)
+
         <input type="submit" value="GerarFerias" />
-    </form>
+    }
 </body>
 </html>

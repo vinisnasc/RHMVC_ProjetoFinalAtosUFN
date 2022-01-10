@@ -12,7 +12,8 @@ namespace RH.Domain.Interfaces.Services
     {
         Task CadastrarFuncionarioAsync(FuncionarioCadastroDto dto);
         Task<FuncionarioViewDtoResult> BuscarPorId(Guid id);
-        Task<List<FuncionarioViewDtoResult>> BuscarTodos();
+        Task<List<FuncionarioViewDtoResult>> BuscarTodosAtivosAsync();
         Task Demitir(Guid id, DateTime demissao);
+        Task EditarDadosPessoaisAsync(Guid id, FuncionarioEditarDadosPessoaisDto dto);
     }
 }

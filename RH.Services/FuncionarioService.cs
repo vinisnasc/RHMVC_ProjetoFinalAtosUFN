@@ -27,9 +27,9 @@ namespace RH.Services
             return _mapper.Map<FuncionarioViewDtoResult>(funcEntity);
         }
 
-        public async Task<List<FuncionarioViewDtoResult>> BuscarTodos()
+        public async Task<List<FuncionarioViewDtoResult>> BuscarTodosAtivosAsync()
         {
-            var entities = await _unitOfWork.FuncionarioRepository.SelecionarTudo();
+            var entities = _unitOfWork.FuncionarioRepository.BuscarTodosAtivos();
             var dtos = _mapper.Map<List<FuncionarioViewDtoResult>>(entities);
             foreach(var item in dtos)
             {
@@ -41,13 +41,13 @@ namespace RH.Services
 
         public async Task CadastrarFuncionarioAsync(FuncionarioCadastroDto dto)
         {
-            var funcionarioExiste = await _unitOfWork.FuncionarioRepository.ProcurarPorCpfAtivo(dto.Cpf);
+            var funcionarioExiste = await _unitOfWork.FuncionarioRepository.ProcurarPorCpfAtivoAsync(dto.Cpf);
 
             if (funcionarioExiste != null)
                 throw new FuncionarioJaExisteException();
 
             var entity = _mapper.Map<Funcionario>(dto);
-            entity.Registro = await _unitOfWork.FuncionarioRepository.AtribuirNumeroDeRegistro();
+            entity.Registro = await _unitOfWork.FuncionarioRepository.AtribuirNumeroDeRegistroAsync();
             entity.EnderecoId = await CadastrarEnderecoAsync(dto);
             entity.ContaBancariaId = await CadastrarContaBancariaAsync(dto);
             await _unitOfWork.FuncionarioRepository.Incluir(entity);
@@ -99,6 +99,15 @@ namespace RH.Services
             }
             else
                 return entity.Id;
+        }
+
+        public async Task EditarDadosPessoaisAsync(Guid id, FuncionarioEditarDadosPessoaisDto dto)
+        {
+            var entity = await _unitOfWork.FuncionarioRepository.SelecionarPorId(id);
+
+            entity = _mapper.Map(dto, entity);
+
+            await _unitOfWork.FuncionarioRepository.Alterar(entity);
         }
 
         public async Task Demitir(Guid id, DateTime demissao)

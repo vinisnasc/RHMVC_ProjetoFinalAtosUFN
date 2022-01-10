@@ -15,6 +15,7 @@ namespace RH.CrossCutting.Mappings
             CreateMap<FuncionarioCadastroDto, Endereco>();
             CreateMap<Endereco, FuncionarioCadastroDto>();
             CreateMap<FuncionarioCadastroDto, Municipio>().ReverseMap();
+            CreateMap<FuncionarioEditarDadosPessoaisDto, Funcionario>();
 
             // Conta Bancaria
             CreateMap<FuncionarioCadastroDto, ContaBancaria>();
@@ -31,6 +32,12 @@ namespace RH.CrossCutting.Mappings
                 .ForMember(dest => dest.NomeFuncao, opt => opt.MapFrom(
                            src => Regex.Replace(src.NomeFuncao.ToUpper().Trim(), @"\s+", " ")))
                 .ForMember(dest => dest.CreateAt, opt => opt.MapFrom(src => DateTime.Now));
+            CreateMap<FuncaoEditarDto, Funcao>()
+                .ForMember(dest => dest.NomeFuncao, opt => opt.MapFrom(
+                           src => Regex.Replace(src.NomeFuncao.ToUpper().Trim(), @"\s+", " ")))
+                .ForMember(dest => dest.UpdateAt, opt => opt.MapFrom(src => DateTime.Now))
+                .ForMember(dest => dest.CreateAt, opt => opt.Ignore())
+                .ForMember(dest => dest.Salario, opt => opt.Ignore());
 
             // Departamento
             CreateMap<DepartamentoCadastroDto, Departamento>()

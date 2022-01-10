@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RH.Data.Contexto;
 
@@ -11,9 +12,10 @@ using RH.Data.Contexto;
 namespace RH.Data.Migrations
 {
     [DbContext(typeof(RhContext))]
-    partial class RhContextModelSnapshot : ModelSnapshot
+    [Migration("20220109162916_CorrecaoNomeSocial")]
+    partial class CorrecaoNomeSocial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

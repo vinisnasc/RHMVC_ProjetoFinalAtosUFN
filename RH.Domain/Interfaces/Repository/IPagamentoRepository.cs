@@ -10,5 +10,6 @@ namespace RH.Domain.Interfaces.Repository
     public interface IPagamentoRepository : IBaseRepository<Pagamento>
     {
         Task<bool> VerificaSeExistePagamentoAsync(DateTime dataPagamento, Guid idFuncionario);
+        Task<List<Pagamento>> PegarTodosPagamentosDataAsync(DateTime dataPagamento);
     }
 }

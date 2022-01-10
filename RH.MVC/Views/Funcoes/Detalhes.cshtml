@@ -1,24 +1,39 @@
 ﻿@using RH.Domain.Dtos.Views
-@model IEnumerable<FuncionarioDepartamentoView>
+@model IEnumerable<FuncionarioFuncaoView>
 
 <!DOCTYPE html>
 <html>
 <head>
     <style>
+        table{
+            font-family: Arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th{
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even){
+            background-color: #dddddd;
+        }
     </style>
 </head>
 
 @if (@Model.ToList().Count == 0)
 {
     <body>
-        <h1>Não há funcionários no setor para serem exibidos!</h1>
+        <h1>Não há funcionários com essa função para serem exibidos!</h1>
     </body>
 }
 else
 {
 <body>
     <div>
-        <h1>Funcionarios no setor @Model.First().Departamento</h1>
+        <h1>Funcionarios com a função @Model.First().Funcao.NomeFuncao</h1>
     </div>
 
     <table>
@@ -31,7 +46,7 @@ else
                     @Html.DisplayNameFor(x => x.Nome)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(x => x.Funcao)
+                    @Html.DisplayNameFor(x => x.Departamento)
                 </th>
             </tr>
         </thead>
@@ -46,7 +61,7 @@ else
                         @Html.DisplayFor(modelItem => item.Nome)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Funcao)
+                        @Html.DisplayFor(modelItem => item.Departamento)
                     </td>
                 </tr>
             }
@@ -55,6 +70,5 @@ else
     
 </body>
 }
-<br />
-<input class="btn btn-secondary" type="button" value="Voltar" onclick="location.href='@Url.Action("Index","Departamentos")'"
+<input type="button" value="Voltar" onclick="location.href='@Url.Action("Index","Funcoes")'"
 </html>

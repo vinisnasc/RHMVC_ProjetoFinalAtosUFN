@@ -1,0 +1,26 @@
+﻿@model RH.Domain.Dtos.Views.FuncaoViewDtoResult
+
+<!Doctype html>
+<html>
+<head>
+
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+
+        <h1>Aumentar salário da função @Model.NomeFuncao.</h1>
+        <div style=font:red>
+            Observação: Caso já exista funcionário cadastrado com essa função, é impossível abaixar o salário.
+        </div>
+
+        <input type="text" name="Salario" value="@Model.Salario">
+        @Html.ValidationMessageFor(f => f.Salario)
+        
+        <input type="submit" value="Editar" class="btn btn-primary" />
+    }
+    <input type="button" value="Voltar" onclick="location.href='@Url.Action("Index","Funcoes")'"
+</body>
+</html>

@@ -20,14 +20,19 @@ namespace RH.Data.Repository
             return base.Incluir(funcionario);
         }
 
-        public async Task<Funcionario> ProcurarPorCpfAtivo(string cpf)
+        public async Task<Funcionario> ProcurarPorCpfAtivoAsync(string cpf)
         {
             return await _context.Funcionario.FirstOrDefaultAsync(x => x.CPF == cpf && x.DataDemissao == null);
         }
 
-        public async Task<int> AtribuirNumeroDeRegistro()
+        public async Task<int> AtribuirNumeroDeRegistroAsync()
         {
             return (await _context.Funcionario.CountAsync()) + 1;
+        }
+
+        public List<Funcionario> BuscarTodosAtivos()
+        {
+            return _context.Funcionario.Where(x => x.Ativo == true).ToList();
         }
     }
 }

@@ -9,7 +9,8 @@ namespace RH.Domain.Interfaces.Repository
 {
     public interface IFuncionarioRepository : IBaseRepository<Funcionario>
     {
-        Task<Funcionario> ProcurarPorCpfAtivo(string cpf);
-        Task<int> AtribuirNumeroDeRegistro();
+        Task<Funcionario> ProcurarPorCpfAtivoAsync(string cpf);
+        Task<int> AtribuirNumeroDeRegistroAsync();
+        List<Funcionario> BuscarTodosAtivos();
     }
 }
