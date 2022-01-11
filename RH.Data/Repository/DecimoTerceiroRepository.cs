@@ -19,5 +19,20 @@ namespace RH.Data.Repository
         {
             return await _context.DecimoTerceiro.FirstOrDefaultAsync(x => x.FuncionarioId == funcionarioid && x.DataPagamento.Year == ano);
         }
+
+        public async Task<List<DecimoTerceiro>> PegarTodosDecimosDataAsync(DateTime dataPagamento)
+        {
+            if(dataPagamento.Month != 12)
+            return await _context.DecimoTerceiro.Where(x => x.DataPagamento.Year == dataPagamento.Year &&
+                                                       x.DataPagamento.Month != 12)
+                                           .Include(x => x.Funcionario)
+                                           .ThenInclude(x => x.ContaBancaria).ToListAsync();
+
+            else
+                return await _context.DecimoTerceiro.Where(x => x.DataPagamento.Year == dataPagamento.Year &&
+                                                       x.DataPagamento.Month == 12)
+                                           .Include(x => x.Funcionario)
+                                           .ThenInclude(x => x.ContaBancaria).ToListAsync();
+        }
     }
 }

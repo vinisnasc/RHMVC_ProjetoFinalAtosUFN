@@ -33,7 +33,7 @@ namespace RH.Services
             }
 
             ExportadorService helper = new(_unitOfWork);
-            await helper.CriarArquivo("pagamento", dataPagamento);
+            await helper.CriarArquivoPagamento("pagamento", dataPagamento);
         }
 
         public async Task GerarDecimoTerceiroAsync(DateTime dataPagamento)
@@ -43,7 +43,7 @@ namespace RH.Services
             {
                 DecimoTerceiro decimoTerceiro = new(dataPagamento, func.Id);
 
-                // Se estiver sendo gerado em dezembro, ser[a considerado segunda parcela
+                // Se estiver sendo gerado em dezembro, sera considerado segunda parcela
                 if (dataPagamento.Month != 12)
                     decimoTerceiro.Valor = await CalcularDecimo(func, dataPagamento, 1);
                 else
@@ -52,6 +52,9 @@ namespace RH.Services
                 if (decimoTerceiro.Valor != 0 && func.Ativo == true)
                     await _unitOfWork.DecimoTerceiroRepository.Incluir(decimoTerceiro);
             }
+
+            ExportadorService helper = new(_unitOfWork);
+            await helper.CriarArquivoDecimo("Decimo terceiro", dataPagamento);
         }
 
         private async Task<double> CalcularDecimo(Funcionario func, DateTime pagamento, int parcela)

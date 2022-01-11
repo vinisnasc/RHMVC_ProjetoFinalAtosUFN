@@ -1,6 +1,9 @@
 using AutoMapper;
 using RH.CrossCutting;
 using RH.CrossCutting.Mappings;
+using RH.Domain.Entities;
+using RH.Domain.Interfaces.Services;
+using RH.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,14 +24,20 @@ MapperConfiguration config = new(config =>
 IMapper mapper = config.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
+// Configuração do SendGrid
+builder.Services.AddTransient<IEmailSender, SendGridEmailService>();
+builder.Services.Configure<SendGridEmailSenderOptions>(options =>
+{
+    options.ApiKey = builder.Configuration["ExternalProviders:SendGrid:ApiKey"];
+    options.SenderEmail = builder.Configuration["ExternalProviders:SendGrid:SenderEmail"];
+    options.SenderName = builder.Configuration["ExternalProviders:SendGrid:SenderName"];
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

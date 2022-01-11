@@ -3,9 +3,19 @@
 <!Doctype html>
 <html>
 <head>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+         document.addEventListener("DOMContentLoaded", function(event) {
+            swal("Você tem certeza de que vai demitir o funcionário?\nEsta ação não poderá ser desfeita!");
+        });
+    </script>
 </head>
 <body>
-    <h1>Você tem certeza que vai demitir o funcionario @Model.Nome ?</h1>
+    <div class="button-container">
+        <input class="btn btn-secondary btn-sm" type="button" value="Voltar" onclick="location.href='@Url.Action("Index","Funcionarios")'" />
+    </div>
+
+    <h1>Demitir @Model?.Nome ?</h1>
 
     @using (Html.BeginForm())
     {
@@ -14,7 +24,7 @@
         <input type="date" name="Demissao">
     @Html.ValidationMessageFor(f => f.Demissao)
 
-    <input type="submit" value="Demitir" class="btn btn-primary" />
+    <input type="submit" value="Demitir" class="btn btn-danger" />
     }
 </body>
 </html>

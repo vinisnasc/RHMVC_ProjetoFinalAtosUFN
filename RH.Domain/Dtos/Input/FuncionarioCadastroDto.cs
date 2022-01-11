@@ -19,6 +19,10 @@ namespace RH.Domain.Dtos.Input
         public string? NomeSocial { get; set; }
 
         [Required]
+        [Display(Name = "Data de nascimento")]
+        public DateTime DataNascimento { get; set; }
+
+        [Required]
         [StringLength(11, MinimumLength =11, ErrorMessage = "CPF deve ter 11 digitos")]
         [Display(Name = "CPF")]
         public string Cpf { get; set; }
@@ -62,6 +66,7 @@ namespace RH.Domain.Dtos.Input
         [Display(Name = "Função")]
         public Guid FuncaoId { get; set; }
 
+        [Display(Name = "Departamento")]
         public List<DepartamentoViewDtoResult>? Departamentos { get; set; }
     }
 }

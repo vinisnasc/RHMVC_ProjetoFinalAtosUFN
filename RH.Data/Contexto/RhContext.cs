@@ -72,6 +72,7 @@ namespace RH.Data.Contexto
                 Nome = "Vinicius Nascimento",
                 NomeSocial = "N/A",
                 Email = "vini.souza00@gmail.com",
+                DataNascimento = new DateTime(1994, 04, 17),
                 EnderecoId = Guid.Parse("fc73fc67-5137-4830-8f8c-425766ef4d6a"),
                 CPF = "44444444444",
                 RG = "333333333",

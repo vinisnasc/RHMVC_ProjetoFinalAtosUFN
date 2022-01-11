@@ -13,6 +13,7 @@ namespace RH.Domain.Dtos.Views
         public int Registro { get; set; }
         public string Nome { get; set; }
         public string NomeSocial { get; set; }
+        public DateTime DataNascimento { get; set; }
         public string Cpf { get; set; }
         public string RG { get; set; }
         public string Email { get; set; }

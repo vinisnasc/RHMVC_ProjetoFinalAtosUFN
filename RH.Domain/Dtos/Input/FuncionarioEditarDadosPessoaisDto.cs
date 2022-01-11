@@ -22,6 +22,9 @@ namespace RH.Domain.Dtos.Input
         public string Cpf { get; set; }
 
         [Required]
+        public DateTime DataNascimento { get; set; }
+
+        [Required]
         public string RG { get; set; }
 
         [Required]

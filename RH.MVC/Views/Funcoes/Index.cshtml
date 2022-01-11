@@ -9,10 +9,12 @@
 </head>
 
 <body>
-    <div>
-        <input type="button" value="Cadastrar" onclick="location.href='@Url.Action("Cadastrar","Funcoes")'" />
-        <input type="button" value="Aumentar Salario" onclick="location.href='@Url.Action("AumentarTodosSalarios","Funcoes")'">
+    <div class="button-container" id="button-list-container">
+        <input class="btn btn-secondary" type="button" value="Voltar" onclick="location.href='@Url.Action("Index","Home")'" />
+        <input class="btn btn-success" type="button" value="Cadastrar" onclick="location.href='@Url.Action("Cadastrar","Funcionarios")'" />
+        <input class="btn btn-warning" type="button" value="Aumentar Salario" onclick="location.href='@Url.Action("AumentarTodosSalarios","Funcoes")'">
     </div>
+ 
 
     <table>
         <thead>
@@ -42,14 +44,13 @@
                         @Html.DisplayFor(modelItem => item.NumeroFuncionarios)
                     </td>
                     <td>
-                        <a asp-action="Detalhes" asp-route-id="@item.Id">Detalhes</a> /
-                        <a asp-action="Editar" asp-route-id="@item.Id">Editar</a> /
-                        <a asp-action="AumentarSalario" asp-route-id="@item.Id">Aumentar Salário</a>
+                        <a asp-action="Detalhes" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm">Detalhes</a> /
+                        <a asp-action="Editar" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm">Editar</a> /
+                        <a asp-action="AumentarSalario" asp-route-id="@item.Id" class="btn btn-outline-warning btn-sm">Aumentar Salário</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-    <input type="button" value="Voltar" onclick="location.href='@Url.Action("Index","Home")'"
 </body>
 </html>

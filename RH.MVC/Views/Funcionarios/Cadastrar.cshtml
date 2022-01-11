@@ -1,81 +1,98 @@
 ﻿@model RH.Domain.Dtos.Input.FuncionarioCadastroDto
 
+<!DOCTYPE html>
+<html>
+<head>
 
-<h1>Cadastrar novo funcionario</h1>
+</head>
+<body>
+    <div class="button-container">
+        <input class="btn btn-secondary btn-sm" type="button" value="Voltar" onclick="location.href='@Url.Action("Index","Funcionarios")'" />
+    </div>
 
-@using(Html.BeginForm())
-{
-    @Html.ValidationSummary(true)
+    <h1>Cadastrar novo funcionario</h1>
 
-    <div>Nome:</div>
-    <input type="text" name="Nome" value=@(Model == null ? "" : @Model.Nome)>
-    @Html.ValidationMessageFor(f => f.Nome)
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
 
-    <br />
+        <div>Nome:</div>
+        <input type="text" name="Nome" value=@(Model == null ? "" : @Model.Nome)>
+        @Html.ValidationMessageFor(f => f.Nome)
 
-    <div>Nome Social:</div>
-    <input type="text" name="NomeSocial" value=@(Model == null ? "" : @Model.NomeSocial)>
-    @Html.ValidationMessageFor(f => f.NomeSocial)
+        <br />
 
-    <br />
+        <div>Nome Social:</div>
+        <input type="text" name="NomeSocial" value=@(Model == null ? "" : @Model.NomeSocial)>
+        @Html.ValidationMessageFor(f => f.NomeSocial)
 
-    <div>CPF:</div>
-    <input type="text" name="CPF" value=@(Model == null ? "" : @Model.Cpf)>
-    @Html.ValidationMessageFor(f => f.Cpf)
+        <br />
 
-    <br />
+        <div>Data de Nascimento:</div>
+        <input type="date" name="DataNascimento" value=@(Model == null ? (DateTime.Now).ToString("yyyy-MM-dd") : ((DateTime)@Model.DataNascimento).ToString("yyyy-MM-dd"))>
+        @Html.ValidationMessageFor(f => f.DataNascimento)
 
-    <div>RG:</div>
-    <input type="text" name="RG" value=@(Model == null ? "" : @Model.RG)>
-    @Html.ValidationMessageFor(f => f.RG)
+        <br />
 
-    <br />
+        <div>CPF:</div>
+        <input type="text" name="CPF" value=@(Model == null ? "" : @Model.Cpf)>
+        @Html.ValidationMessageFor(f => f.Cpf)
 
-    <div>Email:</div>
-    <input type="text" name="Email" value=@(Model == null ? "" : @Model.Email)>
-    @Html.ValidationMessageFor(f => f.Email)
+        <br />
 
-    <br />
+        <div>RG:</div>
+        <input type="text" name="RG" value=@(Model == null ? "" : @Model.RG)>
+        @Html.ValidationMessageFor(f => f.RG)
 
-    <div>Sexo:</div>
-    <select name="Sexo" items=""@Html.DropDownList("Sex")"" ></select> 
-    @Html.ValidationMessageFor(f => f.Sexo)
-    
-    <div>Admissao:</div>
-    <input type="date" name="Admissao" value=@(Model == null ? "" : @Model.Admissao)>
-    @Html.ValidationMessageFor(f => f.Admissao)
+        <br />
 
-    <div>Banco:</div>
-    <input type="text" name="Banco" value=@(Model == null ? "" : @Model.Banco)>
-    @Html.ValidationMessageFor(f => f.Banco)
+        <div>Email:</div>
+        <input type="text" name="Email" value=@(Model == null ? "" : @Model.Email)>
+        @Html.ValidationMessageFor(f => f.Email)
 
-    <div>Agencia:</div>
-    <input type="text" name="Agencia" value=@(Model == null ? "" : @Model.Agencia)>
-    @Html.ValidationMessageFor(f => f.Agencia)
+        <br />
 
-    <div>Conta:</div>
-    <input type="text" name="ContaCorrente" value=@(Model == null ? "" : @Model.ContaCorrente)>
-    @Html.ValidationMessageFor(f => f.ContaCorrente)
+        <div>Sexo:</div>
+        <select name="Sexo" items=@Html.DropDownList("Sex")></select>
+        @Html.ValidationMessageFor(f => f.Sexo)
 
-    <div>Cep:</div>
-    <input type="text" name="Cep" value=@(Model == null ? "" : @Model.Cep)>
-    @Html.ValidationMessageFor(f => f.Cep)
+        <div>Admissao:</div>
+        <input type="date" name="Admissao" value=@(Model == null ? (DateTime.Now).ToString("yyyy-MM-dd") : ((DateTime)@Model.Admissao).ToString("yyyy-MM-dd"))>
+        @Html.ValidationMessageFor(f => f.Admissao)
 
-    <div>Numero:</div>
-    <input type="text" name="Numero" value=@(Model == null ? "" : @Model.Numero)>
-    @Html.ValidationMessageFor(f => f.Numero)
+        <div>Banco:</div>
+        <input type="text" name="Banco" value=@(Model == null ? "" : @Model.Banco)>
+        @Html.ValidationMessageFor(f => f.Banco)
 
-    <div>Complemento:</div>
-    <input type="text" name="Complemento" value=@(Model == null ? "" : @Model.Complemento)>
-    @Html.ValidationMessageFor(f => f.Complemento)
+        <div>Agencia:</div>
+        <input type="text" name="Agencia" value=@(Model == null ? "" : @Model.Agencia)>
+        @Html.ValidationMessageFor(f => f.Agencia)
 
-    <div>Departamentos:</div>
-    <select name="DepartamentoId" items="@Html.DropDownList("Deptos")" ></select> 
-    @Html.ValidationMessageFor(f => f.DepartamentoId)
+        <div>Conta:</div>
+        <input type="text" name="ContaCorrente" value=@(Model == null ? "" : @Model.ContaCorrente)>
+        @Html.ValidationMessageFor(f => f.ContaCorrente)
 
-    <div>Funcao:</div>
-    <select name="FuncaoId" items="@Html.DropDownList("Funcs")" ></select> 
-    @Html.ValidationMessageFor(f => f.FuncaoId)
+        <div>Cep:</div>
+        <input type="text" name="Cep" value=@(Model == null ? "" : @Model.Cep)>
+        @Html.ValidationMessageFor(f => f.Cep)
 
-    <input type="submit" value="Create" class="btn btn-primary" />
-}
+        <div>Numero:</div>
+        <input type="text" name="Numero" value=@(Model == null ? "" : @Model.Numero)>
+        @Html.ValidationMessageFor(f => f.Numero)
+
+        <div>Complemento:</div>
+        <input type="text" name="Complemento" value=@(Model == null ? "" : @Model.Complemento)>
+        @Html.ValidationMessageFor(f => f.Complemento)
+
+        <div>Departamentos:</div>
+        <select name="DepartamentoId" items=@Html.DropDownList("Deptos")></select>
+        @Html.ValidationMessageFor(f => f.DepartamentoId)
+
+        <div>Funcao:</div>
+        <select name="FuncaoId" items=@Html.DropDownList("Funcs")></select>
+        @Html.ValidationMessageFor(f => f.FuncaoId)
+
+        <input type="submit" value="Create" class="btn btn-success" />
+    }
+</body>
+</html>

@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RH.Domain.Dtos.Input;
+using RH.Domain.Dtos.Responses;
 using RH.Domain.Dtos.Views;
+using RH.Domain.Entities;
 using RH.Domain.Interfaces.Services;
 using System.Net;
 
@@ -13,15 +15,18 @@ namespace RH.MVC.Controllers
         private readonly IFuncionarioService _funcionarioService;
         private readonly IDepartamentoService _departamentoService;
         private readonly IFuncaoService _funcaoService;
-        private readonly IPagamentosService _pagamentosService;  
+        private readonly IPagamentosService _pagamentosService;
+        private readonly IEmailSender _emailSender;
 
         public FuncionariosController(IFuncionarioService funcionarioService, IDepartamentoService departamentoService, 
-                                      IFuncaoService funcaoService, IPagamentosService pagamentosService)
+                                      IFuncaoService funcaoService, IPagamentosService pagamentosService,
+                                      IEmailSender emailSender)
         {
             _funcionarioService = funcionarioService;
             _departamentoService = departamentoService;
             _funcaoService = funcaoService;
             _pagamentosService = pagamentosService;
+            _emailSender = emailSender;
         }
 
         public async Task<IActionResult> Index()
@@ -65,8 +70,13 @@ namespace RH.MVC.Controllers
 
         public async Task<IActionResult> Editar(Guid id)
         {
+            if (id == Guid.Empty)
+                return NotFound();
 
             var funcionario = await _funcionarioService.BuscarPorId(id);
+
+            if (funcionario == null)
+                return NotFound();
 
             #region ViewBags
             ViewBag.Sex = new SelectList(new object[]
@@ -86,15 +96,6 @@ namespace RH.MVC.Controllers
             ViewBag.Funcs = new SelectList(funcoes, "Id", "NomeFuncao", funcionario.FuncaoId);
             ViewBag.Deptos = new SelectList(setores, "Id", "NomeDepartamento", funcionario.DepartamentoId);
             #endregion
-
-
-            if (id == Guid.Empty)
-                return NotFound();
-
-            
-
-            if (funcionario == null)
-                return NotFound();
 
             return View(funcionario);
         }
@@ -138,6 +139,9 @@ namespace RH.MVC.Controllers
                 try
                 {
                     await _funcionarioService.CadastrarFuncionarioAsync(dto);
+                    if (dto.Admissao > DateTime.Now)
+                        EnviarEmailBoasVindas(dto);
+
                     return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)
@@ -178,6 +182,14 @@ namespace RH.MVC.Controllers
             }
         }
 
+        private void EnviarEmailBoasVindas(FuncionarioCadastroDto funcionario)
+        {
+            var assunto = "Parabéns!";
+
+            var templateId = "d-d067995ff88440239adc389cee89a63b";
+            var templateData = new TemplateData { Username = funcionario.NomeSocial == null ? funcionario.Nome : funcionario.NomeSocial, Data = ((DateTime)funcionario.Admissao).ToString("dd/MM/yyyy") };
+            _emailSender.SendEmailAsync(funcionario.Email, assunto, templateId, templateData);
+        }
 
     }
 }
