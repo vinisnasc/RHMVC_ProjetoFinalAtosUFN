@@ -5,6 +5,7 @@ using RH.Domain.Dtos.Input;
 using RH.Domain.Dtos.Responses;
 using RH.Domain.Dtos.Views;
 using RH.Domain.Entities;
+using RH.Domain.Entities.Email;
 using RH.Domain.Interfaces.Services;
 using System.Net;
 
@@ -105,7 +106,9 @@ namespace RH.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
+
                 await _funcionarioService.EditarDadosPessoaisAsync(id, dto);
+                await SEILA(dto);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -140,7 +143,7 @@ namespace RH.MVC.Controllers
                 {
                     await _funcionarioService.CadastrarFuncionarioAsync(dto);
                     if (dto.Admissao > DateTime.Now)
-                        EnviarEmailBoasVindas(dto);
+                        await EnviarEmailBoasVindasAsync(dto);
 
                     return RedirectToAction(nameof(Index));
                 }
@@ -182,13 +185,34 @@ namespace RH.MVC.Controllers
             }
         }
 
-        private void EnviarEmailBoasVindas(FuncionarioCadastroDto funcionario)
+        private async Task EnviarEmailBoasVindasAsync(FuncionarioCadastroDto funcionario)
         {
-            var assunto = "Parabéns!";
+            Message mensagem = new(funcionario.Email, "Contratação", $"Prezado {funcionario.NomeSocial},\n\n" +
+                $"Um dos momentos mais emocionantes e que todo RH gostaria de comunicar, " +
+                $"é escolha e aprovação de um profissional para somar a nossa equipe. " +
+                $"Então, queremos lhe dizer que você foi aprovado! Parabéns!!!\n\n" +
+                $"Informamos que sua data de admissão será no dia {funcionario.Admissao} e que neste dia o sr(a). " +
+                $"deverá comparecer no setor de RH ás 09:00, para ser encaminhado a seu respectivo setor.\n\n" +
+                $"Qualquer dúvida, por favor, nos contate por e-mail.\n\n" +
+                $"Cordialmente,\n" +
+                $"Sua nova empresa LTDA.");
 
-            var templateId = "d-d067995ff88440239adc389cee89a63b";
-            var templateData = new TemplateData { Username = funcionario.NomeSocial == null ? funcionario.Nome : funcionario.NomeSocial, Data = ((DateTime)funcionario.Admissao).ToString("dd/MM/yyyy") };
-            _emailSender.SendEmailAsync(funcionario.Email, assunto, templateId, templateData);
+            await _emailSender.SendEmailAsync(mensagem);
+        }
+
+        private async Task SEILA(FuncionarioEditarDadosPessoaisDto funcionario)
+        {
+            Message mensagem = new(funcionario.Email, "Contratação", $"Prezado {funcionario.NomeSocial},\n\n" +
+                $"Um dos momentos mais emocionantes e que todo RH gostaria de comunicar, " +
+                $"é escolha e aprovação de um profissional para somar a nossa equipe. " +
+                $"Então, queremos lhe dizer que você foi aprovado! Parabéns!!!\n\n" +
+                $"Informamos que sua data de admissão será no dia {funcionario.Admissao} e que neste dia o sr(a). " +
+                $"deverá comparecer no setor de RH ás 09:00, para ser encaminhado a seu respectivo setor.\n\n" +
+                $"Qualquer dúvida, por favor, nos contate por e-mail.\n\n" +
+                $"Cordialmente,\n" +
+                $"Sua nova empresa LTDA.");
+
+            await _emailSender.SendEmailAsync(mensagem);
         }
 
     }

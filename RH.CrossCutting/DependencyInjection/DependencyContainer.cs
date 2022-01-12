@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RH.Data.Contexto;
 using RH.Data.Repository;
+using RH.Domain.Entities;
 using RH.Domain.Interfaces.Repository;
 using RH.Domain.Interfaces.Services;
 using RH.Services;
@@ -24,6 +25,11 @@ namespace RH.CrossCutting
             services.AddScoped<IDepartamentoService, DepartamentoService>();
             services.AddScoped<IFuncaoService, FuncaoService>();
             services.AddScoped<IPagamentosService, PagamentosService>();
+            
+            // Email
+            var emailConfig = configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
+            services.AddSingleton(emailConfig);
+            services.AddScoped<IEmailSender, EmailSender>();
 
             // Repositorios
             services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();

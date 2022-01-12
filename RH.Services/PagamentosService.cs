@@ -53,7 +53,7 @@ namespace RH.Services
                     await _unitOfWork.DecimoTerceiroRepository.Incluir(decimoTerceiro);
             }
 
-            ExportadorService helper = new(_unitOfWork);
+                ExportadorService helper = new(_unitOfWork);
             await helper.CriarArquivoDecimo("Decimo terceiro", dataPagamento);
         }
 

@@ -24,15 +24,6 @@ MapperConfiguration config = new(config =>
 IMapper mapper = config.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
-// Configuração do SendGrid
-builder.Services.AddTransient<IEmailSender, SendGridEmailService>();
-builder.Services.Configure<SendGridEmailSenderOptions>(options =>
-{
-    options.ApiKey = builder.Configuration["ExternalProviders:SendGrid:ApiKey"];
-    options.SenderEmail = builder.Configuration["ExternalProviders:SendGrid:SenderEmail"];
-    options.SenderName = builder.Configuration["ExternalProviders:SendGrid:SenderName"];
-});
-
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())

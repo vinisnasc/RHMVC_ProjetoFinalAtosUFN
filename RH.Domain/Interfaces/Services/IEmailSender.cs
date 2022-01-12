@@ -1,9 +1,11 @@
-﻿using RH.Domain.Dtos.Responses;
+﻿using RH.Domain.Entities.Email;
 
 namespace RH.Domain.Interfaces.Services
 {
     public interface IEmailSender
     {
-        Task SendEmailAsync(string email, string subject, string templateId, TemplateData templateData);
+        void SendEmail(Message message);
+        Task SendEmailAsync(Message message);
+        void SaveEmail(Message message);
     }
 }
