@@ -106,9 +106,7 @@ namespace RH.MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 await _funcionarioService.EditarDadosPessoaisAsync(id, dto);
-                await SEILA(dto);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -191,7 +189,7 @@ namespace RH.MVC.Controllers
                 $"Um dos momentos mais emocionantes e que todo RH gostaria de comunicar, " +
                 $"é escolha e aprovação de um profissional para somar a nossa equipe. " +
                 $"Então, queremos lhe dizer que você foi aprovado! Parabéns!!!\n\n" +
-                $"Informamos que sua data de admissão será no dia {funcionario.Admissao} e que neste dia o sr(a). " +
+                $"Informamos que sua data de admissão será no dia {((DateTime)funcionario.Admissao).ToString("dd/MMMM/yyyy")} e que neste dia o sr(a). " +
                 $"deverá comparecer no setor de RH ás 09:00, para ser encaminhado a seu respectivo setor.\n\n" +
                 $"Qualquer dúvida, por favor, nos contate por e-mail.\n\n" +
                 $"Cordialmente,\n" +
@@ -199,21 +197,5 @@ namespace RH.MVC.Controllers
 
             await _emailSender.SendEmailAsync(mensagem);
         }
-
-        private async Task SEILA(FuncionarioEditarDadosPessoaisDto funcionario)
-        {
-            Message mensagem = new(funcionario.Email, "Contratação", $"Prezado {funcionario.NomeSocial},\n\n" +
-                $"Um dos momentos mais emocionantes e que todo RH gostaria de comunicar, " +
-                $"é escolha e aprovação de um profissional para somar a nossa equipe. " +
-                $"Então, queremos lhe dizer que você foi aprovado! Parabéns!!!\n\n" +
-                $"Informamos que sua data de admissão será no dia {funcionario.Admissao} e que neste dia o sr(a). " +
-                $"deverá comparecer no setor de RH ás 09:00, para ser encaminhado a seu respectivo setor.\n\n" +
-                $"Qualquer dúvida, por favor, nos contate por e-mail.\n\n" +
-                $"Cordialmente,\n" +
-                $"Sua nova empresa LTDA.");
-
-            await _emailSender.SendEmailAsync(mensagem);
-        }
-
     }
 }
