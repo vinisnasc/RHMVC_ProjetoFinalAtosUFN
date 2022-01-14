@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RH.Domain.Dtos.Input;
@@ -11,6 +12,7 @@ using System.Net;
 
 namespace RH.MVC.Controllers
 {
+    [Authorize]
     public class FuncionariosController : Controller
     {
         private readonly IFuncionarioService _funcionarioService;
@@ -30,6 +32,7 @@ namespace RH.MVC.Controllers
             _emailSender = emailSender;
         }
 
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             if (!ModelState.IsValid)

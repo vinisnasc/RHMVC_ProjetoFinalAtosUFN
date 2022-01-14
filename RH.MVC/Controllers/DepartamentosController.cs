@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RH.Domain.Dtos.Input;
 using RH.Domain.Interfaces.Services;
@@ -6,6 +7,7 @@ using System.Net;
 
 namespace RH.MVC.Controllers
 {
+    [Authorize]
     public class DepartamentosController : Controller
     {
         private readonly IDepartamentoService _departamentoService;

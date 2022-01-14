@@ -22,6 +22,208 @@ namespace RH.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RoleId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetRoleClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUser", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("AccessFailedCount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<bool>("EmailConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("LockoutEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset?>("LockoutEnd")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NormalizedEmail")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("NormalizedUserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("PasswordHash")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("PhoneNumberConfirmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SecurityStamp")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("TwoFactorEnabled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("ProviderKey")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("ProviderDisplayName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AspNetUserLogins", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles", (string)null);
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(128)
+                        .HasColumnType("nvarchar(128)");
+
+                    b.Property<string>("Value")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserId", "LoginProvider", "Name");
+
+                    b.ToTable("AspNetUserTokens", (string)null);
+                });
+
             modelBuilder.Entity("RH.Domain.Entities.ContaBancaria", b =>
                 {
                     b.Property<Guid>("Id")
@@ -56,7 +258,7 @@ namespace RH.Data.Migrations
                             Agencia = "1212-2",
                             Banco = 33,
                             ContaCorrente = "19191-8",
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7918)
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6657)
                         });
                 });
 
@@ -151,7 +353,7 @@ namespace RH.Data.Migrations
                         new
                         {
                             Id = new Guid("fc73fc67-5237-4830-8f8c-425766ef4d6a"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7858),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6571),
                             NomeDepartamento = "PRESIDENCIA",
                             SubDepartamento = "ADMINISTRACAO"
                         });
@@ -197,7 +399,7 @@ namespace RH.Data.Migrations
                         {
                             Id = new Guid("fc73fc67-5137-4830-8f8c-425766ef4d6a"),
                             Cep = "03579240",
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7800),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6517),
                             MunicipioId = new Guid("f0a1a069-3db3-4f31-b71d-20074e3b861b"),
                             Numero = 1934,
                             Rua = "Rua Machado de Castro"
@@ -259,7 +461,7 @@ namespace RH.Data.Migrations
                         new
                         {
                             Id = new Guid("07b49006-1b80-4784-9de9-f535050e1aad"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7889),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6612),
                             NomeFuncao = "ADMINISTRADOR",
                             Salario = 5000.0
                         });
@@ -346,12 +548,12 @@ namespace RH.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5b2f8ebc-fc44-4f58-88b0-be487d336deb"),
-                            Admissao = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(8024),
+                            Id = new Guid("7140013e-f38a-465e-b49f-81347acf3227"),
+                            Admissao = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6755),
                             Ativo = true,
                             CPF = "44444444444",
                             ContaBancariaId = new Guid("07a49006-1a80-4784-9de9-f535050e1aad"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(8023),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6754),
                             DataNascimento = new DateTime(1994, 4, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DepartamentoId = new Guid("fc73fc67-5237-4830-8f8c-425766ef4d6a"),
                             Email = "vini.souza00@gmail.com",
@@ -394,7 +596,7 @@ namespace RH.Data.Migrations
                         new
                         {
                             Id = new Guid("f0a1a069-3db3-4f31-b71d-20074e3b861b"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7777),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6488),
                             NomeMunicipio = "São Paulo",
                             UfId = new Guid("5e684315-735e-4c8e-a508-8df50649dc1d")
                         });
@@ -460,192 +662,243 @@ namespace RH.Data.Migrations
                         new
                         {
                             Id = new Guid("77df935a-ca53-4ffd-94ae-c197e016ccf0"),
-                            CreateAt = new DateTime(2022, 1, 11, 1, 0, 52, 772, DateTimeKind.Utc).AddTicks(7547),
+                            CreateAt = new DateTime(2022, 1, 14, 1, 7, 20, 854, DateTimeKind.Utc).AddTicks(6020),
                             Nome = "Acre",
                             Sigla = "AC"
                         },
                         new
                         {
                             Id = new Guid("8f7ae6df-d6a5-4d86-8994-e64002ee557e"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7556),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6029),
                             Nome = "Alagoas",
                             Sigla = "AL"
                         },
                         new
                         {
                             Id = new Guid("489e8c02-00cc-4113-8dab-8e44ead66543"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7565),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6039),
                             Nome = "Amapa",
                             Sigla = "AP"
                         },
                         new
                         {
                             Id = new Guid("2b3cb7d6-f792-4ae6-b068-38da911997d8"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7567),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6042),
                             Nome = "Amazonas",
                             Sigla = "AM"
                         },
                         new
                         {
                             Id = new Guid("3a8ca4e0-eb66-452c-b4d5-dd4b428f3cbf"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7570),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6045),
                             Nome = "Bahia",
                             Sigla = "BA"
                         },
                         new
                         {
                             Id = new Guid("38cdbdab-bc0b-4f2e-b561-500a1708d8da"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7572),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6047),
                             Nome = "Ceara",
                             Sigla = "CE"
                         },
                         new
                         {
                             Id = new Guid("20792100-80af-49a8-8195-f7c36441c38d"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7574),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6049),
                             Nome = "Espirito Santo",
                             Sigla = "ES"
                         },
                         new
                         {
                             Id = new Guid("8c797ec8-ea24-4bc5-9288-56a6cb14a8ef"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7576),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6051),
                             Nome = "Goias",
                             Sigla = "GO"
                         },
                         new
                         {
                             Id = new Guid("7451a52c-8460-4f6a-bca6-7573b9a44759"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7578),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6054),
                             Nome = "Maranhao",
                             Sigla = "MA"
                         },
                         new
                         {
                             Id = new Guid("786e47a5-f326-40bc-afb5-0af531e7af9f"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7581),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6056),
                             Nome = "Mato Grosso",
                             Sigla = "MT"
                         },
                         new
                         {
                             Id = new Guid("c4dc2412-b190-411a-8352-0a857b7e327b"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7583),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6058),
                             Nome = "Mato Grosso do Sul",
                             Sigla = "MS"
                         },
                         new
                         {
                             Id = new Guid("3b72bc3f-4613-4313-963c-9621db443e32"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7585),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6060),
                             Nome = "Minas Gerais",
                             Sigla = "MG"
                         },
                         new
                         {
                             Id = new Guid("06759cc3-cf92-49fe-9d98-a8eacb5ee621"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7587),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6063),
                             Nome = "Para",
                             Sigla = "PA"
                         },
                         new
                         {
                             Id = new Guid("d4fdba6b-ee4c-4c06-b8d7-7dcbbc0d02fa"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7589),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6065),
                             Nome = "Paraiba",
                             Sigla = "PB"
                         },
                         new
                         {
                             Id = new Guid("ef7e5a58-45a2-4b80-8e13-fdeefb2f5a5e"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7591),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6067),
                             Nome = "Parana",
                             Sigla = "PR"
                         },
                         new
                         {
                             Id = new Guid("451ecb2b-0ba5-48c7-84ff-32772634c258"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7593),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6069),
                             Nome = "Pernambuco",
                             Sigla = "PE"
                         },
                         new
                         {
                             Id = new Guid("275002db-aa62-444e-a179-b801583c3568"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7595),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6071),
                             Nome = "Piaui",
                             Sigla = "PI"
                         },
                         new
                         {
                             Id = new Guid("3b0458c6-5eff-4342-bd53-4591d7c006de"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7597),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6073),
                             Nome = "Rio de Janeiro",
                             Sigla = "RJ"
                         },
                         new
                         {
                             Id = new Guid("dca93b97-5ef7-44ee-bfb4-5f63b0c72598"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7600),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6075),
                             Nome = "Rio Grande do Norte",
                             Sigla = "RN"
                         },
                         new
                         {
                             Id = new Guid("6b57ce63-eb3a-4c73-8b59-8098e6862d48"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7602),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6077),
                             Nome = "Rio Grande do Sul",
                             Sigla = "RS"
                         },
                         new
                         {
                             Id = new Guid("12405ad1-e3e5-43fd-9bfe-0c6fa4816105"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7604),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6079),
                             Nome = "Rondonia",
                             Sigla = "RO"
                         },
                         new
                         {
                             Id = new Guid("a850fb53-9f5b-449e-b691-d084f8b5a402"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7606),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6082),
                             Nome = "Roraima",
                             Sigla = "RR"
                         },
                         new
                         {
                             Id = new Guid("dbb01ebc-4776-4f72-b630-7b249d81c440"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7608),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6250),
                             Nome = "Santa Catarina",
                             Sigla = "SC"
                         },
                         new
                         {
                             Id = new Guid("5e684315-735e-4c8e-a508-8df50649dc1d"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7611),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6256),
                             Nome = "Sao Paulo",
                             Sigla = "SP"
                         },
                         new
                         {
                             Id = new Guid("6d2e386b-a450-4976-83ce-ed107120c9fb"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7613),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6259),
                             Nome = "Sergipe",
                             Sigla = "SE"
                         },
                         new
                         {
                             Id = new Guid("7fdaaa4c-13ed-49d4-b1aa-ceaae53254b6"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7616),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6261),
                             Nome = "Tocantins",
                             Sigla = "TO"
                         },
                         new
                         {
                             Id = new Guid("141a0daa-47e8-49fe-8dea-0ee97e4db538"),
-                            CreateAt = new DateTime(2022, 1, 10, 22, 0, 52, 772, DateTimeKind.Local).AddTicks(7617),
+                            CreateAt = new DateTime(2022, 1, 13, 22, 7, 20, 854, DateTimeKind.Local).AddTicks(6263),
                             Nome = "Distrito Federal",
                             Sigla = "DF"
                         });
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("RH.Domain.Entities.DecimoTerceiro", b =>

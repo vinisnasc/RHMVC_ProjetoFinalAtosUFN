@@ -11,7 +11,7 @@ namespace RH.Services
     public class ExportadorService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public string Path = @"C:\Users\Vini\Desktop\";
+        public string Path = @"C:\Users\Vini\source\repos\RHMVC_ProjetoFinalAtosUFN\Documents\";
 
         public ExportadorService(IUnitOfWork unitOfWork)
         {
@@ -54,6 +54,21 @@ namespace RH.Services
                     sw.WriteLine(pagamento.Funcionario.Nome + " - " + pagamento.Funcionario.ContaBancaria.Banco +
                                  " - " + pagamento.Funcionario.ContaBancaria.Agencia + " - " + pagamento.Valor);
                 }
+            }
+        }
+
+        public async Task CriarArquivoFerias(string nomeArquivo, DateTime data, Funcionario func)
+        {
+            var ferias = await _unitOfWork.FeriasRepository.BuscarFeriasData(data, func.Id);
+            Path += nomeArquivo + ".txt";
+
+            using (StreamWriter sw = File.CreateText(Path))
+            {
+                sw.WriteLine($"Folha de pagamento - Férias funcionário {func.Nome}. Pagamento em: {data.ToString("dd/MMMM/yyyy")}");
+
+                sw.WriteLine("nome - banco - agencia - valor");
+
+                sw.WriteLine($"{func.Nome} - {func.ContaBancaria.Banco} - {func.ContaBancaria.Agencia} - {ferias.Valor}");
             }
         }
     }

@@ -20,6 +20,11 @@ namespace RH.Data.Repository
             return await _context.DecimoTerceiro.FirstOrDefaultAsync(x => x.FuncionarioId == funcionarioid && x.DataPagamento.Year == ano);
         }
 
+        public async Task<List<DecimoTerceiro>> BuscaTodasParcelasAnoAsync(Guid funcionarioid, int ano)
+        {
+            return await _context.DecimoTerceiro.Where(x => x.FuncionarioId == funcionarioid && x.DataPagamento.Year == ano).ToListAsync();
+        }
+
         public async Task<List<DecimoTerceiro>> PegarTodosDecimosDataAsync(DateTime dataPagamento)
         {
             if(dataPagamento.Month != 12)

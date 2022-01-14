@@ -11,5 +11,6 @@ namespace RH.Domain.Interfaces.Repository
     {
         Task<DecimoTerceiro> BuscaPrimeiraParcelaAsync(Guid funcionarioid, int ano);
         Task<List<DecimoTerceiro>> PegarTodosDecimosDataAsync(DateTime dataPagamento);
+        Task<List<DecimoTerceiro>> BuscaTodasParcelasAnoAsync(Guid funcionarioid, int ano);
     }
 }

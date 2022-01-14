@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RH.Domain.Dtos.Input;
 using RH.Domain.Dtos.Views;
 using RH.Domain.Interfaces.Services;
@@ -6,6 +7,7 @@ using System.Net;
 
 namespace RH.MVC.Controllers
 {
+    [Authorize]
     public class FuncoesController : Controller
     {
         private readonly IFuncaoService _funcaoService;

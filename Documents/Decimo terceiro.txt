@@ -1,0 +1,18 @@
+Folha de pagamento - 2ª Parcela 13º. Pagamento em: 30/dezembro/2022
+nome - banco - agencia - valor
+Antonin Dvorak - 123456 - 34325 - 9166,666666666668
+Yoshihiro Togashi - 3 - 456 - 10000
+Andre Matos - 33 - 78451 - 10000
+Frank Castle - 65 - 852 - 3666,6666666666665
+Pyotr Ilitch Tchaikovski - 54 - 8512 - 10000
+Lara Croft - 44 - 855 - 18333,333333333336
+Franz Liszt - 666 - 121512 - 9166,666666666668
+Osamu Tezuka - 456 - 48545 - 9166,666666666668
+Otto Octavius - 456 - 1512151 - 12833,333333333334
+Nathan Drake - 65 - 1561 - 18333,333333333336
+Goseki Kojima - 654 - 45654 - 9166,666666666668
+Tobey Maguire - 54 - 48721 - 9166,666666666668
+Sakura - 652 - 4 - 18333,333333333336
+Wade Wilson - 33 - 15554 - 9166,666666666668
+Karina Moreira - 33 - 1212-2 - 24192
+Vinicius Nascimento - 33 - 1212-2 - 24192

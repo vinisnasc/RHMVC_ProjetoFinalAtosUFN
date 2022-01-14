@@ -1,11 +1,11 @@
-﻿using RH.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
 using RH.Domain.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace RH.Domain.Entities
 {
     public class Funcionario : BaseEntity
     {
-        // [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Registro { get; set; }
         public string Nome { get; set; }
         public string? NomeSocial { get; set; }

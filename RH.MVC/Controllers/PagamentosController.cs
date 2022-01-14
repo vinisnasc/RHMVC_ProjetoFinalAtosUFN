@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using RH.Domain.Dtos.Input;
 using RH.Domain.Interfaces.Services;
 
 namespace RH.MVC.Controllers
 {
+    [Authorize]
     public class PagamentosController : Controller
     {
         private readonly IPagamentosService _pagamentosService;
@@ -44,12 +46,12 @@ namespace RH.MVC.Controllers
                 ViewBag.Funcionarios = new SelectList(funcionarios, "ID", "Nome");
 
                 await _pagamentosService.GerarFeriasAsync(pagamento.DataPagamento, pagamento.FuncionarioId);
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index","Pagamentos");
             }
             catch(Exception ex)
             {
-                ModelState.AddModelError("FuncionarioId", ex.Message);
-                return View(nameof(Index));
+                ModelState.AddModelError("IdFuncionario", ex.Message);
+                return RedirectToAction(nameof(Index));
             }
         }
     }

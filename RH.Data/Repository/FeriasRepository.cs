@@ -19,5 +19,16 @@ namespace RH.Data.Repository
         {
             return await _context.Ferias.CountAsync(x => x.FuncionarioId == idFunc);
         }
+
+        public async Task<Ferias> BuscarFeriasData(DateTime dataPagamento, Guid id)
+        {
+            return await _context.Ferias.Include(x => x.Funcionario).ThenInclude(x => x.ContaBancaria)
+                                              .FirstOrDefaultAsync(x => x.DataPagamento == dataPagamento && x.FuncionarioId == id);
+        }
+
+        public async Task<Ferias> BuscarFeriasMesAsync(DateTime data, Guid funcionarioid)
+        {
+            return await _context.Ferias.FirstOrDefaultAsync(x => x.FuncionarioId == funcionarioid && x.DataPagamento.Month == data.Month && x.DataPagamento.Year == data.Year);
+        }
     }
 }
