@@ -71,5 +71,20 @@ namespace RH.Services
                 sw.WriteLine($"{func.Nome} - {func.ContaBancaria.Banco} - {func.ContaBancaria.Agencia} - {ferias.Valor}");
             }
         }
+
+        public async Task CriarArquivoDemissao(string nomeArquivo, DateTime data, Funcionario func)
+        {
+            var demissao = await _unitOfWork.DemissaoRepository.BuscarDemissaoDataAsync(data, func.Id);
+            Path += nomeArquivo + ".txt";
+
+            using (StreamWriter sw = File.CreateText(Path))
+            {
+                sw.WriteLine($"Folha de pagamento - Demissão funcionário {func.Nome}. Pagamento em: {data.ToString("dd/MMMM/yyyy")}");
+
+                sw.WriteLine("nome - banco - agencia - valor");
+
+                sw.WriteLine($"{func.Nome} - {func.ContaBancaria.Banco} - {func.ContaBancaria.Agencia} - {demissao.ValorDecimo+demissao.ValorFerias+demissao.ValorMes}");
+            }
+        }
     }
 }

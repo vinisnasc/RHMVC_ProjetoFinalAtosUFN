@@ -19,9 +19,9 @@ namespace RH.MVC.Areas.Identity.Pages.Account
     public class ForgotPasswordModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly IEmailSender _emailSender;
+        private readonly RH.Domain.Interfaces.Services.IEmailSender _emailSender;
 
-        public ForgotPasswordModel(UserManager<IdentityUser> userManager, IEmailSender emailSender)
+        public ForgotPasswordModel(UserManager<IdentityUser> userManager, RH.Domain.Interfaces.Services.IEmailSender emailSender)
         {
             _userManager = userManager;
             _emailSender = emailSender;
@@ -70,10 +70,10 @@ namespace RH.MVC.Areas.Identity.Pages.Account
                     values: new { area = "Identity", code },
                     protocol: Request.Scheme);
 
-                await _emailSender.SendEmailAsync(
+                await _emailSender.SendEmailAsync(new Domain.Entities.Email.Message(
                     Input.Email,
                     "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>."));
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }

@@ -19,5 +19,12 @@ namespace RH.Data.Repository
         {
             return await _context.Demissao.AnyAsync(x => x.Id == id);
         }
+
+        public async Task<Demissao> BuscarDemissaoDataAsync(DateTime dataPagamento, Guid funcionarioId)
+        {
+            return await _context.Demissao.Include(x => x.Funcionario)
+                                          .ThenInclude(x => x.ContaBancaria)
+                                          .FirstOrDefaultAsync(x => x.DataPagamento == dataPagamento && x.FuncionarioId == funcionarioId);
+        }
     }
 }

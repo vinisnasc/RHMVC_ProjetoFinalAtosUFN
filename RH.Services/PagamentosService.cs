@@ -191,6 +191,9 @@ namespace RH.Services
                 demissao.ValorMes = await CalcularSalarioMes((DateTime)funcionario.DataDemissao, id);
                 demissao.ValorDecimo = await CalcularDecimo(funcionario, (DateTime)funcionario.DataDemissao, 2);
                 demissao.ValorFerias = await CalcularFerias(funcionario, (DateTime)funcionario.DataDemissao);
+                await _unitOfWork.DemissaoRepository.Incluir(demissao);
+                ExportadorService helper = new(_unitOfWork);
+                await helper.CriarArquivoDemissao("Demissao", ((DateTime)funcionario.DataDemissao).AddDays(10), funcionario);
             }
             else
                 throw new Exception();
