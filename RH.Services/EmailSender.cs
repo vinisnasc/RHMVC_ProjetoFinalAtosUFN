@@ -1,13 +1,9 @@
 ﻿using MailKit.Net.Smtp;
-using Microsoft.Extensions.Options;
 using MimeKit;
 using MimeKit.IO;
-using RH.Domain.Dtos.Responses;
 using RH.Domain.Entities;
 using RH.Domain.Entities.Email;
 using RH.Domain.Interfaces.Services;
-using SendGrid;
-using SendGrid.Helpers.Mail;
 
 namespace RH.Services
 {

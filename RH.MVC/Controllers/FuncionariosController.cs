@@ -21,7 +21,7 @@ namespace RH.MVC.Controllers
         private readonly IPagamentosService _pagamentosService;
         private readonly IEmailSender _emailSender;
 
-        public FuncionariosController(IFuncionarioService funcionarioService, IDepartamentoService departamentoService, 
+        public FuncionariosController(IFuncionarioService funcionarioService, IDepartamentoService departamentoService,
                                       IFuncaoService funcaoService, IPagamentosService pagamentosService,
                                       IEmailSender emailSender)
         {
@@ -129,13 +129,13 @@ namespace RH.MVC.Controllers
             var funcoes = await _funcaoService.BuscarTodos();
             var setores = await _departamentoService.BuscarTodos();
 
-            foreach(var depto in setores)
+            foreach (var depto in setores)
             {
                 depto.NomeDepartamento += "/" + depto.SubDepartamento;
             }
 
             ViewBag.Funcs = new SelectList(funcoes, "Id", "NomeFuncao");
-            ViewBag.Deptos = new SelectList(setores, "Id", "NomeDepartamento");
+            ViewBag.Deptos = new SelectList(setores, "Id", "NomeDepartamento", (dto.DepartamentoId == null ? setores[0] : dto.DepartamentoId));
             #endregion
 
             if (ModelState.IsValid)
@@ -144,7 +144,7 @@ namespace RH.MVC.Controllers
                 {
                     await _funcionarioService.CadastrarFuncionarioAsync(dto);
                     if (dto.Admissao > DateTime.Now)
-                        await EnviarEmailBoasVindasAsync(dto);
+                        SendEmail(dto);
 
                     return RedirectToAction(nameof(Index));
                 }
@@ -179,10 +179,10 @@ namespace RH.MVC.Controllers
                 await _pagamentosService.CalcularDemissao(id);
                 return RedirectToAction(nameof(Index));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError("Demissao", ex.Message);
-                return View(new FuncionarioViewDtoResult() { Id = id, Demissao = dto.Demissao});
+                return View(new FuncionarioViewDtoResult() { Id = id, Demissao = dto.Demissao });
             }
         }
 
@@ -199,6 +199,19 @@ namespace RH.MVC.Controllers
                 $"Sua nova empresa LTDA.");
 
             await _emailSender.SendEmailAsync(mensagem);
+        }
+
+        private void SendEmail(FuncionarioCadastroDto funcionario) // OK
+        {
+            var destinatario = funcionario.Email;
+            var nomeResponsavel = funcionario.Nome;
+            var assunto = "Contratação";
+            var conteudo = System.IO.File.ReadAllText($"{Directory.GetCurrentDirectory()}\\Views\\Emails\\BoasVindas.cshtml");
+            conteudo = conteudo.Replace("{{username}}", nomeResponsavel);
+            conteudo = conteudo.Replace("{{admissao}}", ((DateTime)funcionario.Admissao).ToString("dd/MM/yyyy"));
+            var email = new Message(destinatario, assunto, conteudo);
+            _emailSender.SendEmail(email);
+
         }
     }
 }
