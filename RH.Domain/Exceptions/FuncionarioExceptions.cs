@@ -23,4 +23,10 @@ namespace RH.Domain.Exceptions
         public DemissaoException() : base("A data de demissao não pode ser antes da data de admissao!")
         { }
     }
+
+    public class EmailJaCadastradoException : Exception
+    {
+        public EmailJaCadastradoException() : base("O e-mail informado já consta no sistema!")
+        { }
+    }
 }

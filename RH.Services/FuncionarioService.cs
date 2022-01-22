@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNetCore.Identity;
 using Refit;
 using RH.Domain.Dtos.Input;
 using RH.Domain.Dtos.Responses;
@@ -45,6 +47,11 @@ namespace RH.Services
 
             if (funcionarioExiste != null)
                 throw new FuncionarioJaExisteException();
+
+            var emailExiste = await _unitOfWork.FuncionarioRepository.BuscarPorEmailAsync(dto.Email);
+
+            if (emailExiste != null)
+                throw new EmailJaCadastradoException();
 
             var entity = _mapper.Map<Funcionario>(dto);
             entity.Registro = await _unitOfWork.FuncionarioRepository.AtribuirNumeroDeRegistroAsync();

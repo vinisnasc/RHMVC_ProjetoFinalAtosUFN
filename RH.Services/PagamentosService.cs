@@ -23,7 +23,7 @@ namespace RH.Services
             foreach (var func in funcionarios)
             {
                 Pagamento pagamento = new(dataPagamento, func.Id);
-                pagamento.Valor = await CalcularSalarioMes(dataPagamento, func.Id);
+                pagamento.Valor = await CalcularSalarioMes(dataPagamento, func);
 
                 if (await _unitOfWork.PagamentoRepository.VerificaSeExistePagamentoAsync(dataPagamento, func.Id))
                     pagamento.Valor = 0;
@@ -188,7 +188,7 @@ namespace RH.Services
                 Demissao demissao = new();
                 demissao.FuncionarioId = id;
                 demissao.DataPagamento = ((DateTime)funcionario.DataDemissao).AddDays(10);
-                demissao.ValorMes = await CalcularSalarioMes((DateTime)funcionario.DataDemissao, id);
+                demissao.ValorMes = await CalcularSalarioRescisaoAsync(funcionario);
                 demissao.ValorDecimo = await CalcularDecimo(funcionario, (DateTime)funcionario.DataDemissao, 2);
                 demissao.ValorFerias = await CalcularFerias(funcionario, (DateTime)funcionario.DataDemissao);
                 await _unitOfWork.DemissaoRepository.Incluir(demissao);
@@ -199,17 +199,34 @@ namespace RH.Services
                 throw new Exception();
         }
 
-        private async Task<double> CalcularSalarioMes(DateTime data, Guid id)
+        private async Task<double> CalcularSalarioRescisaoAsync(Funcionario funcionario)
+        {
+            var salario = (await _unitOfWork.FuncaoRepository.SelecionarPorId(funcionario.FuncaoId)).Salario;
+            var dataDemissao = (DateTime)funcionario.DataDemissao;
+
+            DateTime primeiroDiaMesDemissao = dataDemissao.Month == 1 ?
+                                         new DateTime(dataDemissao.Year - 1, 12, 1) :
+                                         new DateTime(dataDemissao.Year, dataDemissao.Month - 1, 1);
+
+            if (funcionario.Admissao > primeiroDiaMesDemissao)
+            {
+                var totalDias = dataDemissao.Subtract(funcionario.Admissao).TotalDays;
+                return salario / 30 * totalDias;
+            }
+            else
+                return salario / 30 * dataDemissao.Day;
+        }
+
+        private async Task<double> CalcularSalarioMes(DateTime data, Funcionario funcionario)
         {
             // Verifica se o funcionário está de férias. No caso, subtraio dois pois ele busca a data de pagamento,
             // que é um mês antes ao periodo de férias.
-            var ferias = await _unitOfWork.FeriasRepository.BuscarFeriasMesAsync(data.AddMonths(-2), id);
+            var ferias = await _unitOfWork.FeriasRepository.BuscarFeriasMesAsync(data.AddMonths(-2), funcionario.Id);
             if (ferias != null)
                 return 0;
 
             else
             {
-                var funcionario = await _unitOfWork.FuncionarioRepository.SelecionarPorId(id);
                 var salario = (await _unitOfWork.FuncaoRepository.SelecionarPorId(funcionario.FuncaoId)).Salario;
 
                 DateTime primeiroDiaMesTrabalhado = data.Month == 1 ?
@@ -220,7 +237,7 @@ namespace RH.Services
                                                                DateTime.DaysInMonth(primeiroDiaMesTrabalhado.Year, primeiroDiaMesTrabalhado.Month));
 
                 // Caso o funcionario esteja ativo, ou caso esteja demitido em data posterior ao mes corrente
-                if ((funcionario.DataDemissao == null || funcionario.DataDemissao > ultimoDiaMesTrabalhado) && !await _unitOfWork.PagamentoRepository.VerificaSeExistePagamentoAsync(data, id))
+                if ((funcionario.DataDemissao == null || funcionario.DataDemissao > ultimoDiaMesTrabalhado) && !await _unitOfWork.PagamentoRepository.VerificaSeExistePagamentoAsync(data, funcionario.Id))
                 {
                     if (funcionario.Admissao < primeiroDiaMesTrabalhado)
                         return salario;

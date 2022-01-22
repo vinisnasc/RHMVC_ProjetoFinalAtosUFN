@@ -12,5 +12,6 @@ namespace RH.Domain.Interfaces.Repository
         Task<Funcionario> ProcurarPorCpfAtivoAsync(string cpf);
         Task<int> AtribuirNumeroDeRegistroAsync();
         List<Funcionario> BuscarTodosAtivos();
+        Task<Funcionario> BuscarPorEmailAsync(string email);
     }
 }

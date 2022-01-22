@@ -34,5 +34,10 @@ namespace RH.Data.Repository
         {
             return _context.Funcionario.Where(x => x.Ativo == true).ToList();
         }
+
+        public async Task<Funcionario> BuscarPorEmailAsync(string email)
+        {
+            return await _context.Funcionario.FirstOrDefaultAsync(x => x.Email == email && x.Ativo == true);
+        }
     }
 }

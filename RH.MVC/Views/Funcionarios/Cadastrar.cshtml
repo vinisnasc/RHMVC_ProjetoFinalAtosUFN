@@ -3,7 +3,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <style>
+        .ladoALado {
+            display: flex;
+            justify-content: space-between;
+        }
 
+        input {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="button-container">
@@ -11,88 +20,77 @@
     </div>
 
     <h1>Cadastrar novo funcionario</h1>
+    <form asp-action="Cadastrar">
 
-    @using (Html.BeginForm())
-    {
-        @Html.ValidationSummary(true)
+        <div class="form-group">
+        <label asp-for="Nome"></label>
+        <input asp-for="Nome" />
+        <span asp-validation-for="Nome"></span>
 
-        <div>Nome:</div>
-        <input type="text" name="Nome" value=@(Model == null ? "" : @Model.Nome)>
-        @Html.ValidationMessageFor(f => f.Nome)
+        <label asp-for="NomeSocial"></label>
+        <input asp-for="NomeSocial" />
+        <span asp-validation-for="NomeSocial"></span>
 
-        <br />
+        <label asp-for="DataNascimento"></label>
+        <input asp-for="DataNascimento" />
+        <span asp-validation-for="DataNascimento"></span>
 
-        <div>Nome Social:</div>
-        <input type="text" name="NomeSocial" value=@(Model == null ? "" : @Model.NomeSocial)>
-        @Html.ValidationMessageFor(f => f.NomeSocial)
+        <label asp-for="Sexo"></label>
+        <select asp-for="Sexo" asp-items="ViewBag.Sex"></select>
+        <span asp-validation-for="Sexo"></span>
+        </div>
 
-        <br />
+        <label asp-for="Cpf"></label>
+        <input asp-for="Cpf" />
+        <span asp-validation-for="Cpf"></span>
 
-        <div>Data de Nascimento:</div>
-        <input type="date" name="DataNascimento" value=@(Model == null ? (DateTime.Now).ToString("yyyy-MM-dd") : ((DateTime)@Model.DataNascimento).ToString("yyyy-MM-dd"))>
-        @Html.ValidationMessageFor(f => f.DataNascimento)
+        <label asp-for="RG"></label>
+        <input asp-for="RG" />
+        <span asp-validation-for="RG"></span>
 
-        <br />
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
 
-        <div>CPF:</div>
-        <input type="text" name="CPF" value=@(Model == null ? "" : @Model.Cpf)>
-        @Html.ValidationMessageFor(f => f.Cpf)
+        <label asp-for="Banco"></label>
+        <input asp-for="Banco" />
+        <span asp-validation-for="Banco"></span>
 
-        <br />
+        <label asp-for="Agencia"></label>
+        <input asp-for="Agencia" />
+        <span asp-validation-for="Agencia"></span>
 
-        <div>RG:</div>
-        <input type="text" name="RG" value=@(Model == null ? "" : @Model.RG)>
-        @Html.ValidationMessageFor(f => f.RG)
+        <label asp-for="ContaCorrente"></label>
+        <input asp-for="ContaCorrente" />
+        <span asp-validation-for="ContaCorrente"></span>
 
-        <br />
+        <label asp-for="Cep"></label>
+        <input asp-for="Cep" />
+        <span asp-validation-for="Cep"></span>
 
-        <div>Email:</div>
-        <input type="text" name="Email" value=@(Model == null ? "" : @Model.Email)>
-        @Html.ValidationMessageFor(f => f.Email)
+        <label asp-for="Numero"></label>
+        <input asp-for="Numero" />
+        <span asp-validation-for="Numero"></span>
 
-        <br />
+        <label asp-for="Complemento"></label>
+        <input asp-for="Complemento" />
+        <span asp-validation-for="Complemento"></span>
 
-        <div>Sexo:</div>
-        <select name="Sexo" items=@Html.DropDownList("Sex")></select>
-        @Html.ValidationMessageFor(f => f.Sexo)
+        <label asp-for="DepartamentoId"></label>
+        <select asp-for="DepartamentoId" asp-items="ViewBag.Deptos"></select>
+        <span asp-validation-for="DepartamentoId"></span>
 
-        <div>Admissao:</div>
-        <input type="date" name="Admissao" value=@(Model == null ? (DateTime.Now).ToString("yyyy-MM-dd") : ((DateTime)@Model.Admissao).ToString("yyyy-MM-dd"))>
-        @Html.ValidationMessageFor(f => f.Admissao)
+        <label asp-for="FuncaoId"></label>
+        <select asp-for="FuncaoId" asp-items="ViewBag.Funcs"></select>
+        <span asp-validation-for="FuncaoId"></span>
 
-        <div>Banco:</div>
-        <input type="text" name="Banco" value=@(Model == null ? "" : @Model.Banco)>
-        @Html.ValidationMessageFor(f => f.Banco)
+        <label asp-for="Admissao"></label>
+        <input asp-for="Admissao" />
+        <span asp-validation-for="Admissao"></span>
 
-        <div>Agencia:</div>
-        <input type="text" name="Agencia" value=@(Model == null ? "" : @Model.Agencia)>
-        @Html.ValidationMessageFor(f => f.Agencia)
-
-        <div>Conta:</div>
-        <input type="text" name="ContaCorrente" value=@(Model == null ? "" : @Model.ContaCorrente)>
-        @Html.ValidationMessageFor(f => f.ContaCorrente)
-
-        <div>Cep:</div>
-        <input type="text" name="Cep" value=@(Model == null ? "" : @Model.Cep)>
-        @Html.ValidationMessageFor(f => f.Cep)
-
-        <div>Numero:</div>
-        <input type="text" name="Numero" value=@(Model == null ? "" : @Model.Numero)>
-        @Html.ValidationMessageFor(f => f.Numero)
-
-        <div>Complemento:</div>
-        <input type="text" name="Complemento" value=@(Model == null ? "" : @Model.Complemento)>
-        @Html.ValidationMessageFor(f => f.Complemento)
-
-        <div>Departamentos:</div>
-        <select name="DepartamentoId" items=@Html.DropDownList("Deptos")></select>
-        @Html.ValidationMessageFor(f => f.DepartamentoId)
-
-        <div>Funcao:</div>
-        <select name="FuncaoId" items=@Html.DropDownList("Funcs")></select>
-        @Html.ValidationMessageFor(f => f.FuncaoId)
-
-        <input type="submit" value="Create" class="btn btn-success" />
-    }
+        <div class="form-group">
+            <input type="submit" value="Cadastrar" class="btn btn-primary" />
+        </div>
+    </form>
 </body>
 </html>
