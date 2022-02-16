@@ -175,7 +175,7 @@ namespace RH.MVC.Controllers
         {
             try
             {
-                await _funcionarioService.Demitir(id, dto.Demissao);
+               // await _funcionarioService.Demitir(id, dto.Demissao);
                 await _pagamentosService.CalcularDemissao(id);
                 return RedirectToAction(nameof(Index));
             }

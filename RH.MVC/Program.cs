@@ -9,10 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using RH.Data.Contexto;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 
+/*
 // Configuracao da injecao de dependencia
 DependencyContainer.RegisterServices(builder.Services,
                                      builder.Configuration.GetConnectionString("RHContext"),
@@ -37,23 +36,19 @@ MapperConfiguration config = new(config =>
 });
 IMapper mapper = config.CreateMapper();
 builder.Services.AddSingleton(mapper);
-
+*/
 
 var app = builder.Build();
-
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
@@ -61,6 +56,4 @@ app.UseEndpoints(endpoints =>
     pattern: "{controller=Home}/{action=Login}/{id?}");
     endpoints.MapRazorPages();
 });
-
-
 app.Run();

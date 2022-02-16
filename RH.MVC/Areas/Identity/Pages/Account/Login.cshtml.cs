@@ -119,7 +119,7 @@ namespace RH.MVC.Areas.Identity.Pages.Account
             {
                 var funcionario = await _unitOfWork.FuncionarioRepository.BuscarPorEmailAsync(Input.Email);
 
-                if (funcionario.Ativo)
+                if (funcionario != null)
                 {
                     var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                     if (result.Succeeded)
@@ -144,7 +144,7 @@ namespace RH.MVC.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Email não encontrado!");
                     return Page();
                 }
             }
