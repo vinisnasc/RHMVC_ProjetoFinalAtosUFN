@@ -31,13 +31,14 @@ namespace RH.Services
             return dtos.OrderByDescending(x => x.NumeroFuncionarios).ToList();
         }
 
-        public async Task CadastrarAsync(FuncaoCadastroDto dto)
+        public async Task<FuncaoViewDtoResult> CadastrarAsync(FuncaoCadastroDto dto)
         {
             if (await _unitOfWork.FuncaoRepository.ExisteFuncaoAsync(dto.NomeFuncao))
                 throw new FuncaoJaExisteException();
 
             var entity = _mapper.Map<Funcao>(dto);
             await _unitOfWork.FuncaoRepository.Incluir(entity);
+            return _mapper.Map<FuncaoViewDtoResult>(entity);
         }
 
         public async Task<FuncaoViewDtoResult> BuscarPorIdAsync(Guid id)
@@ -46,14 +47,15 @@ namespace RH.Services
             return _mapper.Map<FuncaoViewDtoResult>(entity);
         }
 
-        public async Task AtualizarAsync(Guid id, FuncaoEditarDto dto)
+        public async Task<FuncaoViewDtoResult> AtualizarAsync(FuncaoEditarDto dto)
         {
             if (await _unitOfWork.FuncaoRepository.ExisteFuncaoAsync(dto.NomeFuncao))
                 throw new FuncaoJaExisteException();
 
-            var entity = await _unitOfWork.FuncaoRepository.SelecionarPorId(id);
+            var entity = await _unitOfWork.FuncaoRepository.SelecionarPorId(dto.Id);
             entity = _mapper.Map(dto, entity);
             await _unitOfWork.FuncaoRepository.Alterar(entity);
+            return _mapper.Map<FuncaoViewDtoResult>(entity);
         }
 
         public async Task AumentarSalarioAsync(Guid id, FuncaoEditarSalarioDto dto)

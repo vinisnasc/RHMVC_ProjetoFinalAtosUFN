@@ -20,6 +20,11 @@ namespace RH.Data.Repository
             return base.Incluir(funcionario);
         }
 
+        public override async Task<Funcionario> SelecionarPorId(Guid id)
+        {
+            return await _context.Funcionario.Include(x => x.Departamento).Include(x => x.Funcao).Include(x => x.ContaBancaria).Include(x => x.Endereco).FirstOrDefaultAsync(x => x.Id == id);
+        }
+
         public async Task<Funcionario> ProcurarPorCpfAtivoAsync(string cpf)
         {
             return await _context.Funcionario.FirstOrDefaultAsync(x => x.CPF == cpf && x.DataDemissao == null);

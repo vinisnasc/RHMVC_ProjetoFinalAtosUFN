@@ -32,7 +32,6 @@ namespace RH.MVC.Controllers
             _emailSender = emailSender;
         }
 
-        [Authorize]
         public async Task<IActionResult> Index()
         {
             if (!ModelState.IsValid)

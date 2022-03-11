@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RH.Domain.Dtos.Input;
 using RH.Domain.Dtos.Views;
@@ -6,6 +7,7 @@ using RH.Domain.Interfaces.Services;
 
 namespace RH.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FuncaoController : ControllerBase
@@ -44,18 +46,18 @@ namespace RH.API.Controllers
             if (dto == null)
                 return BadRequest();
 
-            await _funcaoService.CadastrarAsync(dto);
-            return Ok("Funcao cadastrada com sucesso");
+            var result = await _funcaoService.CadastrarAsync(dto);
+            return Ok(result);
         }
 
         [HttpPut]
-        public async Task<ActionResult> Update(Guid id, FuncaoEditarDto dto)
+        public async Task<ActionResult> Update(FuncaoEditarDto dto)
         {
             if (dto == null)
                 return BadRequest();
 
-            await _funcaoService.AtualizarAsync(id, dto);
-            return Ok("Funcao atualizada com sucesso");
+            var result = await _funcaoService.AtualizarAsync(dto);
+            return Ok(result);
         }
 
         [HttpPatch("{id}")]

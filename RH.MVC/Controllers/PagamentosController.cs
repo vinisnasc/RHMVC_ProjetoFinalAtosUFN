@@ -6,7 +6,6 @@ using RH.Domain.Interfaces.Services;
 
 namespace RH.MVC.Controllers
 {
-    [Authorize]
     public class PagamentosController : Controller
     {
         private readonly IPagamentosService _pagamentosService;

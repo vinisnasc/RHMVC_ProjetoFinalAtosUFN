@@ -1,0 +1,63 @@
+﻿@using WEBAPP.MVC.Models
+@model IEnumerable<DepartamentoModel>
+
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <br />
+<br />
+<div class="container p-4 border">
+    <div class="row pb-2">
+        <div class="col">
+            <h1 class="text-primary">Departamentos</h1>
+        </div>
+        <div class="col text-end pt-1">
+            <a asp-action="Cadastrar" class="btn btn-outline-primary">
+                <i class="fas fa-plus"></i>Cadastrar novo departamento
+            </a>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Departamento
+                </th>
+                <th>
+                    Sub-Departamento
+                </th>
+                <th>
+                    Número de funcionários
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.NomeDepartamento
+                    </td>
+                    <td>
+                        @item.SubDepartamento
+                    </td>
+                    <td>
+                        @item.NumeroFuncionario
+                    </td>
+                    <td>
+                        <a asp-action="Atualizar" class ="btn btn-success" asp-route-id="@item.Id">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a asp-action="Detalhes" class ="btn btn-danger" asp-route-id="@item.Id">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

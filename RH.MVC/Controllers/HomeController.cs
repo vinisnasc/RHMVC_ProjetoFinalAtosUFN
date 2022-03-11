@@ -6,29 +6,18 @@ using System.Diagnostics;
 
 namespace RH.MVC.Controllers
 {
-    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly SignInManager<IdentityUser> _signInManager;
 
-        public HomeController(ILogger<HomeController> logger, SignInManager<IdentityUser> signInManager)
+        public HomeController(ILogger<HomeController> logger)
         {
-            _signInManager = signInManager;
             _logger = logger;
         }
 
         public IActionResult Index()
         {
             return View();
-        }
-
-        [AllowAnonymous]
-        public async Task<IActionResult> Login()
-        {
-            await _signInManager.SignOutAsync();
-            string url = "/Identity/Account/Login"; 
-            return Redirect(url);
         }
 
         public IActionResult Privacy()

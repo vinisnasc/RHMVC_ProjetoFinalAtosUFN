@@ -7,7 +7,6 @@ using System.Net;
 
 namespace RH.MVC.Controllers
 {
-    [Authorize]
     public class DepartamentosController : Controller
     {
         private readonly IDepartamentoService _departamentoService;
@@ -77,7 +76,7 @@ namespace RH.MVC.Controllers
             {
                 try
                 {
-                    await _departamentoService.AtualizarAsync(id, dto);
+                    await _departamentoService.AtualizarAsync(dto);
                     return RedirectToAction(nameof(Index));
                 }
                 catch(Exception ex)

@@ -1,0 +1,161 @@
+﻿@model WEBAPP.MVC.Models.InputModel.FuncionarioCadastro
+
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <form asp-action="Cadastrar">
+        <br />
+        <div class="container border p-3">
+            <h1 class="text-primary">Cadastrar novo funcionario</h1>
+            <hr />
+            <div class="row">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="col-2">
+                    <label asp-for="Nome" class="control-label pt-2" style="font-size=20px;"></label>
+                </div>
+                <div class="col-10 pb-3">
+                    <input asp-for="Nome" class="form-control" />
+                    <span asp-validation-for="Nome" class="text-danger"></span>
+                </div>
+
+                <div class="col-2">
+                    <label asp-for="NomeSocial" class="control-label pt-2" style="font-size=20px;"></label>
+                </div>
+                <div class="col-10 pb-3">
+                    <input asp-for="NomeSocial" class="form-control" />
+                    <span asp-validation-for="NomeSocial" class="text-danger"></span>
+                </div>
+
+                <div class="col-2">
+                    <label asp-for="Email" class="control-label pt-2" style="font-size=20px;"></label>
+                </div>
+                <div class="col-10 pb-3">
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+               <div class="col-2">
+                    <label asp-for="Sexo" class="control-label pt-2" style="font-size=20px;"></label>
+                </div>
+                <div class="col-10 pb-3">
+                    <select asp-for="Sexo" asp-items="ViewBag.Sex" class="form-control"></select>
+                    <span asp-validation-for="Sexo" class="text-danger"></span>
+                </div>
+
+                <div class="col-2">
+                    <label asp-for="FotoPerfil" class="control-label pt-2" style="font-size=20px;"></label>
+                </div>
+                <div class="col-10 pb-3">
+                    <input asp-for="FotoPerfil" class="form-control" />
+                    <span asp-validation-for="FotoPerfil" class="text-danger"></span>
+                </div>
+
+                <div class="col-2">
+                    <label asp-for="DataNascimento" class="control-label pt-2" style="font-size=20px;"></label>
+                </div>
+                <div class="col-10 pb-3">
+                    <input asp-for="DataNascimento" class="form-control" />
+                    <span asp-validation-for="DataNascimento" class="text-danger"></span>
+                </div>
+
+                <div class="col-2">
+                    <label asp-for="Cpf" class="control-label pt-2" style="font-size=20px;"></label>
+                </div>
+                <div class="col-10 pb-3">
+                    <input asp-for="Cpf" class="form-control" />
+                    <span asp-validation-for="Cpf" class="text-danger"></span>
+                </div>
+
+                <div class="col-2">
+                    <label asp-for="RG" class="control-label pt-2" style="font-size=20px;"></label>
+                </div>
+                <div class="col-10 pb-3">
+                    <input asp-for="RG" class="form-control" />
+                    <span asp-validation-for="RG" class="text-danger"></span>
+                </div>
+
+                <div class="col-2">
+                    <label asp-for="Banco" class="control-label pt-2" style="font-size=20px;"></label>
+                </div>
+                <div class="col-10 pb-3">
+                    <input asp-for="Banco" class="form-control" />
+                    <span asp-validation-for="Banco" class="text-danger"></span>
+                </div>
+
+                <div class="col-2">
+                    <label asp-for="Agencia" class="control-label pt-2" style="font-size=20px;"></label>
+                </div>
+                <div class="col-10 pb-3">
+                    <input asp-for="Agencia" class="form-control" />
+                    <span asp-validation-for="Agencia" class="text-danger"></span>
+                </div>
+
+                <div class="col-2">
+                    <label asp-for="ContaCorrente" class="control-label pt-2" style="font-size=20px;"></label>
+                </div>
+                <div class="col-10 pb-3">
+                    <input asp-for="ContaCorrente" class="form-control" />
+                    <span asp-validation-for="ContaCorrente" class="text-danger"></span>
+                </div>
+
+                <div class="col-2">
+                    <label asp-for="Cep" class="control-label pt-2" style="font-size=20px;"></label>
+                </div>
+                <div class="col-10 pb-3">
+                    <input asp-for="Cep" class="form-control" />
+                    <span asp-validation-for="Cep" class="text-danger"></span>
+                </div>
+
+                <div class="col-2">
+                    <label asp-for="Numero" class="control-label pt-2" style="font-size=20px;"></label>
+                </div>
+                <div class="col-10 pb-3">
+                    <input asp-for="Numero" class="form-control" />
+                    <span asp-validation-for="Numero" class="text-danger"></span>
+                </div>
+
+                <div class="col-2">
+                    <label asp-for="Complemento" class="control-label pt-2" style="font-size=20px;"></label>
+                </div>
+                <div class="col-10 pb-3">
+                    <input asp-for="Complemento" class="form-control" />
+                    <span asp-validation-for="Complemento" class="text-danger"></span>
+                </div>
+
+                <div class="col-2">
+                    <label asp-for="DepartamentoId" class="control-label pt-2" style="font-size=20px;"></label>
+                </div>
+                <div class="col-10 pb-3">
+                    <select asp-for="DepartamentoId" asp-items="ViewBag.Deptos" class="form-control"></select>
+                    <span asp-validation-for="DepartamentoId" class="text-danger"></span>
+                </div>
+
+                <div class="col-2">
+                    <label asp-for="FuncaoId" class="control-label pt-2" style="font-size=20px;"></label>
+                </div>
+                <div class="col-10 pb-3">
+                    <select asp-for="FuncaoId" asp-items="ViewBag.Funcs" class="form-control"></select>
+                    <span asp-validation-for="FuncaoId" class="text-danger"></span>
+                </div>
+
+                <div class="col-2">
+                    <label asp-for="Admissao" class="control-label pt-2" style="font-size=20px;"></label>
+                </div>
+                <div class="col-10 pb-3">
+                    <input asp-for="Admissao" class="form-control" />
+                    <span asp-validation-for="Admissao" class="text-danger"></span>
+                </div>
+
+                <div class="col-5 offset-2">
+                    <a asp-action="Index" class="btn-primary btn form-control">Voltar</a>
+                </div>
+                <div class="col-5">
+                    <input type="submit" value="Cadastrar" class="btn btn-success form-control" />
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+</html>

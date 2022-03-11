@@ -18,5 +18,6 @@ namespace RH.Domain.Dtos.Input
         [Display(Name = "Sub-Departamento")]
         [Required(ErrorMessage = "É necessário informar um sub-departamento")]
         public string SubDepartamento { get; set; }
+        public Guid Id { get; set; }
     }
 }

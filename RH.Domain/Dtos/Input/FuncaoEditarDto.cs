@@ -13,5 +13,6 @@ namespace RH.Domain.Dtos.Input
         [Display(Name = "Função")]
         [Required(ErrorMessage = "É necessário informar o nome da função!")]
         public string NomeFuncao { get; set; }
+        public Guid Id { get; set; }
     }
 }

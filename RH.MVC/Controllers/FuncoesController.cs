@@ -7,7 +7,6 @@ using System.Net;
 
 namespace RH.MVC.Controllers
 {
-    [Authorize]
     public class FuncoesController : Controller
     {
         private readonly IFuncaoService _funcaoService;
@@ -76,7 +75,7 @@ namespace RH.MVC.Controllers
             {
                 try
                 {
-                    await _funcaoService.AtualizarAsync(id, dto);
+                    await _funcaoService.AtualizarAsync(dto);
                     return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)

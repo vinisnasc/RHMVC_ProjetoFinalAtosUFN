@@ -11,9 +11,9 @@ namespace RH.Domain.Interfaces.Services
     public interface IDepartamentoService
     {
         Task<List<DepartamentoViewDtoResult>> BuscarTodos();
-        Task CadastrarAsync(DepartamentoCadastroDto dto);
+        Task<DepartamentoViewDtoResult> CadastrarAsync(DepartamentoCadastroDto dto);
         Task<DepartamentoViewDtoResult> BuscarPorIdAsync(Guid id);
-        Task AtualizarAsync(Guid id, DepartamentoEditarDto dto);
+        Task<DepartamentoViewDtoResult> AtualizarAsync(DepartamentoEditarDto dto);
         Task<IEnumerable<FuncionarioDepartamentoView>> ListarFuncDeptoAsync(Guid id);
     }
 }

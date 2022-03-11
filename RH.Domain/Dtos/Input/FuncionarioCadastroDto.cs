@@ -22,6 +22,8 @@ namespace RH.Domain.Dtos.Input
         [Display(Name = "Data de nascimento")]
         public DateTime DataNascimento { get; set; }
 
+        public string FotoPerfil { get; set; }
+
         [Required]
         [StringLength(11, MinimumLength =11, ErrorMessage = "CPF deve ter 11 digitos")]
         [Display(Name = "CPF")]

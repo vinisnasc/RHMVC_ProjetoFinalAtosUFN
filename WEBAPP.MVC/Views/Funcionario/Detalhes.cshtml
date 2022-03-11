@@ -1,0 +1,105 @@
+﻿@model WEBAPP.MVC.Models.FuncionarioModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+
+<body style="background-color:#037F8C;">
+    <div class="container row">
+        <div class="card container col-9 text-center" style="background-color:#CEECF2;">
+            <div class="">
+                <h2><i class="fas fa-briefcase"></i>Dados Empresariais</h2>
+                <div class="row">
+                    <div class="col">
+                        <p>Número de registro: </p>
+                        <input type="text" value=@Model.Registro disabled>
+                    </div>
+                    <div class="col">
+                        <p>Função: </p>
+                        <input type="text" value=@Model.Funcao disabled>
+                    </div>
+                    <div class="col">
+                        <p>Departamento: </p>
+                        <input type="text" value=@Model.Departamento disabled>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p>Data de admissão: </p>
+                        <input type="text" value=@Model.Admissao disabled />
+                    </div>
+                    <div class="col">
+                        <p>Data de demissão: </p>
+                        <input type="text" value=@(Model.Demissao < Model.Admissao ? "n/A" : Model.Demissao) disabled />
+                    </div>
+                </div>
+            </div>
+
+            <div class="">
+                <h2><i class="fas fa-user"></i>Dados Bancários</h2>
+                <div class="row">
+                    <div class="col">
+                        <p>Código do banco: </p>
+                        <input type="text" value=@Model.Banco disabled>
+                    </div>
+                    <div class="col">
+                        <p>Agencia: </p>
+                        <input type="text" value=@Model.Agencia disabled>
+                    </div>
+                    <div class="col">
+                        <p>Conta corrente: </p>
+                        <input type="text" value=@Model.ContaCorrente disabled>
+                    </div>
+                </div>
+            </div>
+
+             <div class="" style="padding-bottom:20px;">
+                <h2><i class="fas fa-user"></i>Endereço</h2>
+                <div class="row">
+                    <div class="col">
+                        <p>Cep: </p>
+                        <input type="text" value=@Model.Endereco disabled>
+                    </div>
+                  <!--  <div class="col">
+                        <p>Número: </p>
+                        <input type="text"  disabled>
+                    </div>
+                    <div class="col">
+                        <p>Complemento: </p>
+                        <input type="text"  disabled>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+
+        <div class="card container col-3 text-center" style="background-color:#4BAABF;">
+            <div class="card-body">
+                <img class="rounded-circle" src="@Model.FotoPerfil" alt="Image" height=200 width=200/>
+                <h2 class="">@(Model.NomeSocial ?? Model.Nome) 
+                    @if(Model.Sexo == WEBAPP.MVC.Models.Enum.Genero.Masculino)
+                    {
+                        <i class="fas fas-user"></i>
+                    }
+                    else
+                    {
+                        <i class="fas fa-briefcase"></i>
+                    }
+                </h2>
+                @if (@Model.NomeSocial != null)
+                {
+                    <h4 class="">@Model.Nome</h4>
+                }
+                @Model.Email
+                <br />
+                Nascimento: @(Model.DataNascimento.ToString("dd/MM/yyyy"))
+                <br />
+                CPF: @Model.Cpf
+                <br />
+                Rg: @Model.RG
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

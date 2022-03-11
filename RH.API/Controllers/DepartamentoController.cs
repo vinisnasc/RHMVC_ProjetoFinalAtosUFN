@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RH.Domain.Dtos.Input;
 using RH.Domain.Dtos.Views;
@@ -6,6 +7,7 @@ using RH.Domain.Interfaces.Services;
 
 namespace RH.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class DepartamentoController : ControllerBase
@@ -24,6 +26,7 @@ namespace RH.API.Controllers
             return Ok(departamentos);
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<DepartamentoViewDtoResult>> FindById(Guid id)
         {
@@ -31,6 +34,7 @@ namespace RH.API.Controllers
             return Ok(departamento);
         }
 
+        [Authorize]
         [HttpGet("Funcionarios/{id}")]
         public async Task<ActionResult<IEnumerable<FuncionarioDepartamentoView>>> ListarFuncionariosDoDepartamento(Guid id)
         {
@@ -38,24 +42,26 @@ namespace RH.API.Controllers
             return Ok(funcionarios);
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult> Create(DepartamentoCadastroDto dto)
         {
             if (dto == null)
                 return BadRequest();
 
-            await _departamentoService.CadastrarAsync(dto);
-            return Ok("Depto cadastrado com sucesso");
+            var result = await _departamentoService.CadastrarAsync(dto);
+            return Ok(result);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut]
-        public async Task<ActionResult> Update(Guid id, DepartamentoEditarDto dto)
+        public async Task<ActionResult> Update(DepartamentoEditarDto dto)
         {
             if (dto == null)
                 return BadRequest();
 
-            await _departamentoService.AtualizarAsync(id, dto);
-            return Ok("Depto atualizado com sucesso");
+            var result = await _departamentoService.AtualizarAsync(dto);
+            return Ok(result);
         }
     }
 }

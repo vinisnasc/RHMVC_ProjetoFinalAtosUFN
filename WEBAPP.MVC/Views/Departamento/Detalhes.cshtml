@@ -1,0 +1,54 @@
+﻿@using WEBAPP.MVC.Models
+@model IEnumerable<FuncionarioDeptoModel>
+
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+    <br />
+    <br />
+    <div class="container p-4 border">
+        <div class="row pb-2">
+            <div class="col">
+                <h1 class="text-primary">Departamento @Model.ToArray()[0].Departamento.NomeDepartamento / @Model.ToArray()[0].Departamento.SubDepartamento</h1>
+            </div>
+
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Registro
+                    </th>
+                    <th>
+                        Nome
+                    </th>
+                    <th>
+                        Função
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.Registro
+                        </td>
+                        <td>
+                            @item.Nome
+                        </td>
+                        <td>
+                            @item.Funcao
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="col-5 offset-2">
+            <a asp-action="Index" class="btn-primary btn form-control">Voltar</a>
+        </div>
+    </div>
+</body>
+</html>

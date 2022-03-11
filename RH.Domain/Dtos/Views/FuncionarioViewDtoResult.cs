@@ -1,4 +1,5 @@
-﻿using RH.Domain.Enums;
+﻿using RH.Domain.Entities;
+using RH.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace RH.Domain.Dtos.Views
         public string Nome { get; set; }
         public string NomeSocial { get; set; }
         public DateTime DataNascimento { get; set; }
+        public string? FotoPerfil { get; set; }
         public string Cpf { get; set; }
         public string RG { get; set; }
         public string Email { get; set; }
@@ -26,9 +28,8 @@ namespace RH.Domain.Dtos.Views
         public DateTime? Admissao { get; set; }
 
         // Endereco
-        public string Cep { get; set; }
-        public int Numero { get; set; }
-        public string? Complemento { get; set; }
+        public Guid EnderecoId { get; set; }
+        public Endereco Endereco { get; set; }
 
         // Banco
         public int Banco { get; set; }

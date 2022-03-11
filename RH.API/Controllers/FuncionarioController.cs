@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RH.Domain.Dtos.Input;
 using RH.Domain.Dtos.Views;
@@ -38,14 +39,14 @@ namespace RH.API.Controllers
                 return BadRequest();
 
             await _funcionarioService.CadastrarFuncionarioAsync(dto);
-            return Ok("Funcionario cadastrado com sucesso");
+            return Ok();
         }
 
-        [HttpPatch("{id}")]
+        [HttpPut]
         public async Task<ActionResult> EditarDadosPessoais(Guid id, FuncionarioEditarDadosPessoaisDto dto)
         {
             await _funcionarioService.EditarDadosPessoaisAsync(id, dto);
-            return Ok("Alterado os dados");
+            return Ok();
         }
 
         [HttpDelete]

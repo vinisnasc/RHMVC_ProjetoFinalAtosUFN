@@ -1,12 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using RH.Domain.Entities;
 using System.Reflection;
 
 namespace RH.Data.Contexto
 {
-    public class RhContext : IdentityDbContext<IdentityUser>
+    public class RhContext : DbContext
     {
         public RhContext(DbContextOptions options) : base(options)
         { }

@@ -110,7 +110,7 @@ namespace RH.Services
 
         public async Task EditarDadosPessoaisAsync(Guid id, FuncionarioEditarDadosPessoaisDto dto)
         {
-            var entity = await _unitOfWork.FuncionarioRepository.SelecionarPorId(id);
+            var entity = await _unitOfWork.FuncionarioRepository.SelecionarPorId(dto.Id);
 
             entity = _mapper.Map(dto, entity);
 

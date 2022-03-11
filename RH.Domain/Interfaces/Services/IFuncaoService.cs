@@ -11,9 +11,9 @@ namespace RH.Domain.Interfaces.Services
     public interface IFuncaoService
     {
         Task<List<FuncaoViewDtoResult>> BuscarTodos();
-        Task CadastrarAsync(FuncaoCadastroDto dto);
+        Task<FuncaoViewDtoResult> CadastrarAsync(FuncaoCadastroDto dto);
         Task<FuncaoViewDtoResult> BuscarPorIdAsync(Guid id);
-        Task AtualizarAsync(Guid id, FuncaoEditarDto dto);
+        Task<FuncaoViewDtoResult> AtualizarAsync(FuncaoEditarDto dto);
         Task AumentarSalarioAsync(Guid id, FuncaoEditarSalarioDto dto);
         Task<IEnumerable<FuncionarioFuncaoView>> ListarFuncFuncaoAsync(Guid id);
         Task RealizarAumentoAsync(FuncaoAumentoSalarialDto dto);

@@ -42,23 +42,25 @@ namespace RH.Services
             return _mapper.Map<DepartamentoViewDtoResult>(entity);
         }
 
-        public async Task CadastrarAsync(DepartamentoCadastroDto dto)
+        public async Task<DepartamentoViewDtoResult> CadastrarAsync(DepartamentoCadastroDto dto)
         {
             if(await _unitOfWork.DepartamentoRepository.ExisteDepto(dto.NomeDepartamento, dto.SubDepartamento))
                 throw new DepartamentoJaExisteException();
             
             var entity = _mapper.Map<Departamento>(dto);
             await _unitOfWork.DepartamentoRepository.Incluir(entity);
+            return _mapper.Map<DepartamentoViewDtoResult>(entity);
         }
 
-        public async Task AtualizarAsync(Guid id, DepartamentoEditarDto dto)
+        public async Task<DepartamentoViewDtoResult> AtualizarAsync(DepartamentoEditarDto dto)
         {
             if (await _unitOfWork.DepartamentoRepository.ExisteDepto(dto.NomeDepartamento, dto.SubDepartamento))
                 throw new DepartamentoJaExisteException();
 
-            var entity = await _unitOfWork.DepartamentoRepository.SelecionarPorId(id);
+            var entity = await _unitOfWork.DepartamentoRepository.SelecionarPorId(dto.Id);
             entity = _mapper.Map(dto, entity);
             await _unitOfWork.DepartamentoRepository.Alterar(entity);
+            return _mapper.Map<DepartamentoViewDtoResult>(entity);
         }
 
         public async Task<IEnumerable<FuncionarioDepartamentoView>> ListarFuncDeptoAsync(Guid id)

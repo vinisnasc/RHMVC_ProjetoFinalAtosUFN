@@ -53,7 +53,7 @@ namespace RH.Services
                     await _unitOfWork.DecimoTerceiroRepository.Incluir(decimoTerceiro);
             }
 
-                ExportadorService helper = new(_unitOfWork);
+            ExportadorService helper = new(_unitOfWork);
             await helper.CriarArquivoDecimo("Decimo terceiro", dataPagamento);
         }
 
@@ -94,7 +94,7 @@ namespace RH.Services
             if (parcela == 1)
             {
                 var primeiraParcela = await _unitOfWork.DecimoTerceiroRepository.BuscaPrimeiraParcelaAsync(func.Id, pagamento.Year);
-                
+
                 if (primeiraParcela == null)
                     return (funcao.Salario / 12 * quantidade) / 2;
 
@@ -113,7 +113,7 @@ namespace RH.Services
                     var todos = await _unitOfWork.DecimoTerceiroRepository.BuscaTodasParcelasAnoAsync(func.Id, pagamento.Year);
                     double valor = (funcao.Salario / 12 * quantidade);
 
-                    foreach(var pag in todos)
+                    foreach (var pag in todos)
                     {
                         valor -= pag.Valor;
                     }
@@ -217,50 +217,51 @@ namespace RH.Services
                 return salario / 30 * dataDemissao.Day;
         }
 
-        private async Task<double> CalcularSalarioMes(DateTime data, Funcionario funcionario)
+        private async Task<double> CalcularSalarioMes(DateTime dataPagamento, Funcionario funcionario)
         {
+            var salario = (await _unitOfWork.FuncaoRepository.SelecionarPorId(funcionario.FuncaoId)).Salario;
+
+            DateTime primeiroDiaMesTrabalhado = dataPagamento.Month == 1 ?
+                                     new DateTime(dataPagamento.Year - 1, 12, 1) :
+                                     new DateTime(dataPagamento.Year, dataPagamento.Month - 1, 1);
+            DateTime ultimoDiaMesTrabalhado = new DateTime(primeiroDiaMesTrabalhado.Year,
+                                                           primeiroDiaMesTrabalhado.Month,
+                                                           DateTime.DaysInMonth(primeiroDiaMesTrabalhado.Year, primeiroDiaMesTrabalhado.Month));
+
             // Verifica se o funcionário está de férias. No caso, subtraio dois pois ele busca a data de pagamento,
             // que é um mês antes ao periodo de férias.
-            var ferias = await _unitOfWork.FeriasRepository.BuscarFeriasMesAsync(data.AddMonths(-2), funcionario.Id);
+            var ferias = await _unitOfWork.FeriasRepository.BuscarFeriasMesAsync(dataPagamento.AddMonths(-2), funcionario.Id);
             if (ferias != null)
                 return 0;
 
-            else
+            // Verifica se o funcionário está demitido
+            if (funcionario.DataDemissao != null)
             {
-                var salario = (await _unitOfWork.FuncaoRepository.SelecionarPorId(funcionario.FuncaoId)).Salario;
+                // Se a data de demissão for no mês do pagamento, calcula o proporcional
+                if (((DateTime)funcionario.DataDemissao).Month == dataPagamento.Month && ((DateTime)funcionario.DataDemissao).Year == dataPagamento.Year)
+                    return salario / 30 * ((DateTime)funcionario.DataDemissao).Day;
 
-                DateTime primeiroDiaMesTrabalhado = data.Month == 1 ?
-                                         new DateTime(data.Year - 1, 12, 1) :
-                                         new DateTime(data.Year, data.Month - 1, 1);
-                DateTime ultimoDiaMesTrabalhado = new DateTime(primeiroDiaMesTrabalhado.Year,
-                                                               primeiroDiaMesTrabalhado.Month,
-                                                               DateTime.DaysInMonth(primeiroDiaMesTrabalhado.Year, primeiroDiaMesTrabalhado.Month));
-
-                // Caso o funcionario esteja ativo, ou caso esteja demitido em data posterior ao mes corrente
-                if ((funcionario.DataDemissao == null || funcionario.DataDemissao > ultimoDiaMesTrabalhado) && !await _unitOfWork.PagamentoRepository.VerificaSeExistePagamentoAsync(data, funcionario.Id))
-                {
-                    if (funcionario.Admissao < primeiroDiaMesTrabalhado)
-                        return salario;
-
-                    else if (funcionario.Admissao > ultimoDiaMesTrabalhado)
-                        return 0;
-
-                    else if (funcionario.Admissao > primeiroDiaMesTrabalhado)
-                    {
-                        var diasNoMes = ultimoDiaMesTrabalhado.Day;
-                        var diaInicio = funcionario.Admissao.Day;
-                        var diasTrabalhados = diasNoMes - diaInicio + 1;
-                        return salario / 30 * diasTrabalhados;
-                    }
-                }
-                else if (funcionario.DataDemissao != null)
-                {
-                    // Calcula somente para a rescisão
-                    if (((DateTime)funcionario.DataDemissao).Month == data.Month && ((DateTime)funcionario.DataDemissao).Year == data.Year)
-                        return salario / 30 * ((DateTime)funcionario.DataDemissao).Day;
-                }
                 return 0;
             }
+
+            // Caso já conste pagamento na base de dados, retornará 0
+            if (await _unitOfWork.PagamentoRepository.VerificaSeExistePagamentoAsync(dataPagamento, funcionario.Id))
+                return 0;
+
+            // Se o funcionario foi admitido antes do mes em questao, retorna o salario completo
+            if (funcionario.Admissao < primeiroDiaMesTrabalhado)
+                return salario;
+
+            // Calcula salário caso o funcionário tenha entrado no mês corrente
+            else if (funcionario.Admissao > primeiroDiaMesTrabalhado)
+            {
+                var diasNoMes = ultimoDiaMesTrabalhado.Day;
+                var diaInicio = funcionario.Admissao.Day;
+                var diasTrabalhados = diasNoMes - diaInicio + 1;
+                return salario / 30 * diasTrabalhados;
+            }
+
+            return 0;
         }
     }
 }
