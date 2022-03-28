@@ -12,12 +12,17 @@ namespace WEBAPP.MVC.Controllers
     public class FuncionarioController : Controller
     {
         private readonly IFuncionarioService _funcionarioService;
+        private readonly IFuncionarioEstoqueService _funcionarioEstoqueService;
         private readonly IDepartamentoService _departamentoService;
         private readonly IFuncaoService _funcaoService;
 
-        public FuncionarioController(IFuncionarioService funcionarioService, IDepartamentoService departamentoService, IFuncaoService funcaoService)
+        public FuncionarioController(IFuncionarioService funcionarioService,
+                                     IFuncionarioEstoqueService funcionarioEstoqueService,
+                                     IDepartamentoService departamentoService,
+                                     IFuncaoService funcaoService)
         {
             _funcionarioService = funcionarioService;
+            _funcionarioEstoqueService = funcionarioEstoqueService;
             _departamentoService = departamentoService;
             _funcaoService = funcaoService;
         }
@@ -37,7 +42,7 @@ namespace WEBAPP.MVC.Controllers
                 new {Name = "F", Value = "Feminino"}
             }, "Value", "Name");
 
-            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            string accessToken = await HttpContext.GetTokenAsync("access_token");
             var setores = await _departamentoService.BuscarTodos(accessToken);
             var funcoes = await _funcaoService.BuscarTodos(accessToken);
 
@@ -77,7 +82,8 @@ namespace WEBAPP.MVC.Controllers
 
             if (ModelState.IsValid)
             {
-                await _funcionarioService.Create(model, accessToken);
+                var result = await _funcionarioService.Create(model, accessToken);
+                await _funcionarioEstoqueService.Create(result, accessToken);
                 return RedirectToAction(nameof(Index));
             }
             return View(model);

@@ -15,6 +15,7 @@ namespace WEBAPP.MVC.Controllers
         {
             _funcaoService = funcaoService;
         }
+
         public async Task<IActionResult> Index()
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
@@ -63,6 +64,13 @@ namespace WEBAPP.MVC.Controllers
                     return RedirectToAction(nameof(Index));
             }
             return View(model);
+        }
+
+        public async Task<IActionResult> Detalhes(Guid id)
+        {
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            var result = await _funcaoService.ListarFuncFuncaoAsync(id, accessToken);
+            return View(result);
         }
     }
 }

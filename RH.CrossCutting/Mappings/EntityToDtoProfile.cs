@@ -23,6 +23,14 @@ namespace RH.CrossCutting.Mappings
 
             // Funcoes
             CreateMap<Funcao, FuncaoViewDtoResult>();
+
+            // Endereço
+            CreateMap<Endereco, EnderecoViewResult>();
+            CreateMap<Municipio, MunicipioViewResult>();
+            CreateMap<Uf, UfViewResult>();
+
+            // ContaBancaria
+            CreateMap<ContaBancaria, ContaBancariaViewResult>();
         }
     }
 }

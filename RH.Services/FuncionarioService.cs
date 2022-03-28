@@ -41,7 +41,7 @@ namespace RH.Services
             return dtos.OrderBy(x => x.Registro).ToList();
         }
 
-        public async Task CadastrarFuncionarioAsync(FuncionarioCadastroDto dto)
+        public async Task<FuncionarioViewDtoResult> CadastrarFuncionarioAsync(FuncionarioCadastroDto dto)
         {
             var funcionarioExiste = await _unitOfWork.FuncionarioRepository.ProcurarPorCpfAtivoAsync(dto.Cpf);
 
@@ -58,6 +58,7 @@ namespace RH.Services
             entity.EnderecoId = await CadastrarEnderecoAsync(dto);
             entity.ContaBancariaId = await CadastrarContaBancariaAsync(dto);
             await _unitOfWork.FuncionarioRepository.Incluir(entity);
+            return _mapper.Map<FuncionarioViewDtoResult>(entity);
         }
 
         private async Task<Guid> CadastrarContaBancariaAsync(FuncionarioCadastroDto dto)

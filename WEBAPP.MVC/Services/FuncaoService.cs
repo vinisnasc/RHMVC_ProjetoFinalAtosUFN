@@ -56,9 +56,12 @@ namespace WEBAPP.MVC.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<FuncaoModel>> ListarFuncFuncaoAsync(Guid id, string accessToken)
+        public async Task<IEnumerable<FuncionarioFuncaoModel>> ListarFuncFuncaoAsync(Guid id, string accessToken)
         {
-            throw new NotImplementedException();
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+            string path = BasePath + "/Funcionarios/" + id;
+            var response = await _client.GetAsync(path);
+            return await response.ReadContentAs<List<FuncionarioFuncaoModel>>();
         }
 
         public Task RealizarAumentoAsync(FuncaoModel dto, string accessToken)

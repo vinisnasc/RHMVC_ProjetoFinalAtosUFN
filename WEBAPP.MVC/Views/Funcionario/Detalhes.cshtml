@@ -9,30 +9,30 @@
 <body style="background-color:#037F8C;">
     <div class="container row">
         <div class="card container col-9 text-center" style="background-color:#CEECF2;">
-            <div class="">
+            <div >
                 <h2><i class="fas fa-briefcase"></i>Dados Empresariais</h2>
                 <div class="row">
                     <div class="col">
                         <p>Número de registro: </p>
-                        <input type="text" value=@Model.Registro disabled>
+                        <input type="text" class="text-center" value=@Model.Registro disabled>
                     </div>
                     <div class="col">
                         <p>Função: </p>
-                        <input type="text" value=@Model.Funcao disabled>
+                        <input type="text" class="text-center" value=@Model.Funcao disabled>
                     </div>
                     <div class="col">
                         <p>Departamento: </p>
-                        <input type="text" value=@Model.Departamento disabled>
+                        <input type="text" class="text-center" value=@Model.Departamento disabled>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col">
                         <p>Data de admissão: </p>
-                        <input type="text" value=@Model.Admissao disabled />
+                        <input type="text" class="text-center" value=@Model.Admissao disabled />
                     </div>
                     <div class="col">
                         <p>Data de demissão: </p>
-                        <input type="text" value=@(Model.Demissao < Model.Admissao ? "n/A" : Model.Demissao) disabled />
+                        <input type="text" class="text-center" value=@(Model.Demissao < Model.Admissao ? "n/A" : Model.Demissao) disabled />
                     </div>
                 </div>
             </div>
@@ -42,15 +42,15 @@
                 <div class="row">
                     <div class="col">
                         <p>Código do banco: </p>
-                        <input type="text" value=@Model.Banco disabled>
+                        <input type="text" class="text-center" value=@Model.ContaBancaria.Banco disabled>
                     </div>
                     <div class="col">
                         <p>Agencia: </p>
-                        <input type="text" value=@Model.Agencia disabled>
+                        <input type="text" class="text-center" value=@Model.ContaBancaria.Agencia disabled>
                     </div>
                     <div class="col">
                         <p>Conta corrente: </p>
-                        <input type="text" value=@Model.ContaCorrente disabled>
+                        <input type="text" class="text-center" value=@Model.ContaBancaria.ContaCorrente disabled>
                     </div>
                 </div>
             </div>
@@ -58,18 +58,26 @@
              <div class="" style="padding-bottom:20px;">
                 <h2><i class="fas fa-user"></i>Endereço</h2>
                 <div class="row">
+                    <div class="col-4">
+                        <p>Rua: </p>
+                        <input type="text" class="text-center" value=@Model.Endereco.Rua disabled>
+                    </div>
+                    <div class="col-4">
+                        <p>Numero: </p>
+                        <input type="text" class="text-center" value=@Model.Endereco.Numero disabled>
+                    </div>
+                    <div class="col-4">
+                        <p>Complemento: </p>
+                        <input type="text" class="text-center" value=@Model.Endereco.Complemento disabled>
+                    </div>
                     <div class="col">
                         <p>Cep: </p>
-                        <input type="text" value=@Model.Endereco disabled>
-                    </div>
-                  <!--  <div class="col">
-                        <p>Número: </p>
-                        <input type="text"  disabled>
+                        <input type="text" class="text-center" value=@Model.Endereco.Cep disabled>
                     </div>
                     <div class="col">
-                        <p>Complemento: </p>
-                        <input type="text"  disabled>
-                    </div>-->
+                        <p>Municipio: </p>
+                        <input type="text" class="text-center" value="@(Model.Endereco.Municipio.NomeMunicipio) / @(Model.Endereco.Municipio.Uf.Sigla)" disabled>
+                    </div>   
                 </div>
             </div>
         </div>

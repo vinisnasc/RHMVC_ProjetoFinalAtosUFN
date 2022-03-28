@@ -38,8 +38,8 @@ namespace RH.API.Controllers
             if (dto == null)
                 return BadRequest();
 
-            await _funcionarioService.CadastrarFuncionarioAsync(dto);
-            return Ok();
+            var result = await _funcionarioService.CadastrarFuncionarioAsync(dto);
+            return Ok(result);
         }
 
         [HttpPut]

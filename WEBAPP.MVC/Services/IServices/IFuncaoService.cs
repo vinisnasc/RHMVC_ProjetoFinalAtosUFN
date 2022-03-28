@@ -9,7 +9,7 @@ namespace WEBAPP.MVC.Services.IServices
         Task<FuncaoModel> BuscarPorIdAsync(Guid id, string accessToken);
         Task<FuncaoModel> AtualizarAsync(Guid id, FuncaoModel dto, string accessToken);
         Task AumentarSalarioAsync(Guid id, FuncaoModel dto, string accessToken);
-        Task<IEnumerable<FuncaoModel>> ListarFuncFuncaoAsync(Guid id, string accessToken);
+        Task<IEnumerable<FuncionarioFuncaoModel>> ListarFuncFuncaoAsync(Guid id, string accessToken);
         Task RealizarAumentoAsync(FuncaoModel dto, string accessToken);
     }
 }

@@ -22,7 +22,13 @@ namespace RH.Data.Repository
 
         public override async Task<Funcionario> SelecionarPorId(Guid id)
         {
-            return await _context.Funcionario.Include(x => x.Departamento).Include(x => x.Funcao).Include(x => x.ContaBancaria).Include(x => x.Endereco).FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Funcionario.Include(x => x.Departamento)
+                                             .Include(x => x.Funcao)
+                                             .Include(x => x.ContaBancaria)
+                                             .Include(x => x.Endereco)
+                                             .ThenInclude(x => x.Municipio)
+                                             .ThenInclude(x => x.Uf)
+                                             .FirstAsync(x => x.Id == id);
         }
 
         public async Task<Funcionario> ProcurarPorCpfAtivoAsync(string cpf)

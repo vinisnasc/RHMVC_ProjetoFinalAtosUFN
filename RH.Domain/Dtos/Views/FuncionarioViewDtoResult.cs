@@ -29,11 +29,40 @@ namespace RH.Domain.Dtos.Views
 
         // Endereco
         public Guid EnderecoId { get; set; }
-        public Endereco Endereco { get; set; }
+        public EnderecoViewResult Endereco { get; set; }
 
         // Banco
+        public ContaBancariaViewResult ContaBancaria { get; set; }
+        public Guid ContaBancariaId { get; set; }
+    }
+
+    public class ContaBancariaViewResult
+    {
         public int Banco { get; set; }
         public string Agencia { get; set; }
         public string ContaCorrente { get; set; }
+    }
+
+    public class EnderecoViewResult
+    {
+        public string Cep { get; set; }
+        public string Rua { get; set; }
+        public int Numero { get; set; }
+        public string? Complemento { get; set; }
+        public Guid MunicipioId { get; set; }
+        public MunicipioViewResult Municipio { get; set; }
+    }
+
+    public class MunicipioViewResult
+    {
+        public string NomeMunicipio { get; set; }
+        public Guid UfId { get; set; }
+        public UfViewResult Uf { get; set; }
+    }
+
+    public class UfViewResult
+    {
+        public string Sigla { get; set; }
+        public string Nome { get; set; }
     }
 }

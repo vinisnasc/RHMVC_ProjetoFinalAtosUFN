@@ -30,12 +30,12 @@ namespace WEBAPP.MVC.Services
             return await response.ReadContentAs<FuncionarioModel>();
         }
 
-        public async Task Create(FuncionarioCadastro dto, string accessToken)
+        public async Task<FuncionarioModel> Create(FuncionarioCadastro dto, string accessToken)
         {
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
             var response = await _client.PostAsJson(BasePath, dto);
             if (response.IsSuccessStatusCode)
-                return;
+                return await response.ReadContentAs<FuncionarioModel>();
 
             else
                 throw new Exception("Something went wrong when calling API");

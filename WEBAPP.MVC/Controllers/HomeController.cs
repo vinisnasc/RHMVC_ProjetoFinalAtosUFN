@@ -20,6 +20,11 @@ namespace WEBAPP.MVC.Controllers
             return View();
         }
 
+        public IActionResult Estoque()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

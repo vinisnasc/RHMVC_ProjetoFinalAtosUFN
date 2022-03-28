@@ -72,5 +72,10 @@ namespace WEBAPP.MVC.Controllers
             var result = await _departamentoService.ListarFuncDeptoAsync(id, accessToken);
             return View(result);
         }
+
+        public void Imprimir(IEnumerable<FuncionarioDeptoModel> teste)
+        {
+            var x = teste;
+        }
     }
 }

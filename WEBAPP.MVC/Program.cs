@@ -33,6 +33,10 @@ builder.Services.AddHttpClient<IFuncaoService, FuncaoService>(c =>
 c.BaseAddress = new Uri(builder.Configuration["ServiceUrls:RhApi"]));
 builder.Services.AddHttpClient<IFuncionarioService, FuncionarioService>(c =>
 c.BaseAddress = new Uri(builder.Configuration["ServiceUrls:RhApi"]));
+builder.Services.AddHttpClient<IEpiService, EpiService>(c =>
+c.BaseAddress = new Uri(builder.Configuration["ServiceUrls:EstoqueApi"]));
+builder.Services.AddHttpClient<IFuncionarioEstoqueService, FuncionarioEstoqueService>(c =>
+c.BaseAddress = new Uri(builder.Configuration["ServiceUrls:EstoqueApi"]));
 
 var app = builder.Build();
 if (!app.Environment.IsDevelopment())
