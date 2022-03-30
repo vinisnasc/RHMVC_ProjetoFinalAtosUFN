@@ -32,6 +32,14 @@ namespace RH.API.Controllers
             return Ok(funcionario);
         }
 
+        [AllowAnonymous]
+        [HttpGet("Email/{email}")]
+        public async Task<ActionResult<FuncionarioViewDtoResult>> FindByEmail(string email)
+        {
+            var funcionario = await _funcionarioService.ProcurarPorEmailAsync(email);
+            return Ok(funcionario);
+        }
+
         [HttpPost]
         public async Task<ActionResult> Create(FuncionarioCadastroDto dto)
         {

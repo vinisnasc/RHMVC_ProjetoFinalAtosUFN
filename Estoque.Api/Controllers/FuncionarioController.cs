@@ -31,7 +31,7 @@ namespace Estoque.Api.Controllers
         }
 
         [HttpPost]
-        public ActionResult<FuncionarioDto> Create(FuncionarioDto dto)
+        public ActionResult Create(FuncionarioDto dto)
         {
             if (dto == null)
                 return BadRequest();

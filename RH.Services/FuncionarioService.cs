@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNetCore.Identity;
 using Refit;
 using RH.Domain.Dtos.Input;
 using RH.Domain.Dtos.Responses;
@@ -152,6 +150,12 @@ namespace RH.Services
         private async Task AtribuirFuncao(FuncionarioViewDtoResult dto)
         {
             dto.Funcao = (await _unitOfWork.FuncaoRepository.SelecionarPorId(dto.FuncaoId)).NomeFuncao;
+        }
+
+        public async Task<FuncionarioViewDtoResult> ProcurarPorEmailAsync(string email)
+        {
+            var entity = await _unitOfWork.FuncionarioRepository.BuscarPorEmailAsync(email);
+            return _mapper.Map<FuncionarioViewDtoResult>(entity);
         }
     }
 }

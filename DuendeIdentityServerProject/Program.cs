@@ -4,6 +4,8 @@ using DuendeIdentityServerProject;
 using DuendeIdentityServerProject.DbContext;
 using DuendeIdentityServerProject.Initializer;
 using DuendeIdentityServerProject.Services;
+using DuendeIdentityServerProject.Services.RHApiService;
+using DuendeIdentityServerProject.Services.RHApiService.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,6 +33,8 @@ identityConfig.AddDeveloperSigningCredential();
 // InjDep
 builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
+builder.Services.AddHttpClient<IFuncionarioService, FuncionarioService>(c =>
+c.BaseAddress = new Uri(builder.Configuration["ServiceUrls:RhApi"]));
 
 builder.Services.AddControllersWithViews();
 var app = builder.Build();

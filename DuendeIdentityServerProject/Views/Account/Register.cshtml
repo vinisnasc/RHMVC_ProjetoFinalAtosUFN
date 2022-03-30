@@ -21,28 +21,12 @@
                         <input type="hidden" asp-for="ReturnUrl" />
 
                         <div class="form-group">
-                            <label asp-for="UserName"></label>
-                            <input class="form-control" placeholder="Username" asp-for="UserName" autofocus>
-                        </div>
-                        <div class="form-group">
                             <label asp-for="Email"></label>
                             <input class="form-control" placeholder="email" asp-for="Email" autofocus>
                         </div>
                         <div class="form-group">
-                            <label asp-for="FirstName"></label>
-                            <input class="form-control" placeholder="first name" asp-for="FirstName" autofocus>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="LastName"></label>
-                            <input class="form-control" placeholder="lastname" asp-for="LastName" autofocus>
-                        </div>
-                        <div class="form-group">
                             <label asp-for="Password"></label>
                             <input type="password" class="form-control" placeholder="Password" asp-for="Password" autocomplete="off">
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="RoleName"></label>
-                            <select asp-for="RoleName" class="form-control" asp-items="@(new SelectList(ViewBag.message))"></select>
                         </div>
                         <button class="btn btn-primary" name="button" value="Register">Register</button>
                         <button class="btn btn-secondary" name="button" value="cancel">Cancel</button>

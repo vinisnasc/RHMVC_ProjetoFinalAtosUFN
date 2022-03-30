@@ -1,7 +1,3 @@
-// Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
-
-
 using Duende.IdentityServer;
 using Duende.IdentityServer.Events;
 using Duende.IdentityServer.Extensions;
@@ -10,6 +6,7 @@ using Duende.IdentityServer.Services;
 using Duende.IdentityServer.Stores;
 using DuendeIdentityServerProject.DbContext;
 using DuendeIdentityServerProject.MainModule.Account;
+using DuendeIdentityServerProject.Services.RHApiService.Interfaces;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -19,11 +16,6 @@ using System.Security.Claims;
 
 namespace IdentityServerHost.Quickstart.UI
 {
-    /// <summary>
-    /// This sample controller implements a typical login/logout/provision workflow for local and external accounts.
-    /// The login service encapsulates the interactions with the user data store. This data store is in-memory only and cannot be used for production!
-    /// The interaction service provides a way for the UI to communicate with identityserver for validation and context retrieval
-    /// </summary>
     [SecurityHeaders]
     [AllowAnonymous]
     public class AccountController : Controller
@@ -31,6 +23,7 @@ namespace IdentityServerHost.Quickstart.UI
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IFuncionarioService _funcionarioService; 
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IClientStore _clientStore;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
@@ -45,7 +38,8 @@ namespace IdentityServerHost.Quickstart.UI
             IEventService events,
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            IFuncionarioService funcionarioService)
         {
             _roleManager = roleManager;
             _signInManager = signInManager;
@@ -55,11 +49,9 @@ namespace IdentityServerHost.Quickstart.UI
             _schemeProvider = schemeProvider;
             _identityProviderStore = identityProviderStore;
             _events = events;
+            _funcionarioService = funcionarioService;
         }
 
-        /// <summary>
-        /// Entry point into the login workflow
-        /// </summary>
         [HttpGet]
         public async Task<IActionResult> Login(string returnUrl)
         {
@@ -224,49 +216,49 @@ namespace IdentityServerHost.Quickstart.UI
         {
             ViewData["ReturnUrl"] = returnUrl;
 
+            var funcionario = await _funcionarioService.FindByEmail(model.Email);
 
-
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && funcionario != null)
             {
 
                 var user = new AppUser
                 {
-                    UserName = model.UserName,
-                    Email = model.Email,
+                    UserName = funcionario.Email,
+                    Email = funcionario.Email,
                     EmailConfirmed = true,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName
+                    FirstName = funcionario.Nome.Split(" ")[0],
+                    LastName = (funcionario.Nome.Split(" ").ToList().Count > 1)? funcionario.Nome.Split(" ")[1] : ""
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    if (!_roleManager.RoleExistsAsync(model.RoleName).GetAwaiter().GetResult())
+                    if (!_roleManager.RoleExistsAsync(funcionario.Departamento).GetAwaiter().GetResult())
                     {
                         var userRole = new IdentityRole
                         {
-                            Name = model.RoleName,
-                            NormalizedName = model.RoleName,
+                            Name = funcionario.Departamento,
+                            NormalizedName = funcionario.Departamento,
 
                         };
                         await _roleManager.CreateAsync(userRole);
                     }
 
-                    await _userManager.AddToRoleAsync(user, model.RoleName);
+                    await _userManager.AddToRoleAsync(user, funcionario.Departamento);
 
                     await _userManager.AddClaimsAsync(user, new Claim[]{
-                    new Claim(JwtClaimTypes.Name, model.UserName),
-                    new Claim(JwtClaimTypes.Email, model.Email),
-                    new Claim(JwtClaimTypes.FamilyName, model.FirstName),
-                    new Claim(JwtClaimTypes.GivenName, model.LastName),
-                    new Claim(JwtClaimTypes.WebSite, $"http://{model.UserName}.com"),
+                    new Claim(JwtClaimTypes.Name, user.UserName),
+                    new Claim(JwtClaimTypes.Email, user.Email),
+                    new Claim(JwtClaimTypes.FamilyName, user.FirstName),
+                    new Claim(JwtClaimTypes.GivenName, user.LastName),
+                    new Claim(JwtClaimTypes.WebSite, $"http://{user.UserName}.com"),
                     new Claim(JwtClaimTypes.Role,"User") });
 
                     var context = await _interaction.GetAuthorizationContextAsync(model.ReturnUrl);
-                    var loginresult = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, false, lockoutOnFailure: true);
+                    var loginresult = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, false, lockoutOnFailure: true);
                     if (loginresult.Succeeded)
                     {
-                        var checkuser = await _userManager.FindByNameAsync(model.UserName);
+                        var checkuser = await _userManager.FindByNameAsync(user.UserName);
                         await _events.RaiseAsync(new UserLoginSuccessEvent(checkuser.UserName, checkuser.Id, checkuser.UserName, clientId: context?.Client.ClientId));
 
                         if (context != null)
@@ -282,7 +274,6 @@ namespace IdentityServerHost.Quickstart.UI
                             return Redirect(model.ReturnUrl);
                         }
 
-                        // request for a local page
                         if (Url.IsLocalUrl(model.ReturnUrl))
                         {
                             return Redirect(model.ReturnUrl);
@@ -293,14 +284,11 @@ namespace IdentityServerHost.Quickstart.UI
                         }
                         else
                         {
-                            // user might have clicked on a malicious link - should be logged
                             throw new Exception("invalid return URL");
                         }
                     }
-
                 }
             }
-
             // If we got this far, something failed, redisplay form
             return View(model);
         }
@@ -316,12 +304,10 @@ namespace IdentityServerHost.Quickstart.UI
             {
                 var local = context.IdP == IdentityServerConstants.LocalIdentityProvider;
 
-                // this is meant to short circuit the UI and only trigger the one external IdP
                 var vm = new RegisterViewModel
                 {
                     EnableLocalLogin = local,
                     ReturnUrl = returnUrl,
-                    UserName = context?.LoginHint,
                 };
 
                 if (!local)
@@ -362,7 +348,7 @@ namespace IdentityServerHost.Quickstart.UI
                 AllowRememberLogin = AccountOptions.AllowRememberLogin,
                 EnableLocalLogin = allowLocal && AccountOptions.AllowLocalLogin,
                 ReturnUrl = returnUrl,
-                UserName = context?.LoginHint,
+                //UserName = context?.LoginHint,
                 ExternalProviders = providers.ToArray()
             };
         }

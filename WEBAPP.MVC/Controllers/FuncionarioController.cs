@@ -8,7 +8,7 @@ using WEBAPP.MVC.Services.IServices;
 
 namespace WEBAPP.MVC.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "RECURSOS HUMANOS / DEPARTAMENTO PESSOAL, Admin")]
     public class FuncionarioController : Controller
     {
         private readonly IFuncionarioService _funcionarioService;
