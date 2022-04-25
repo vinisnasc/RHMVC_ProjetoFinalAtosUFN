@@ -7,6 +7,7 @@ using RH.Domain.Entities;
 using RH.Domain.Exceptions;
 using RH.Domain.Interfaces.Repository;
 using RH.Domain.Interfaces.Services;
+using RH.Domain.Menssagem;
 
 namespace RH.Services
 {
@@ -39,7 +40,7 @@ namespace RH.Services
             return dtos.OrderBy(x => x.Registro).ToList();
         }
 
-        public async Task<FuncionarioViewDtoResult> CadastrarFuncionarioAsync(FuncionarioCadastroDto dto)
+        public async Task<AdmissaoMessage> CadastrarFuncionarioAsync(FuncionarioCadastroDto dto)
         {
             var funcionarioExiste = await _unitOfWork.FuncionarioRepository.ProcurarPorCpfAtivoAsync(dto.Cpf);
 
@@ -55,8 +56,13 @@ namespace RH.Services
             entity.Registro = await _unitOfWork.FuncionarioRepository.AtribuirNumeroDeRegistroAsync();
             entity.EnderecoId = await CadastrarEnderecoAsync(dto);
             entity.ContaBancariaId = await CadastrarContaBancariaAsync(dto);
+            var mensagem = _mapper.Map<AdmissaoMessage>(entity);
             await _unitOfWork.FuncionarioRepository.Incluir(entity);
-            return _mapper.Map<FuncionarioViewDtoResult>(entity);
+            mensagem.Id = (await _unitOfWork.FuncionarioRepository.ProcurarPorCpfAtivoAsync(entity.CPF)).Id;
+            mensagem.Departamento = (await _unitOfWork.DepartamentoRepository.SelecionarPorId(entity.DepartamentoId)).ToString();
+            mensagem.Funcao = (await _unitOfWork.FuncaoRepository.SelecionarPorId(entity.FuncaoId)).NomeFuncao;
+            mensagem.AssuntoEmail = "Admissao";
+            return mensagem;
         }
 
         private async Task<Guid> CadastrarContaBancariaAsync(FuncionarioCadastroDto dto)

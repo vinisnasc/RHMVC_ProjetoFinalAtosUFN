@@ -14,13 +14,13 @@ namespace Estoque.Api.Controllers
 
         public EpiController(IEpiService epiService)
         {
-            _epiService = epiService;
+            _epiService = epiService ?? throw new ArgumentNullException(nameof(epiService)); 
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<EpiDto>> FindAll()
+        public async Task<ActionResult<IEnumerable<EpiDto>>> FindAllAsync()
         {
-            var epis = _epiService.BuscarTodos();
+            var epis = await _epiService.BuscarTodos();
             return Ok(epis);
         }
 
@@ -32,16 +32,16 @@ namespace Estoque.Api.Controllers
             return Ok(departamento);
         }*/
 
-        /*
         [HttpPost]
-        public async Task<ActionResult> Create(EpiCadastrarDto dto)
+        public async Task<ActionResult> CreateAsync(EpiCadastrarDto dto)
         {
             if (dto == null)
                 return BadRequest();
 
-            var result = await _epiService.CadastrarAsync(dto);
+            var result = await _epiService.Cadastrar(dto);
             return Ok(result);
-        }*/
+        }
+
         /*
         [Authorize(Roles = "Admin")]
         [HttpPut]

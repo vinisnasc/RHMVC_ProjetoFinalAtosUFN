@@ -1,16 +1,15 @@
-﻿using MailKit.Net.Smtp;
+﻿using Email.Domain.Configs;
 using MimeKit;
+using MailKit.Net.Smtp;
 using MimeKit.IO;
-using RH.Domain.Entities;
-using RH.Domain.Entities.Email;
-using RH.Domain.Interfaces.Services;
 
-namespace RH.Services
+namespace Email.API.Services
 {
-    public class EmailSender : IEmailSender
+    public class EmailService : IEmailService
     {
         private readonly EmailConfiguration _emailConfig;
-        public EmailSender(EmailConfiguration emailConfig)
+
+        public EmailService(EmailConfiguration emailConfig)
         {
             _emailConfig = emailConfig;
         }

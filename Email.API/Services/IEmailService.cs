@@ -1,8 +1,8 @@
-﻿using RH.Domain.Entities.Email;
+﻿using Email.Domain.Configs;
 
-namespace RH.Domain.Interfaces.Services
+namespace Email.API.Services
 {
-    public interface IEmailSender
+    public interface IEmailService
     {
         void SendEmail(Message message);
         Task SendEmailAsync(Message message);

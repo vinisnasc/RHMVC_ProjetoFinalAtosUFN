@@ -15,7 +15,7 @@ namespace WEBAPP.MVC.Controllers
         }
 
         //Gerenciamento
-        public async Task<IActionResult> IndexAsync()
+        public async Task<IActionResult> Index()
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
             var result = await _epiService.BuscarTodos(accessToken);

@@ -1,18 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RH.Data.Contexto;
 using RH.Data.Repository;
-using RH.Domain.Entities;
 using RH.Domain.Interfaces.Repository;
 using RH.Domain.Interfaces.Services;
+using RH.Domain.Interfaces.Services.RabbitMQ;
 using RH.Services;
+using RH.Services.RabbitMQSender;
 
 namespace RH.CrossCutting
 {
     public class DependencyContainer
     {
-        public static void RegisterServices(IServiceCollection services, string connectionString, IConfiguration configuration)
+        public static void RegisterServices(IServiceCollection services, string connectionString)
         {
             // Context
             services.AddDbContext<RhContext>(options =>
@@ -25,11 +25,6 @@ namespace RH.CrossCutting
             services.AddScoped<IDepartamentoService, DepartamentoService>();
             services.AddScoped<IFuncaoService, FuncaoService>();
             services.AddScoped<IPagamentosService, PagamentosService>();
-            
-            // Email
-            var emailConfig = configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
-            services.AddSingleton(emailConfig);
-            services.AddScoped<IEmailSender, EmailSender>();
 
             // Repositorios
             services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
@@ -44,6 +39,9 @@ namespace RH.CrossCutting
 
             // UnitOfWork
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            // RabbitMQ
+            services.AddSingleton<IRabbitMQSender, RabbitMQSender>();
         }
     }
 }

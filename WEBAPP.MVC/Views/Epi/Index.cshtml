@@ -9,9 +9,9 @@
     <br />
     <br />
     <div class="row pb-2">
-        <input type="button" class="btn-primary" value="epi"/>
-        <button onclick="location.href='@Url.Action("Estoque","Home")'">Uniformes</button>
-        <button onclick="location.href='@Url.Action("Estoque","Home")'">Almoxarifado</button>
+        <input type="button" class="btn-primary" value="Epis"/>
+        <button onclick="location.href='@Url.Action("Index","Uniforme")'">Uniformes</button>
+        <button onclick="location.href='@Url.Action("Index","Almoxarifado")'">Almoxarifado</button>
     </div>
     <div class="container p-4 border" style="background-color:#CEECF2;">
         <div class="row pb-2">
@@ -55,7 +55,15 @@
                             @item.Valor
                         </td>
                         <td>
-                            @item.Quantidade
+                            @if (User.Claims.Any(x => x.Value == "Admin"))
+                            {
+                                <input asp-for="@item.Quantidade" class="form-control"/>
+                                <span asp-validation-for="@item.Quantidade" class="text-danger"></span>
+                            }
+                            else
+                            {
+                                @item.Quantidade
+                            }
                         </td>
                         <td>
                             <a asp-action="Atualizar" class="btn btn-success" asp-route-id="@item.Id">

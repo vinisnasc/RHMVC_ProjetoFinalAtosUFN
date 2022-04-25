@@ -9,8 +9,8 @@ namespace Estoque.Domain.Interfaces.Services
 {
     public interface IFuncionarioService
     {
-        FuncionarioDto CadastrarFuncionario(FuncionarioDto dto);
-        List<FuncionarioDto> BuscarTodos();
-        FuncionarioDto FindById(Guid id);
+        Task<FuncionarioDto> CadastrarFuncionario(FuncionarioDto dto);
+        Task<List<FuncionarioDto>> BuscarTodos();
+        Task<FuncionarioDto> FindById(Guid id);
     }
 }

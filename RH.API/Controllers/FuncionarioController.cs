@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RH.Domain.Dtos.Input;
 using RH.Domain.Dtos.Views;
 using RH.Domain.Interfaces.Services;
+using RH.Domain.Interfaces.Services.RabbitMQ;
 
 namespace RH.API.Controllers
 {
@@ -12,10 +12,12 @@ namespace RH.API.Controllers
     public class FuncionarioController : ControllerBase
     {
         private readonly IFuncionarioService _funcionarioService;
+        private IRabbitMQSender _rabbitMQSender;
 
-        public FuncionarioController(IFuncionarioService funcionarioService)
+        public FuncionarioController(IFuncionarioService funcionarioService, IRabbitMQSender rabbitMQSender)
         {
-            _funcionarioService = funcionarioService;
+            _funcionarioService = funcionarioService ?? throw new ArgumentNullException(nameof(funcionarioService));
+            _rabbitMQSender = rabbitMQSender ?? throw new ArgumentNullException(nameof(rabbitMQSender));
         }
 
         [HttpGet]
@@ -47,6 +49,7 @@ namespace RH.API.Controllers
                 return BadRequest();
 
             var result = await _funcionarioService.CadastrarFuncionarioAsync(dto);
+            _rabbitMQSender.SendMessage(result);
             return Ok(result);
         }
 

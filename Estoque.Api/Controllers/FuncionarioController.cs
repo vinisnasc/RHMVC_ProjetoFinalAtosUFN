@@ -13,30 +13,30 @@ namespace Estoque.Api.Controllers
 
         public FuncionarioController(IFuncionarioService funcionarioService)
         {
-            _funcionarioService = funcionarioService;
+            _funcionarioService = funcionarioService ?? throw new ArgumentNullException(nameof(funcionarioService));
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<FuncionarioDto>> FindAll()
+        public async Task<ActionResult<IEnumerable<FuncionarioDto>>> FindAllAsync()
         {
-            var funcs = _funcionarioService.BuscarTodos();
+            var funcs = await _funcionarioService.BuscarTodos();
             return Ok(funcs);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<FuncionarioDto> FindById(Guid id)
+        public async Task<ActionResult<FuncionarioDto>> FindByIdAsync(Guid id)
         {
-            var funcionario = _funcionarioService.FindById(id);
+            var funcionario = await _funcionarioService.FindById(id);
             return Ok(funcionario);
         }
 
         [HttpPost]
-        public ActionResult Create(FuncionarioDto dto)
+        public async Task<ActionResult> CreateAsync(FuncionarioDto dto)
         {
             if (dto == null)
                 return BadRequest();
 
-            var result = _funcionarioService.CadastrarFuncionario(dto);
+            var result = await _funcionarioService.CadastrarFuncionario(dto);
             return Ok(result);
         }
     }

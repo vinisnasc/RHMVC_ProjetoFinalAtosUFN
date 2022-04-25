@@ -1,5 +1,6 @@
 using AutoMapper;
 using Estoque.CrossCutting;
+using Estoque.CrossCutting.Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using RH.CrossCutting.Mappings;
@@ -8,22 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 // Config Identity
-builder.Services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
-{
-    options.Authority = "https://localhost:7248/";
-    options.TokenValidationParameters = new()
-    {
-        ValidateAudience = false
-    };
-});
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("ApiScope", policy =>
-    {
-        policy.RequireAuthenticatedUser();
-        policy.RequireClaim("scope", "Erp");
-    });
-});
+IdentityImplementation.SecurityImplementation(builder.Services);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -61,10 +47,6 @@ builder.Services.AddSwaggerGen(c =>
 DependencyContainer.RegisterServices(builder.Services,
                                      builder.Configuration.GetConnectionString("EstoqueContext"),
                                      builder.Configuration);
-
-
-/*builder.Services.AddDbContext<EstoqueContext>(options =>
-    options.UseSqlServer("EstoqueContext"));*/
 
 //Configuracao do AutoMapper
 MapperConfiguration config = new(config =>

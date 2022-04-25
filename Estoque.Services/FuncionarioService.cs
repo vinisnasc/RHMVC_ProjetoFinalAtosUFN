@@ -8,32 +8,32 @@ namespace Estoque.Services
 {
     public class FuncionarioService : IFuncionarioService
     {
-        private readonly IFuncionarioRepository _funcionarioRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public FuncionarioService(IFuncionarioRepository funcionarioRepository, IMapper mapper)
+        public FuncionarioService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _funcionarioRepository = funcionarioRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
-        public List<FuncionarioDto> BuscarTodos()
+        public async Task<List<FuncionarioDto>> BuscarTodos()
         {
-            var entities = _funcionarioRepository.SelecionarTudo();
+            var entities = await _unitOfWork.FuncionarioRepository.SelecionarTudo();
             var dtos = _mapper.Map<List<FuncionarioDto>>(entities);
             return dtos;
         }
 
-        public FuncionarioDto CadastrarFuncionario(FuncionarioDto dto)
+        public async Task<FuncionarioDto> CadastrarFuncionario(FuncionarioDto dto)
         {
             var entity = _mapper.Map<Funcionario>(dto);
-            entity = _funcionarioRepository.Incluir(entity);
+            entity = await _unitOfWork.FuncionarioRepository.Incluir(entity);
             return _mapper.Map<FuncionarioDto>(entity);
         }
 
-        public FuncionarioDto FindById(Guid id)
+        public async Task<FuncionarioDto> FindById(Guid id)
         {
-            var entity = _funcionarioRepository.SelecionarPorId(id);
+            var entity = await _unitOfWork.FuncionarioRepository.SelecionarPorId(id);
             return _mapper.Map<FuncionarioDto>(entity);
         }
     }

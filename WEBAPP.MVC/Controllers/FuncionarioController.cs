@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using WEBAPP.MVC.Models;
 using WEBAPP.MVC.Models.InputModel;
 using WEBAPP.MVC.Services.IServices;
 
@@ -54,7 +53,7 @@ namespace WEBAPP.MVC.Controllers
             ViewBag.Deptos = new SelectList(setores, "Id", "NomeDepartamento");
             ViewBag.Funcs = new SelectList(funcoes, "Id", "NomeFuncao");
 
-            return View(new FuncionarioCadastro { Admissao = DateTime.Now, Nome = "Lara", Sexo = Models.Enum.Genero.Feminino, Agencia = "423", ContaCorrente = "5455", Banco = 45, Cep = "03579240", RG = "377603908", FotoPerfil = "http://ilvideogioco.files.wordpress.com/2010/12/jan2011_cover_b_frontd.jpg", Cpf = "40931577828" });
+            return View(new FuncionarioCadastro { Admissao = DateTime.Now, Email="kakatinosa@hotmail.com", Nome = "Karina", Sexo = Models.Enum.Genero.Feminino, Agencia = "423", ContaCorrente = "5455", Banco = 45, Cep = "03579240", RG = "377603908", FotoPerfil = "http://ilvideogioco.files.wordpress.com/2010/12/jan2011_cover_b_frontd.jpg", Cpf = "40931577828" });
         }
 
         [HttpPost]

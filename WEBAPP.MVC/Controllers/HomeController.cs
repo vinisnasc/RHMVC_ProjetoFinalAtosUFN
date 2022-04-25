@@ -20,6 +20,7 @@ namespace WEBAPP.MVC.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult Estoque()
         {
             return View();

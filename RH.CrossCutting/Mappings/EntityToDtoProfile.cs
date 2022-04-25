@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using RH.Domain.Dtos.Views;
 using RH.Domain.Entities;
+using RH.Domain.Menssagem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,8 @@ namespace RH.CrossCutting.Mappings
             CreateMap<Funcionario, FuncionarioViewDtoResult>();
             CreateMap<Funcionario, FuncionarioDepartamentoView>();
             CreateMap<Funcionario, FuncionarioFuncaoView>();
+            CreateMap<Funcionario, AdmissaoMessage>().ForMember(dest => dest.Funcao, opt => opt.MapFrom(src => src.Funcao.NomeFuncao))
+                                                 .ForMember(dest => dest.Departamento, opt => opt.MapFrom(src => src.Departamento));
 
             // Departamentos
             CreateMap<Departamento, DepartamentoViewDtoResult>();

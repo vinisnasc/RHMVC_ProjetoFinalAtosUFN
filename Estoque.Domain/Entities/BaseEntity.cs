@@ -4,7 +4,6 @@ namespace Estoque.Domain.Entities
 {
     public class BaseEntity
     {
-        [Key]
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = new Guid();
     }
 }

@@ -8,28 +8,28 @@ namespace Estoque.Services
 {
     public class EpiService : IEpiService
     {
-        private readonly IEpiRepository _epiRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public EpiService(IEpiRepository epiRepository, IMapper mapper)
+        public EpiService(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _epiRepository = epiRepository;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
-        public List<EpiDto> BuscarTodos()
+        public async Task<List<EpiDto>> BuscarTodos()
         {
-            var entities = _epiRepository.SelecionarTudo();
+            var entities = await _unitOfWork.EpiRepository.SelecionarTudo();
             var dtos = _mapper.Map<List<EpiDto>>(entities);
             return dtos.ToList();
         }
 
-        /*
-        public async Task<EpiDto> CadastrarAsync(EpiCadastrarDto dto)
+        public async Task<EpiDto> Cadastrar(EpiCadastrarDto dto)
         {
             var entity = _mapper.Map<Epi>(dto);
-            await _epiRepository.Incluir(entity);
+            entity.Id = Guid.NewGuid();
+            await _unitOfWork.EpiRepository.Incluir(entity);
             return _mapper.Map<EpiDto>(entity);
-        }*/
+        }
     }
 }

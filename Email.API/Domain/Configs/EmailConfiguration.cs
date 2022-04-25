@@ -1,4 +1,4 @@
-﻿namespace RH.Domain.Entities
+﻿namespace Email.Domain.Configs
 {
     public class EmailConfiguration
     {

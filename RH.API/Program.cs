@@ -60,8 +60,7 @@ builder.Services.AddSwaggerGen(c =>
 
 // Configuracao da injecao de dependencia
 DependencyContainer.RegisterServices(builder.Services,
-                                     builder.Configuration.GetConnectionString("RHContext"),
-                                     builder.Configuration);
+                                     builder.Configuration.GetConnectionString("RHContext"));
 
 builder.Services.AddDbContext<RhContext>(options =>
     options.UseSqlServer("RHContext"));

@@ -17,12 +17,12 @@ namespace Estoque.Data.Repository
             cn = new("Server=DESKTOP-R9JFMSC\\SQLEXPRESS;Database=MVCEstoque;Trusted_Connection=True;MultipleActiveResultSets=true");
         }
 
-        public SqlConnection AbrirConexao()
+        public async Task<SqlConnection> AbrirConexaoAsync()
         {
             try
             {
                 Conexao();
-                cn.Open();
+                await cn.OpenAsync();
                 return cn;
             }
             catch (Exception e)
@@ -31,11 +31,11 @@ namespace Estoque.Data.Repository
             }
         }
 
-        public void FecharConexao()
+        public async Task FecharConexaoAsync()
         {
             try
             {
-                cn.Close();
+                await cn.CloseAsync();
             }
             catch (Exception ex)
             {
@@ -44,12 +44,44 @@ namespace Estoque.Data.Repository
         }
         #endregion
 
-        public Task Alterar(T entity)
+        public virtual async Task<T> Alterar(T entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string json = JsonConvert.SerializeObject(entity);
+                var values = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+                string query = "";
+
+                foreach (var objeto in values)
+                {
+                    if (values.Last().Equals(objeto))
+                    {
+                        query += objeto.Key + " = ";
+                        query += "'" + objeto.Value + "'";
+                    }
+                    else
+                    {
+                        query += objeto.Key + " = ";
+                        query += "'" + objeto.Value + "', ";
+                    }
+                }
+
+                await AbrirConexaoAsync();
+                SqlCommand command = new($"update {TableName} set {query} where Id like '{entity.Id}'", cn);
+                await command.ExecuteNonQueryAsync();
+                return entity;
+            }
+            catch(Exception e)
+            {
+                throw new Exception();
+            }
+            finally
+            {
+                await FecharConexaoAsync();
+            }
         }
 
-        public T Incluir(T entity)
+        public async Task<T> Incluir(T entity)
         {
             try
             {
@@ -72,9 +104,9 @@ namespace Estoque.Data.Repository
                     }
                 }
 
-                SqlConnection cn = AbrirConexao();
+                SqlConnection cn = await AbrirConexaoAsync();
                 SqlCommand command = new($"insert into {TableName}({atributos}) values({valores})", cn);
-                command.ExecuteNonQuery();      
+                await command.ExecuteNonQueryAsync();      
 
                 return JsonConvert.DeserializeObject<T>(json);
             }
@@ -84,17 +116,17 @@ namespace Estoque.Data.Repository
             }
             finally
             {
-                FecharConexao();
+                await FecharConexaoAsync();
             }
         }
 
-        public T SelecionarPorId(Guid id)
+        public async Task<T> SelecionarPorId(Guid id)
         {
             try
             {
-                SqlConnection cn = AbrirConexao();
+                SqlConnection cn = await AbrirConexaoAsync();
                 SqlCommand command = new($"select * from {TableName} where id like '{id}'", cn);
-                SqlDataReader rdr = command.ExecuteReader();
+                SqlDataReader rdr = await command.ExecuteReaderAsync();
                 string json = "";
 
                 while (rdr.Read())
@@ -111,17 +143,17 @@ namespace Estoque.Data.Repository
             }
             finally
             {
-                FecharConexao();
+                await FecharConexaoAsync();
             }
         }
 
-        public List<T> SelecionarTudo()
+        public async Task<List<T>> SelecionarTudo()
         {
             try
             {
-                SqlConnection cn = AbrirConexao();
+                SqlConnection cn = await AbrirConexaoAsync();
                 SqlCommand command = new($"select * from {TableName}", cn);
-                SqlDataReader rdr = command.ExecuteReader();
+                SqlDataReader rdr = await command.ExecuteReaderAsync();
                 List<T> lista = new();
 
                 while (rdr.Read())
@@ -143,7 +175,7 @@ namespace Estoque.Data.Repository
             }
             finally
             {
-                FecharConexao();
+                await FecharConexaoAsync();
             }
         }
 

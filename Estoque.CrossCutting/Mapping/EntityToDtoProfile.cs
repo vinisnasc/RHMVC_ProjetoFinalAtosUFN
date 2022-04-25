@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Estoque.Domain;
 using Estoque.Domain.Dto;
+using Estoque.Domain.Dto.Messages;
 
 namespace RH.CrossCutting.Mappings
 {
@@ -10,6 +11,12 @@ namespace RH.CrossCutting.Mappings
         {
             // Epi
             CreateMap<Epi, EpiDto>();
+
+            // Uniforme
+            CreateMap<Uniforme, UniformeDto>();
+
+            // Almoxarifado
+            CreateMap<Almoxarifado, AlmoxarifadoDto>();
 
             // Funcionario
             CreateMap<Funcionario, FuncionarioDto>();
