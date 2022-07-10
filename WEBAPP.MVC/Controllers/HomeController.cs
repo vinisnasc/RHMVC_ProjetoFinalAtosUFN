@@ -15,12 +15,13 @@ namespace WEBAPP.MVC.Controllers
             _logger = logger;
         }
 
+        [Route("Index")]
+        [Route("Pagina-Inicial")]
         public IActionResult Index()
         {
             return View();
         }
 
-        [Authorize]
         public IActionResult Estoque()
         {
             return View();

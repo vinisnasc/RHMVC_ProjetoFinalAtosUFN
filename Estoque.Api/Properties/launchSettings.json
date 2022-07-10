@@ -1,23 +1,23 @@
-﻿{
+{
   "$schema": "https://json.schemastore.org/launchsettings.json",
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:24731",
-      "sslPort": 44336
+      "applicationUrl": "http://localhost:60867/",
+      "sslPort": 44314
     }
   },
   "profiles": {
     "Estoque.Api": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7110;http://localhost:5110",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      },
+      "applicationUrl": "https://localhost:7110;http://localhost:5110",
+      "dotnetRunMessages": true
     },
     "IIS Express": {
       "commandName": "IISExpress",

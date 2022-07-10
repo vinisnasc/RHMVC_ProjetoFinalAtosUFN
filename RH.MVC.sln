@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WEBAPP.MVC", "WEBAPP.MVC\WE
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BackEnd", "BackEnd", "{C80DEB83-F683-41B0-8419-42504BF91D58}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityServer", "IdentityServer", "{BC5CB8A7-406A-4FE1-93E2-8D8EFDB7CC5A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SSO", "SSO", "{BC5CB8A7-406A-4FE1-93E2-8D8EFDB7CC5A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DuendeIdentityServerProject", "DuendeIdentityServerProject\DuendeIdentityServerProject.csproj", "{12E82CB0-AC79-409F-A629-726446DE767E}"
 EndProject
@@ -43,7 +43,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Mensageria", "Mensageria", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EmailService", "EmailService", "{848B2BA4-D461-48F0-B070-7C41B869D69C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Email.API", "Email.API\Email.API.csproj", "{CE0F4B57-86DA-4797-9ACF-0DBC303FCF0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Email.API", "Email.API\Email.API.csproj", "{CE0F4B57-86DA-4797-9ACF-0DBC303FCF0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

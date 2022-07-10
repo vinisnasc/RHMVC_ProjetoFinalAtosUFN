@@ -26,6 +26,8 @@ namespace WEBAPP.MVC.Controllers
             _funcaoService = funcaoService;
         }
 
+        [Route("catalogoDeFuncionarios")]
+        [Route("Index")] // Sobrecarga de rota
         public async Task<IActionResult> Index()
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");

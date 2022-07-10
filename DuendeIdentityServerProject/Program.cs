@@ -1,4 +1,3 @@
-using Duende.IdentityServer.AspNetIdentity;
 using Duende.IdentityServer.Services;
 using DuendeIdentityServerProject;
 using DuendeIdentityServerProject.DbContext;
