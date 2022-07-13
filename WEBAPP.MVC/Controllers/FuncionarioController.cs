@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Text;
 using WEBAPP.MVC.Models.InputModel;
 using WEBAPP.MVC.Services.IServices;
 
 namespace WEBAPP.MVC.Controllers
 {
+  //  [Route("Funcionarios")]
     [Authorize(Roles = "RECURSOS HUMANOS / DEPARTAMENTO PESSOAL, Admin")]
     public class FuncionarioController : Controller
     {
@@ -26,8 +28,8 @@ namespace WEBAPP.MVC.Controllers
             _funcaoService = funcaoService;
         }
 
-        [Route("catalogoDeFuncionarios")]
-        [Route("Index")] // Sobrecarga de rota
+      //  [Route("catalogoDeFuncionarios")]
+        //[Route("Index")] // Sobrecarga de rota
         public async Task<IActionResult> Index()
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
@@ -35,6 +37,25 @@ namespace WEBAPP.MVC.Controllers
             return View(result);
         }
 
+
+        
+        public async Task<IActionResult> GerarDoc()
+        {
+            var accessToken = await HttpContext.GetTokenAsync("access_token");
+            var result = await _funcionarioService.BuscarTodosAtivos(accessToken);
+            string dados = "";
+
+            foreach(var dado in result)
+            {
+                dados += (dado.Nome + ", " + dado.Cpf + "\n");
+            }
+
+            var arrayDados = Encoding.ASCII.GetBytes(dados);
+            var filename = "Funcionarios.txt";
+            return File(arrayDados, System.Net.Mime.MediaTypeNames.Application.Octet, filename);
+        }
+
+        
         public async Task<IActionResult> Cadastrar()
         {
             ViewBag.Sex = new SelectList(new object[]
@@ -90,6 +111,7 @@ namespace WEBAPP.MVC.Controllers
             return View(model);
         }
 
+    //    [Route("Detalhes/{id:Guid}")]
         public async Task<IActionResult> Detalhes(Guid id)
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
@@ -97,6 +119,7 @@ namespace WEBAPP.MVC.Controllers
             return View(result);
         }
 
+      //  [Route("Atualizar/{id}")]
         public async Task<IActionResult> Atualizar(Guid id)
         {
             ViewBag.Sex = new SelectList(new object[]
