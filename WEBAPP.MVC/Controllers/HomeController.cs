@@ -37,7 +37,7 @@ namespace WEBAPP.MVC.Controllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Login()
+        public IActionResult Login()
         {
             return RedirectToAction(nameof(Index));
         }

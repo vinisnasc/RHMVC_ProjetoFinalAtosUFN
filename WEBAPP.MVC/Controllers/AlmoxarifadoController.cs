@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WEBAPP.MVC.Models.EstoqueModels.InputModels;
 using WEBAPP.MVC.Services.IServices;
 
 namespace WEBAPP.MVC.Controllers
 {
+    [Authorize]
     public class AlmoxarifadoController : Controller
     {
         private readonly IAlmoxarifadoService _almoxarifadoService;

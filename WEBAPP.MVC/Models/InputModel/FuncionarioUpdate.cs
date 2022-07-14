@@ -7,11 +7,11 @@ namespace WEBAPP.MVC.Models.InputModel
     {
         public Guid Id { get; set; }
 
-        [Required(ErrorMessage = "Necessário informar o nome do funcionário")]
+        [Required]
         public string Nome { get; set; }
 
-        [Display(Name = "Nome social")]
-        public string? NomeSocial { get; set; }
+        [Display(Name = "Nome Social")]
+        public string NomeSocial { get; set; }
 
         [Required]
         [DataType(DataType.EmailAddress)]

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Text;
 using WEBAPP.MVC.Models.InputModel;
 using WEBAPP.MVC.Services.IServices;
+using WEBAPP.MVC.Utils;
 
 namespace WEBAPP.MVC.Controllers
 {
@@ -43,16 +44,19 @@ namespace WEBAPP.MVC.Controllers
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
             var result = await _funcionarioService.BuscarTodosAtivos(accessToken);
-            string dados = "";
+            
+            /* string dados = "";
 
-            foreach(var dado in result)
-            {
-                dados += (dado.Nome + ", " + dado.Cpf + "\n");
-            }
+             foreach(var dado in result)
+             {
+                 dados += (dado.Nome + ", " + dado.Cpf + "\n");
+             }
 
-            var arrayDados = Encoding.ASCII.GetBytes(dados);
-            var filename = "Funcionarios.txt";
-            return File(arrayDados, System.Net.Mime.MediaTypeNames.Application.Octet, filename);
+             var arrayDados = Encoding.ASCII.GetBytes(dados);
+             var filename = "Funcionarios.txt";
+             return File(arrayDados, System.Net.Mime.MediaTypeNames.Application.Octet, filename);*/
+
+            return File(Exportacao.Export(result));
         }
 
         
