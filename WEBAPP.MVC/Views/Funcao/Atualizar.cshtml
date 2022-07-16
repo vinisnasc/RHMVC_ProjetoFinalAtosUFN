@@ -1,14 +1,7 @@
 ﻿@model WEBAPP.MVC.Models.FuncaoModel
 
-<!DOCTYPE html>
-<html>
-<head>
-    <style>
-    </style>
-</head>
-<body>
-    <form asp-action="Atualizar">
-        <input asp-for="Id" hidden />
+<form asp-action="Atualizar">
+    <input asp-for="Id" hidden />
     <br />
     <div class="container border p-3" style="background-color:#CEECF2;">
         <h1 class="text-primary">Atualizar função: @Model.NomeFuncao</h1>
@@ -29,6 +22,6 @@
             <div class="col-5">
                 <input type="submit" value="Atualizar" class="btn btn-success form-control" />
             </div>
-    </form>
-</body>
-</html>
+        </div>
+    </div>
+</form>

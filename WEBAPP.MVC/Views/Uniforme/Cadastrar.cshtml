@@ -1,65 +1,58 @@
 ﻿@model WEBAPP.MVC.Models.EstoqueModels.InputModels.UniformeCadastroInputModel
 
-<!DOCTYPE html>
-<html>
-<head>
-</head>
-<body>
-    <form asp-action="Cadastrar">
-        <br />
-        <div class="container border p-3" style="background-color:#CEECF2;">
-            <h1 class="text-primary">Cadastrar novo epi</h1>
-            <hr />
-            <div class="row">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="col-2">
-                    <label asp-for="Nome" class="control-label pt-2" style="font-size=20px;"></label>
-                </div>
-                <div class="col-10 pb-3">
-                    <input asp-for="Nome" class="form-control" />
-                    <span asp-validation-for="Nome" class="text-danger"></span>
-                </div>
+<form asp-action="Cadastrar">
+    <br />
+    <div class="container border p-3" style="background-color:#CEECF2;">
+        <h1 class="text-primary">Cadastrar novo epi</h1>
+        <hr />
+        <div class="row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-2">
+                <label asp-for="Nome" class="control-label pt-2" style="font-size=20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
 
-                <div class="col-2">
-                    <label asp-for="TempoDeUso" class="control-label pt-2" style="font-size=20px;"></label>
-                </div>
-                <div class="col-10 pb-3">
-                    <input asp-for="TempoDeUso" class="form-control" />
-                    <span asp-validation-for="TempoDeUso" class="text-danger"></span>
-                </div>
+            <div class="col-2">
+                <label asp-for="TempoDeUso" class="control-label pt-2" style="font-size=20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="TempoDeUso" class="form-control" />
+                <span asp-validation-for="TempoDeUso" class="text-danger"></span>
+            </div>
 
-                <div class="col-2">
-                    <label asp-for="MinimoEmEstoque" class="control-label pt-2" style="font-size=20px;"></label>
-                </div>
-                <div class="col-10 pb-3">
-                    <input asp-for="MinimoEmEstoque" class="form-control" />
-                    <span asp-validation-for="MinimoEmEstoque" class="text-danger"></span>
-                </div>
+            <div class="col-2">
+                <label asp-for="MinimoEmEstoque" class="control-label pt-2" style="font-size=20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="MinimoEmEstoque" class="form-control" />
+                <span asp-validation-for="MinimoEmEstoque" class="text-danger"></span>
+            </div>
 
-                <div class="col-2">
-                    <label asp-for="MaximoEmEstoque" class="control-label pt-2" style="font-size=20px;"></label>
-                </div>
-                <div class="col-10 pb-3">
-                    <input asp-for="MaximoEmEstoque" class="form-control" />
-                    <span asp-validation-for="MaximoEmEstoque" class="text-danger"></span>
-                </div>
+            <div class="col-2">
+                <label asp-for="MaximoEmEstoque" class="control-label pt-2" style="font-size=20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="MaximoEmEstoque" class="form-control" />
+                <span asp-validation-for="MaximoEmEstoque" class="text-danger"></span>
+            </div>
 
-                <div class="col-2">
-                    <label asp-for="Valor" class="control-label pt-2" style="font-size=20px;"></label>
-                </div>
-                <div class="col-10 pb-3">
-                    <input asp-for="Valor" class="form-control" />
-                    <span asp-validation-for="Valor" class="text-danger"></span>
-                </div>
+            <div class="col-2">
+                <label asp-for="Valor" class="control-label pt-2" style="font-size=20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="Valor" class="form-control" />
+                <span asp-validation-for="Valor" class="text-danger"></span>
+            </div>
 
-                <div class="col-5 offset-2">
-                    <a asp-action="Index" class="btn-primary btn form-control">Voltar</a>
-                </div>
-                <div class="col-5">
-                    <input type="submit" value="Cadastrar" class="btn btn-success form-control" />
-                </div>
+            <div class="col-5 offset-2">
+                <a asp-action="Index" class="btn-primary btn form-control">Voltar</a>
+            </div>
+            <div class="col-5">
+                <input type="submit" value="Cadastrar" class="btn btn-success form-control" />
             </div>
         </div>
-    </form>
-</body>
-</html>
+    </div>
+</form>

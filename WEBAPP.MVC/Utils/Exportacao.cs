@@ -34,7 +34,7 @@ namespace WEBAPP.MVC.Utils
                 planilha.Cells.Style.Hidden = true; // Oculta o conteudo da celula*/
 
                 // Criando uma tabela
-                planilha.Tables.Add(planilha.Cells["A1:D4"], "novatabela");
+                planilha.Tables.Add(planilha.Cells["A1:z500"], "novatabela");
                 planilha.Tables[0].ShowFilter = false;
                 planilha.Tables[0].TableStyle = OfficeOpenXml.Table.TableStyles.Dark7;
                 planilha.Tables[0].TableBorderStyle.BorderAround(ExcelBorderStyle.Dotted);
@@ -56,7 +56,7 @@ namespace WEBAPP.MVC.Utils
                     var valueDado = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
 
                     int linha = i + 2;
-                    int col = 0;
+                    int col = 1;
 
                     foreach (var valor in valueDado)
                     {
@@ -65,6 +65,7 @@ namespace WEBAPP.MVC.Utils
                     }
                 }
 
+                ep.Dispose();
                 return ep;
             }
         }

@@ -1,114 +1,107 @@
 ﻿@model WEBAPP.MVC.Models.FuncionarioModel
 
-<!DOCTYPE html>
-<html>
-<head>
-</head>
-<body>
-    <form asp-action="Atualizar">
-        <input asp-for="Id" hidden />
-        <br />
-        <div class="container border p-3" style="background-color:#CEECF2;">
-            <h1 class="text-primary">Atualizar dados</h1>
-            <hr />
-            <div class="row">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="col-2">
-                    <label asp-for="Nome" class="control-label pt-2" style="font-size=20px;"></label>
-                </div>
-                <div class="col-10 pb-3">
-                    <input asp-for="Nome" class="form-control" />
-                    <span asp-validation-for="Nome" class="text-danger"></span>
-                </div>
+<form asp-action="Atualizar">
+    <input asp-for="Id" hidden />
+    <br />
+    <div class="container border p-3" style="background-color:#CEECF2;">
+        <h1 class="text-primary">Atualizar dados</h1>
+        <hr />
+        <div class="row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-2">
+                <label asp-for="Nome" class="control-label pt-2" style="font-size=20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
 
-                <div class="col-2">
-                    <label asp-for="NomeSocial" class="control-label pt-2" style="font-size=20px;"></label>
-                </div>
-                <div class="col-10 pb-3">
-                    <input asp-for="NomeSocial" class="form-control" />
-                    <span asp-validation-for="NomeSocial" class="text-danger"></span>
-                </div>
+            <div class="col-2">
+                <label asp-for="NomeSocial" class="control-label pt-2" style="font-size=20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="NomeSocial" class="form-control" />
+                <span asp-validation-for="NomeSocial" class="text-danger"></span>
+            </div>
 
-                <div class="col-2">
-                    <label asp-for="Email" class="control-label pt-2" style="font-size=20px;"></label>
-                </div>
-                <div class="col-10 pb-3">
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
+            <div class="col-2">
+                <label asp-for="Email" class="control-label pt-2" style="font-size=20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
 
-               <div class="col-2">
-                    <label asp-for="Sexo" class="control-label pt-2" style="font-size=20px;"></label>
-                </div>
-                <div class="col-10 pb-3">
-                    <select asp-for="Sexo" asp-items="ViewBag.Sex" class="form-control"></select>
-                    <span asp-validation-for="Sexo" class="text-danger"></span>
-                </div>
+            <div class="col-2">
+                <label asp-for="Sexo" class="control-label pt-2" style="font-size=20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <select asp-for="Sexo" asp-items="ViewBag.Sex" class="form-control"></select>
+                <span asp-validation-for="Sexo" class="text-danger"></span>
+            </div>
 
-                <div class="col-2">
-                    <label asp-for="FotoPerfil" class="control-label pt-2" style="font-size=20px;"></label>
-                </div>
-                <div class="col-10 pb-3">
-                    <input asp-for="FotoPerfil" class="form-control" />
-                    <span asp-validation-for="FotoPerfil" class="text-danger"></span>
-                </div>
+            <div class="col-2">
+                <label asp-for="FotoPerfil" class="control-label pt-2" style="font-size=20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="FotoPerfil" class="form-control" />
+                <span asp-validation-for="FotoPerfil" class="text-danger"></span>
+            </div>
 
-                <div class="col-2">
-                    <label asp-for="DataNascimento" class="control-label pt-2" style="font-size=20px;"></label>
-                </div>
-                <div class="col-10 pb-3">
-                    <input asp-for="DataNascimento" class="form-control" />
-                    <span asp-validation-for="DataNascimento" class="text-danger"></span>
-                </div>
+            <div class="col-2">
+                <label asp-for="DataNascimento" class="control-label pt-2" style="font-size=20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="DataNascimento" class="form-control" />
+                <span asp-validation-for="DataNascimento" class="text-danger"></span>
+            </div>
 
-                <div class="col-2">
-                    <label asp-for="Cpf" class="control-label pt-2" style="font-size=20px;"></label>
-                </div>
-                <div class="col-10 pb-3">
-                    <input asp-for="Cpf" class="form-control" />
-                    <span asp-validation-for="Cpf" class="text-danger"></span>
-                </div>
+            <div class="col-2">
+                <label asp-for="Cpf" class="control-label pt-2" style="font-size=20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="Cpf" class="form-control" />
+                <span asp-validation-for="Cpf" class="text-danger"></span>
+            </div>
 
-                <div class="col-2">
-                    <label asp-for="RG" class="control-label pt-2" style="font-size=20px;"></label>
-                </div>
-                <div class="col-10 pb-3">
-                    <input asp-for="RG" class="form-control" />
-                    <span asp-validation-for="RG" class="text-danger"></span>
-                </div>
+            <div class="col-2">
+                <label asp-for="RG" class="control-label pt-2" style="font-size=20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="RG" class="form-control" />
+                <span asp-validation-for="RG" class="text-danger"></span>
+            </div>
 
-                <div class="col-2">
-                    <label asp-for="DepartamentoId" class="control-label pt-2" style="font-size=20px;"></label>
-                </div>
-                <div class="col-10 pb-3">
-                    <select asp-for="DepartamentoId" asp-items="ViewBag.Deptos" class="form-control"></select>
-                    <span asp-validation-for="DepartamentoId" class="text-danger"></span>
-                </div>
+            <div class="col-2">
+                <label asp-for="DepartamentoId" class="control-label pt-2" style="font-size=20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <select asp-for="DepartamentoId" asp-items="ViewBag.Deptos" class="form-control"></select>
+                <span asp-validation-for="DepartamentoId" class="text-danger"></span>
+            </div>
 
-                <div class="col-2">
-                    <label asp-for="FuncaoId" class="control-label pt-2" style="font-size=20px;"></label>
-                </div>
-                <div class="col-10 pb-3">
-                    <select asp-for="FuncaoId" asp-items="ViewBag.Funcs" class="form-control"></select>
-                    <span asp-validation-for="FuncaoId" class="text-danger"></span>
-                </div>
+            <div class="col-2">
+                <label asp-for="FuncaoId" class="control-label pt-2" style="font-size=20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <select asp-for="FuncaoId" asp-items="ViewBag.Funcs" class="form-control"></select>
+                <span asp-validation-for="FuncaoId" class="text-danger"></span>
+            </div>
 
-                <div class="col-2">
-                    <label asp-for="Admissao" class="control-label pt-2" style="font-size=20px;"></label>
-                </div>
-                <div class="col-10 pb-3">
-                    <input asp-for="Admissao" class="form-control" />
-                    <span asp-validation-for="Admissao" class="text-danger"></span>
-                </div>
+            <div class="col-2">
+                <label asp-for="Admissao" class="control-label pt-2" style="font-size=20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="Admissao" class="form-control" />
+                <span asp-validation-for="Admissao" class="text-danger"></span>
+            </div>
 
-                <div class="col-5 offset-2">
-                    <a asp-action="Index" class="btn-primary btn form-control">Voltar</a>
-                </div>
-                <div class="col-5">
-                    <input type="submit" value="Atualizar" class="btn btn-success form-control" />
-                </div>
+            <div class="col-5 offset-2">
+                <a asp-action="Index" class="btn-primary btn form-control">Voltar</a>
+            </div>
+            <div class="col-5">
+                <input type="submit" value="Atualizar" class="btn btn-success form-control" />
             </div>
         </div>
-    </form>
-</body>
-</html>
+    </div>
+</form>

@@ -1,54 +1,47 @@
 ﻿@using WEBAPP.MVC.Models
 @model IEnumerable<FuncionarioFuncaoModel>
 
-<!DOCTYPE html>
-<html>
-<head>
-</head>
-<body>
-    <br />
-    <br />
-    <div class="container p-4 border" style="background-color:#CEECF2;">
-        <div class="row pb-2">
-            <div class="col">
-                <h1 class="text-primary">Função @Model.ToArray()[0].Funcao.NomeFuncao</h1>
-            </div>
+<br />
+<br />
+<div class="container p-4 border" style="background-color:#CEECF2;">
+    <div class="row pb-2">
+        <div class="col">
+            <h1 class="text-primary">Função @Model.ToArray()[0].Funcao.NomeFuncao</h1>
+        </div>
 
-        </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        Registro
-                    </th>
-                    <th>
-                        Nome
-                    </th>
-                    <th>
-                        Departamento
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @item.Registro
-                        </td>
-                        <td>
-                            @item.Nome 
-                        </td>
-                        <td>
-                            @item.Departamento
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-        <div class="col-5 offset-2">
-            <a asp-action="Index" class="btn-primary btn form-control">Voltar</a>
-        </div>
     </div>
-</body>
-</html>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Registro
+                </th>
+                <th>
+                    Nome
+                </th>
+                <th>
+                    Departamento
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Registro
+                    </td>
+                    <td>
+                        @item.Nome
+                    </td>
+                    <td>
+                        @item.Departamento
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="col-5 offset-2">
+        <a asp-action="Index" class="btn-primary btn form-control">Voltar</a>
+    </div>
+</div>
