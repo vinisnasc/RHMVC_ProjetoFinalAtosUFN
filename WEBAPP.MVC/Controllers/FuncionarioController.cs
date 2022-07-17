@@ -51,28 +51,10 @@ namespace WEBAPP.MVC.Controllers
             {
                 nova.Add((object)obj);
             }
-            var array = (Exportacao.Export(nova));
+           
+            var stream = Exportacao.Export(nova);
 
-            var stream = new MemoryStream();
-
-            using (var package = new ExcelPackage(stream))
-            {
-
-            }
-                // array.Dispose();
-                var nov = array.GetAsByteArray();
-            /* string dados = "";
-
-             foreach(var dado in result)
-             {
-                 dados += (dado.Nome + ", " + dado.Cpf + "\n");
-             }
-            
-             var arrayDados = Encoding.ASCII.GetBytes(dados);
-             var filename = "Funcionarios.txt";
-             return File(arrayDados, System.Net.Mime.MediaTypeNames.Application.Octet, filename);*/
-            
-            return File(nov, System.Net.Mime.MediaTypeNames.Application.Octet, "filename.xlsx");
+            return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "arquivoNome");
         }
 
         

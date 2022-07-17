@@ -1,41 +1,23 @@
 ﻿@model WEBAPP.MVC.Models.DepartamentoModel
 
-<!DOCTYPE html>
-<html>
-<head>
-</head>
-<body>
-    <form asp-action="Cadastrar">
-        <br />
-        <div class="container border p-3">
-            <h1 class="text-primary">Cadastrar novo departamento</h1>
-            <hr />
-            <div class="row">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="col-2">
-                    <label asp-for="NomeDepartamento" class="control-label pt-2" style="font-size=20px;"></label>
-                </div>
-                <div class="col-10 pb-3">
-                    <input asp-for="NomeDepartamento" class="form-control" />
-                    <span asp-validation-for="NomeDepartamento" class="text-danger"></span>
-                </div>
+<form asp-action="Cadastrar">
+    <br />
+    <div class="container border p-3">
+        <h1 class="text-primary">Cadastrar novo departamento</h1>
+        <hr />
+        <div class="row">
 
-                <div class="col-2">
-                    <label asp-for="SubDepartamento" class="control-label pt-2" style="font-size=20px;"></label>
-                </div>
-                <div class="col-10 pb-3">
-                    <input asp-for="SubDepartamento" class="form-control" />
-                    <span asp-validation-for="SubDepartamento" class="text-danger"></span>
-                </div>
+            <partial name="_DadosFormulario" />
 
-                <div class="col-5 offset-2">
-                    <a asp-action="Index" class="btn-primary btn form-control">Voltar</a>
-                </div>
-                <div class="col-5">
-                    <input type="submit" value="Cadastrar" class="btn btn-success form-control" />
-                </div>
+            <div class="col-5">
+                <input type="submit" value="Cadastrar" class="btn btn-success form-control" />
             </div>
         </div>
-    </form>
-</body>
-</html>
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

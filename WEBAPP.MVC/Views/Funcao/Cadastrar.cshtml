@@ -3,7 +3,7 @@
 <form asp-action="Cadastrar">
     <br />
     <div class="container border p-3" style="background-color:#CEECF2;">
-        <h1 class="text-primary">Cadastrar novo funcionario</h1>
+        <h1 class="text-primary">Cadastrar nova função</h1>
         <hr />
         <div class="row">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -32,3 +32,9 @@
         </div>
     </div>
 </form>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -6,9 +6,11 @@ namespace WEBAPP.MVC.Utils
 {
     public static class Exportacao
     {
-        public static ExcelPackage Export(List<object> lista)
+        public static MemoryStream Export(List<object> lista)
         {
-            using (ExcelPackage ep = new())
+            var stream = new MemoryStream();
+
+            using (var ep = new ExcelPackage(stream))
             {
                 // Propriedades do arquivo
                 ep.Workbook.Properties.Author = "Vinicius";
@@ -53,21 +55,22 @@ namespace WEBAPP.MVC.Utils
                 for(int i = 0; i < lista.Count; i++)
                 { 
                     var jsonDado = JsonConvert.SerializeObject(lista[i]);
-                    var valueDado = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
+                    var valueDado = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonDado);
 
                     int linha = i + 2;
                     int col = 1;
 
                     foreach (var valor in valueDado)
                     {
-                        planilha.Cells[linha, col].Value = valueDado.Values;
+                        planilha.Cells[linha, col].Value = valor.Value;
                         col++;
                     }
                 }
 
-                ep.Dispose();
-                return ep;
+                ep.Save();
             }
+            stream.Position = 0;
+            return stream;
         }
 
     }
