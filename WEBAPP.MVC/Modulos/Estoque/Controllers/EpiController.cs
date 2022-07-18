@@ -4,23 +4,24 @@ using Microsoft.AspNetCore.Mvc;
 using WEBAPP.MVC.Models.EstoqueModels.InputModels;
 using WEBAPP.MVC.Services.IServices;
 
-namespace WEBAPP.MVC.Controllers
+namespace WEBAPP.MVC.Modulos.Estoque.Controllers
 {
+    [Area("Estoque")]
     [Authorize]
-    public class UniformeController : Controller
+    public class EpiController : Controller
     {
-        private readonly IUniformeService _uniformeService;
+        private readonly IEpiService _epiService;
 
-        public UniformeController(IUniformeService uniformeService)
+        public EpiController(IEpiService epiService)
         {
-            _uniformeService = uniformeService;
+            _epiService = epiService;
         }
 
         //Gerenciamento
         public async Task<IActionResult> Index()
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
-            var result = await _uniformeService.BuscarTodos(accessToken);
+            var result = await _epiService.BuscarTodos(accessToken);
             return View(result);
         }
 
@@ -30,15 +31,21 @@ namespace WEBAPP.MVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Cadastrar(UniformeCadastroInputModel model)
+        public async Task<IActionResult> Cadastrar(EpiCadastroInputModel model)
         {
             if (ModelState.IsValid)
             {
                 var accessToken = await HttpContext.GetTokenAsync("access_token");
-                await _uniformeService.CadastrarAsync(model, accessToken);
+                await _epiService.CadastrarAsync(model, accessToken);
                 return RedirectToAction(nameof(Index));
             }
             return View(model);
+        }
+
+        // Retiradas
+        public async Task<IActionResult> IndexFuncionariosAsync()
+        {
+            return Ok();
         }
     }
 }

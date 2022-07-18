@@ -1,26 +1,27 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WEBAPP.MVC.Models;
-using WEBAPP.MVC.Services.IServices;
+using WEBAPP.MVC.Modulos.RecursosHumanos.Models;
+using WEBAPP.MVC.Modulos.RecursosHumanos.Services.Interfaces;
 
-namespace WEBAPP.MVC.Controllers
+namespace WEBAPP.MVC.Modulos.RecursosHumanos.Controllers
 {
     [Authorize]
-    public class DepartamentoController : Controller
+    [Area("RecursosHumanos")]
+    public class FuncaoController : Controller
     {
-        private readonly IDepartamentoService _departamentoService;
+        private readonly IFuncaoService _funcaoService;
 
-        public DepartamentoController(IDepartamentoService departamentoService)
+        public FuncaoController(IFuncaoService funcaoService)
         {
-            _departamentoService = departamentoService;
+            _funcaoService = funcaoService;
         }
 
         public async Task<IActionResult> Index()
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
-            var deptos = await _departamentoService.BuscarTodos(accessToken);
-            return View(deptos);
+            var result = await _funcaoService.BuscarTodos(accessToken);
+            return View(result);
         }
 
         public IActionResult Cadastrar()
@@ -29,12 +30,12 @@ namespace WEBAPP.MVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Cadastrar(DepartamentoModel model)
+        public async Task<IActionResult> Cadastrar(FuncaoModel model)
         {
             if (ModelState.IsValid)
             {
                 var accessToken = await HttpContext.GetTokenAsync("access_token");
-                var response = await _departamentoService.CadastrarAsync(model, accessToken);
+                var response = await _funcaoService.CadastrarAsync(model, accessToken);
                 if (response != null)
                     return RedirectToAction(nameof(Index));
             }
@@ -44,22 +45,22 @@ namespace WEBAPP.MVC.Controllers
         public async Task<IActionResult> Atualizar(Guid id)
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
-            var depto = await _departamentoService.BuscarPorIdAsync(id, accessToken);
-            if (depto != null)
-                return View(depto);
+            var funcao = await _funcaoService.BuscarPorIdAsync(id, accessToken);
+            if (funcao != null)
+                return View(funcao);
 
             else
                 return NotFound();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Atualizar(DepartamentoModel model, Guid id)
+        public async Task<IActionResult> Atualizar(FuncaoModel model, Guid id)
         {
             if (ModelState.IsValid)
             {
-                var accessToken = await HttpContext.GetTokenAsync("access_token");
                 model.Id = id;
-                var response = await _departamentoService.AtualizarAsync(id, model, accessToken);
+                var accessToken = await HttpContext.GetTokenAsync("access_token");
+                var response = await _funcaoService.AtualizarAsync(id, model, accessToken);
                 if (response != null)
                     return RedirectToAction(nameof(Index));
             }
@@ -69,13 +70,8 @@ namespace WEBAPP.MVC.Controllers
         public async Task<IActionResult> Detalhes(Guid id)
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
-            var result = await _departamentoService.ListarFuncDeptoAsync(id, accessToken);
+            var result = await _funcaoService.ListarFuncFuncaoAsync(id, accessToken);
             return View(result);
-        }
-
-        public void Imprimir(IEnumerable<FuncionarioDeptoModel> teste)
-        {
-            var x = teste;
         }
     }
 }

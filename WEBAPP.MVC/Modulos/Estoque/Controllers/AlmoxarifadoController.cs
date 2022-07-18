@@ -4,8 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using WEBAPP.MVC.Models.EstoqueModels.InputModels;
 using WEBAPP.MVC.Services.IServices;
 
-namespace WEBAPP.MVC.Controllers
+namespace WEBAPP.MVC.Modulos.Estoque.Controllers
 {
+    [Area("Estoque")]
     [Authorize]
     public class AlmoxarifadoController : Controller
     {

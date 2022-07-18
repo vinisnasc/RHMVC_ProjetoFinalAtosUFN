@@ -1,6 +1,7 @@
 ﻿using WEBAPP.MVC.Models;
+using WEBAPP.MVC.Modulos.RecursosHumanos.Models;
 
-namespace WEBAPP.MVC.Services.IServices
+namespace WEBAPP.MVC.Modulos.RecursosHumanos.Services.Interfaces
 {
     public interface IFuncaoService
     {

@@ -1,10 +1,9 @@
-﻿@model WEBAPP.MVC.Models.FuncaoModel
+﻿@model WEBAPP.MVC.Modulos.RecursosHumanos.Models.FuncaoModel
 
-<form asp-action="Atualizar">
-    <input asp-for="Id" hidden />
+<form asp-action="Cadastrar">
     <br />
     <div class="container border p-3" style="background-color:#CEECF2;">
-        <h1 class="text-primary">Atualizar função: @Model.NomeFuncao</h1>
+        <h1 class="text-primary">Cadastrar nova função</h1>
         <hr />
         <div class="row">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -16,12 +15,26 @@
                 <span asp-validation-for="NomeFuncao" class="text-danger"></span>
             </div>
 
+            <div class="col-2">
+                <label asp-for="Salario" class="control-label pt-2" style="font-size=20px;"></label>
+            </div>
+            <div class="col-10 pb-3">
+                <input asp-for="Salario" class="form-control" />
+                <span asp-validation-for="Salario" class="text-danger"></span>
+            </div>
+
             <div class="col-5 offset-2">
                 <a asp-action="Index" class="btn-primary btn form-control">Voltar</a>
             </div>
             <div class="col-5">
-                <input type="submit" value="Atualizar" class="btn btn-success form-control" />
+                <input type="submit" value="Cadastrar" class="btn btn-success form-control" />
             </div>
         </div>
     </div>
 </form>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -2,17 +2,16 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using OfficeOpenXml;
-using System.Text;
-using WEBAPP.MVC.Models;
 using WEBAPP.MVC.Models.InputModel;
+using WEBAPP.MVC.Modulos.RecursosHumanos.Services.Interfaces;
 using WEBAPP.MVC.Services.IServices;
 using WEBAPP.MVC.Utils;
 
-namespace WEBAPP.MVC.Controllers
+namespace WEBAPP.MVC.Modulos.RecursosHumanos.Controllers
 {
-  //  [Route("Funcionarios")]
+    //  [Route("Funcionarios")]
     [Authorize(Roles = "RECURSOS HUMANOS / DEPARTAMENTO PESSOAL, Admin")]
+    [Area("RecursosHumanos")]
     public class FuncionarioController : Controller
     {
         private readonly IFuncionarioService _funcionarioService;

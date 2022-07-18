@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WEBAPP.MVC.Models
+namespace WEBAPP.MVC.Modulos.RecursosHumanos.Models
 {
     public class FuncaoModel
     {
