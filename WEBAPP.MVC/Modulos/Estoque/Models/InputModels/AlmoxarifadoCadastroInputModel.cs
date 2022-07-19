@@ -1,4 +1,4 @@
-﻿namespace WEBAPP.MVC.Models.EstoqueModels.InputModels
+﻿namespace WEBAPP.MVC.Modulos.Estoque.Models.InputModels
 {
     public class AlmoxarifadoCadastroInputModel
     {

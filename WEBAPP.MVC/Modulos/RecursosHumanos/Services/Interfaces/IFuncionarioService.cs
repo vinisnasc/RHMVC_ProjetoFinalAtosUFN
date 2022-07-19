@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using WEBAPP.MVC.Models;
-using WEBAPP.MVC.Models.InputModel;
+﻿using WEBAPP.MVC.Modulos.RecursosHumanos.Models;
+using WEBAPP.MVC.Modulos.RecursosHumanos.Models.InputModel;
 
-namespace WEBAPP.MVC.Services.IServices
+namespace WEBAPP.MVC.Modulos.RecursosHumanos.Services.Interfaces
 {
     public interface IFuncionarioService
     {

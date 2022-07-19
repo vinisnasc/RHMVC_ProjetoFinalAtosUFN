@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using WEBAPP.MVC.Models.InputModel;
+using WEBAPP.MVC.Modulos.Estoque.Services.Interfaces;
+using WEBAPP.MVC.Modulos.RecursosHumanos.Models.InputModel;
 using WEBAPP.MVC.Modulos.RecursosHumanos.Services.Interfaces;
-using WEBAPP.MVC.Services.IServices;
 using WEBAPP.MVC.Utils;
 
 namespace WEBAPP.MVC.Modulos.RecursosHumanos.Controllers

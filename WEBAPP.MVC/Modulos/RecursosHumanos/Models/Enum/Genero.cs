@@ -1,4 +1,4 @@
-﻿namespace WEBAPP.MVC.Models.Enum
+﻿namespace WEBAPP.MVC.Modulos.RecursosHumanos.Models.Enum
 {
     public enum Genero
     {

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WEBAPP.MVC.Models.EstoqueModels.InputModels;
-using WEBAPP.MVC.Services.IServices;
+using WEBAPP.MVC.Modulos.Estoque.Models.InputModels;
+using WEBAPP.MVC.Modulos.Estoque.Services.Interfaces;
 
 namespace WEBAPP.MVC.Modulos.Estoque.Controllers
 {

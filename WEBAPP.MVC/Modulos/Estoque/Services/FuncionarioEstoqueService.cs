@@ -1,10 +1,10 @@
 ﻿using System.Net.Http.Headers;
-using WEBAPP.MVC.Models;
-using WEBAPP.MVC.Models.InputModel;
-using WEBAPP.MVC.Services.IServices;
+using WEBAPP.MVC.Modulos.Estoque.Services.Interfaces;
+using WEBAPP.MVC.Modulos.RecursosHumanos.Models;
+using WEBAPP.MVC.Modulos.RecursosHumanos.Models.InputModel;
 using WEBAPP.MVC.Utils;
 
-namespace WEBAPP.MVC.Services
+namespace WEBAPP.MVC.Modulos.Estoque.Services
 {
     public class FuncionarioEstoqueService : IFuncionarioEstoqueService
     {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using WEBAPP.MVC.Models.Enum;
+using WEBAPP.MVC.Modulos.RecursosHumanos.Models.Enum;
 
-namespace WEBAPP.MVC.Models.InputModel
+namespace WEBAPP.MVC.Modulos.RecursosHumanos.Models.InputModel
 {
     public class FuncionarioUpdate
     {

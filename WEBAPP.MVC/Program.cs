@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc.Razor;
+using WEBAPP.MVC.Modulos.Estoque.Services;
+using WEBAPP.MVC.Modulos.Estoque.Services.Interfaces;
 using WEBAPP.MVC.Modulos.RecursosHumanos.Services;
 using WEBAPP.MVC.Modulos.RecursosHumanos.Services.Interfaces;
-using WEBAPP.MVC.Services;
-using WEBAPP.MVC.Services.IServices;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
@@ -63,7 +63,7 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 

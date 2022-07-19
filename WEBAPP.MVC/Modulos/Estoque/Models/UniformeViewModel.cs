@@ -1,4 +1,4 @@
-﻿namespace WEBAPP.MVC.Models.EstoqueModels
+﻿namespace WEBAPP.MVC.Modulos.Estoque.Models
 {
     public class UniformeViewModel
     {

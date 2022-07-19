@@ -1,6 +1,4 @@
-﻿using WEBAPP.MVC.Modulos.RecursosHumanos.Models;
-
-namespace WEBAPP.MVC.Models
+﻿namespace WEBAPP.MVC.Modulos.RecursosHumanos.Models
 {
     public class FuncionarioFuncaoModel
     {

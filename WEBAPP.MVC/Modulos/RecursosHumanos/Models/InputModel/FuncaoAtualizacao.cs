@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WEBAPP.MVC.Modulos.RecursosHumanos.Models.ImputModels
+namespace WEBAPP.MVC.Modulos.RecursosHumanos.Models.InputModel
 {
     public class FuncaoAtualizacao
     {

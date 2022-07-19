@@ -1,10 +1,10 @@
 ﻿using System.Net.Http.Headers;
-using WEBAPP.MVC.Models.EstoqueModels;
-using WEBAPP.MVC.Models.EstoqueModels.InputModels;
-using WEBAPP.MVC.Services.IServices;
+using WEBAPP.MVC.Modulos.Estoque.Models;
+using WEBAPP.MVC.Modulos.Estoque.Models.InputModels;
+using WEBAPP.MVC.Modulos.Estoque.Services.Interfaces;
 using WEBAPP.MVC.Utils;
 
-namespace WEBAPP.MVC.Services
+namespace WEBAPP.MVC.Modulos.Estoque.Services
 {
     public class AlmoxarifadoService : IAlmoxarifadoService
     {

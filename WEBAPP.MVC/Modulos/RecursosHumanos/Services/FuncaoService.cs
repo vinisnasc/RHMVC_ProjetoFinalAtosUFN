@@ -1,5 +1,4 @@
 ﻿using System.Net.Http.Headers;
-using WEBAPP.MVC.Models;
 using WEBAPP.MVC.Modulos.RecursosHumanos.Models;
 using WEBAPP.MVC.Modulos.RecursosHumanos.Services.Interfaces;
 using WEBAPP.MVC.Utils;

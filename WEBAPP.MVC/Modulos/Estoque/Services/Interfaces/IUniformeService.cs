@@ -1,7 +1,7 @@
-﻿using WEBAPP.MVC.Models.EstoqueModels;
-using WEBAPP.MVC.Models.EstoqueModels.InputModels;
+﻿using WEBAPP.MVC.Modulos.Estoque.Models;
+using WEBAPP.MVC.Modulos.Estoque.Models.InputModels;
 
-namespace WEBAPP.MVC.Services.IServices
+namespace WEBAPP.MVC.Modulos.Estoque.Services.Interfaces
 {
     public interface IUniformeService
     {

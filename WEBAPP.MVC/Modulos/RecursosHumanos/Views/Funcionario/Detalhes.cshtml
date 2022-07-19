@@ -1,4 +1,4 @@
-﻿@model WEBAPP.MVC.Models.FuncionarioModel
+﻿@model WEBAPP.MVC.Modulos.RecursosHumanos.Models.FuncionarioModel
 
 <div class="container row">
     <div class="card container col-9 text-center" style="background-color:#CEECF2;">
@@ -80,7 +80,7 @@
             <img class="rounded-circle" src="@Model.FotoPerfil" alt="Image" height=200 width=200 />
             <h2 class="">
                 @(Model.NomeSocial ?? Model.Nome)
-                @if (Model.Sexo == WEBAPP.MVC.Models.Enum.Genero.Masculino)
+                @if (Model.Sexo == WEBAPP.MVC.Modulos.RecursosHumanos.Models.Enum.Genero.Masculino)
                 {
                     <i class="fas fas-user"></i>
                 }

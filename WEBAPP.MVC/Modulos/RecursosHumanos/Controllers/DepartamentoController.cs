@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using WEBAPP.MVC.Models;
-using WEBAPP.MVC.Services.IServices;
+using WEBAPP.MVC.Modulos.RecursosHumanos.Models;
+using WEBAPP.MVC.Modulos.RecursosHumanos.Services.Interfaces;
 
 namespace WEBAPP.MVC.Modulos.RecursosHumanos.Controllers
 {

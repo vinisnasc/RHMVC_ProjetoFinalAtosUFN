@@ -1,6 +1,6 @@
-﻿using WEBAPP.MVC.Models;
+﻿using WEBAPP.MVC.Modulos.RecursosHumanos.Models;
 
-namespace WEBAPP.MVC.Services.IServices
+namespace WEBAPP.MVC.Modulos.Estoque.Services.Interfaces
 {
     public interface IFuncionarioEstoqueService
     {
