@@ -1,4 +1,5 @@
-﻿using WEBAPP.MVC.Modulos.Estoque.Services;
+﻿using KissLog;
+using WEBAPP.MVC.Modulos.Estoque.Services;
 using WEBAPP.MVC.Modulos.Estoque.Services.Interfaces;
 using WEBAPP.MVC.Modulos.RecursosHumanos.Services;
 using WEBAPP.MVC.Modulos.RecursosHumanos.Services.Interfaces;
@@ -23,6 +24,12 @@ namespace WEBAPP.MVC.Configs
             c.BaseAddress = new Uri(builder.Configuration["ServiceUrls:EstoqueApi"]));
             builder.Services.AddHttpClient<IFuncionarioEstoqueService, FuncionarioEstoqueService>(c =>
             c.BaseAddress = new Uri(builder.Configuration["ServiceUrls:EstoqueApi"]));
+
+            /*builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            builder.Services.AddScoped<ILogger>((context) =>
+            {
+                return (ILogger)Logger.Factory.Get();
+            });*/
         }
     }
 }

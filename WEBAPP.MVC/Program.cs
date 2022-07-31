@@ -1,3 +1,4 @@
+using KissLog.AspNetCore;
 using Microsoft.AspNetCore.Mvc.Razor;
 using WEBAPP.MVC.Configs;
 
@@ -6,6 +7,7 @@ builder.Services.AddControllersWithViews();
 
 IdentityConfig.AddIdentityConfig(builder);
 DIConfig.ResolveDependencias(builder);
+builder.Services.RegisterKissLogListeners();
 
 // Configuração de Areas
 // Observação: Essa configuração serve para caso o nome da pasta de Areas seja alterado
@@ -22,9 +24,14 @@ builder.Services.Configure<RazorViewEngineOptions>(options =>
 var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/erro/500");
+    app.UseStatusCodePagesWithRedirects("/erro/{0}");
     app.UseHsts();
 }
+
+//app.UseKissLogMiddleware();
+app.RegisterKissLogListeners(builder.Configuration);
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();

@@ -3,28 +3,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using RH.CrossCutting;
 using RH.CrossCutting.Mappings;
+using RH.CrossCutting.Security;
 using RH.Data.Contexto;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
+builder.Configuration.AddUserSecrets<Program>();
+
 // Config Identity
-builder.Services.AddAuthentication("Bearer").AddJwtBearer("Bearer", options =>
-{
-    options.Authority = "https://localhost:7248/";
-    options.TokenValidationParameters = new()
-    {
-        ValidateAudience = false
-    };
-});
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("ApiScope", policy =>
-    {
-        policy.RequireAuthenticatedUser();
-        policy.RequireClaim("scope", "Erp");
-    });
-});
+IdentityImplementation.SecurityImplementation(builder.Services);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>

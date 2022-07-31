@@ -1,0 +1,19 @@
+﻿@model WEBAPP.MVC.Models.ErrorViewModel
+
+@{
+    ViewData["Title"] = Model == null? "Ocorreu um erro" : Model.Titulo;
+}
+
+@{
+    if(Model == null)
+    {
+        <div>
+        <h2>Ops, ocorreu um erro!</h2>
+        </div>
+    }
+    else
+    {
+        <h1>@Html.Raw(Model.Titulo)</h1>
+        <h2 class="text-danger">@Html.Raw(Model.Menssagem)</h2>
+    }
+}

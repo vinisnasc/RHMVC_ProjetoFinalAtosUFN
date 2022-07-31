@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Estoque.CrossCutting.Security
+namespace RH.CrossCutting.Security
 {
     public class IdentityImplementation
     {
@@ -14,7 +14,6 @@ namespace Estoque.CrossCutting.Security
                     ValidateAudience = false
                 };
             });
-
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("ApiScope", policy =>
