@@ -105,6 +105,10 @@ namespace WEBAPP.MVC.Modulos.RecursosHumanos.Controllers
 
             if (ModelState.IsValid)
             {
+                var imgPrefixo = Guid.NewGuid() + "_";
+                if (!await UploadArquivo(model.FotoPerfilUpload, imgPrefixo)) return View(model);
+                model.FotoPerfil = imgPrefixo + model.FotoPerfilUpload.FileName;
+
                 var result = await _funcionarioService.Create(model, accessToken);
                 await _funcionarioEstoqueService.Create(result, accessToken);
                 return RedirectToAction(nameof(Index));
@@ -175,6 +179,24 @@ namespace WEBAPP.MVC.Modulos.RecursosHumanos.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(model);
+        }
+
+        private async Task<bool> UploadArquivo(IFormFile arquivo, string imgPrefixo)
+        {
+            if (arquivo.Length <= 0) return false;
+
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagens", imgPrefixo + arquivo.FileName);
+            
+            if(System.IO.File.Exists(path))
+            {
+                ModelState.AddModelError(string.Empty, "Já existe um arquivo com esse nome!");
+                return false;
+            }
+
+            using (var stream = new FileStream(path, FileMode.Create))
+                await arquivo.CopyToAsync(stream);
+
+            return true;
         }
     }
 }

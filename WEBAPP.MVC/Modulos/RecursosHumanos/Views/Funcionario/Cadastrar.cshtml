@@ -1,12 +1,19 @@
 ﻿@model WEBAPP.MVC.Modulos.RecursosHumanos.Models.InputModel.FuncionarioCadastro
 
-<form asp-action="Cadastrar">
+@{
+    ViewData["Title"] = "Cadastro de funcionários";
+}
+
+<form enctype="multipart/form-data" asp-action="Cadastrar">
     <br />
     <div class="container border p-3">
-        <h1 class="text-primary">Cadastrar novo funcionário</h1>
+        <h1 class="text-primary">@ViewData["Title"]</h1>
         <hr />
         <div class="row">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <br />
+            <h4>Dados Pessoais</h4>
             <div class="col-2">
                 <label asp-for="Nome" class="control-label pt-2" style="font-size=20px;"></label>
             </div>
@@ -35,17 +42,19 @@
                 <label asp-for="Sexo" class="control-label pt-2" style="font-size=20px;"></label>
             </div>
             <div class="col-10 pb-3">
-                <select asp-for="Sexo" asp-items="ViewBag.Sex" class="form-control"></select>
-                <span asp-validation-for="Sexo" class="text-danger"></span>
+                <input type="radio" value="1" asp-for="Sexo" checked /> Masculino<br />
+                <input type="radio" value="2" asp-for="Sexo" /> Feminino<br />
             </div>
 
             <div class="col-2">
-                <label asp-for="FotoPerfil" class="control-label pt-2" style="font-size=20px;"></label>
+                <label asp-for="FotoPerfilUpload" class="control-label pt-2" style="font-size=20px;"></label>
             </div>
-            <div class="col-10 pb-3">
-                <input asp-for="FotoPerfil" class="form-control" />
-                <span asp-validation-for="FotoPerfil" class="text-danger"></span>
+            <div class="custom-file">
+                <input type="file" asp-for="FotoPerfilUpload" id="FotoPerfilUpload" class="custom-file-input" />
+                <label data-browse="Procurar" style="width: 400px" class="custom-file-label" for="FotoPerfilUpload"></label>
+                <label style="display:none" id="img_nome"></label>
             </div>
+            <span asp-validation-for="FotoPerfilUpload" class="text-danger"></span>
 
             <div class="col-2">
                 <label asp-for="DataNascimento" class="control-label pt-2" style="font-size=20px;"></label>
@@ -71,6 +80,10 @@
                 <span asp-validation-for="RG" class="text-danger"></span>
             </div>
 
+            <br />
+            <h4>Dados Bancários</h4>
+            <hr />
+
             <div class="col-2">
                 <label asp-for="Banco" class="control-label pt-2" style="font-size=20px;"></label>
             </div>
@@ -95,29 +108,14 @@
                 <span asp-validation-for="ContaCorrente" class="text-danger"></span>
             </div>
 
-            <div class="col-2">
-                <label asp-for="Cep" class="control-label pt-2" style="font-size=20px;"></label>
-            </div>
-            <div class="col-10 pb-3">
-                <input asp-for="Cep" class="form-control" />
-                <span asp-validation-for="Cep" class="text-danger"></span>
-            </div>
+            <br />
+            <h4>Endereco</h4>
+            <hr />
+            <partial name="_Endereco" />
 
-            <div class="col-2">
-                <label asp-for="Numero" class="control-label pt-2" style="font-size=20px;"></label>
-            </div>
-            <div class="col-10 pb-3">
-                <input asp-for="Numero" class="form-control" />
-                <span asp-validation-for="Numero" class="text-danger"></span>
-            </div>
-
-            <div class="col-2">
-                <label asp-for="Complemento" class="control-label pt-2" style="font-size=20px;"></label>
-            </div>
-            <div class="col-10 pb-3">
-                <input asp-for="Complemento" class="form-control" />
-                <span asp-validation-for="Complemento" class="text-danger"></span>
-            </div>
+            <br>
+            <h4>Dados Empresariais</h4>
+            <hr />
 
             <div class="col-2">
                 <label asp-for="DepartamentoId" class="control-label pt-2" style="font-size=20px;"></label>
@@ -154,7 +152,15 @@
 </form>
 
 @section Scripts{
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    @{    await Html.RenderPartialAsync("_ValidationScriptsPartial");    }
+
+    <script>
+    $("#FotoPerfilUpload").change(function(){
+        $("#img_nome").text(this.files[0].name);
+        $("#img_nome")[0].style.display = 'block';
+    });
+
+    $("#FotoPerfilUpload").attr("data-val", "true");
+    $("#FotoPerfilUpload").attr("data-val-required", "Preencha o campo Imagem");
+    </script>
 }

@@ -29,7 +29,6 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-//app.UseKissLogMiddleware();
 app.RegisterKissLogListeners(builder.Configuration);
 
 app.UseHttpsRedirection();

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using WEBAPP.MVC.Modulos.RecursosHumanos.Models.Enum;
 
 namespace WEBAPP.MVC.Modulos.RecursosHumanos.Models.InputModel
@@ -17,6 +18,9 @@ namespace WEBAPP.MVC.Modulos.RecursosHumanos.Models.InputModel
 
         [Display(Name = "Foto de perfil")]
         public string FotoPerfil { get; set; }
+
+        [DisplayName("Foto de perfil")]
+        public IFormFile FotoPerfilUpload { get; set; }
 
         [Required]
         public string Cpf { get; set; }

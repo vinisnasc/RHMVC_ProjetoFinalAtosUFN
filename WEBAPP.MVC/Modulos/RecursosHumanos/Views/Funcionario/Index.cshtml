@@ -14,9 +14,12 @@
             </a>
         </div>
     </div>
-    <table class="table">
-        <thead>
+    <table class="table table-hover">
+        <thead class="thead-dark">
             <tr>
+                <th>
+                    Foto
+                </th>
                 <th>
                     Registro
                 </th>
@@ -35,6 +38,9 @@
             @foreach (var item in Model)
             {
                 <tr>
+                    <td>
+                        <img src="~/imagens/@item.FotoPerfil" alt="@item.FotoPerfil" style="width: 70px; height:100px" />
+                    </td>
                     <td>
                         @item.Registro
                     </td>
