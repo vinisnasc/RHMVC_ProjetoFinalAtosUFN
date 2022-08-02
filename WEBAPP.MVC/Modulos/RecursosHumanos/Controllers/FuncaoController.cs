@@ -58,7 +58,6 @@ namespace WEBAPP.MVC.Modulos.RecursosHumanos.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.Id = id;
                 var accessToken = await HttpContext.GetTokenAsync("access_token");
                 var response = await _funcaoService.AtualizarAsync(id, model, accessToken);
                 if (response != null)

@@ -25,6 +25,11 @@ namespace WEBAPP.MVC.Modulos.RecursosHumanos.Models
         public DateTime? Admissao { get; set; }
         public EnderecoModel Endereco { get; set; }
         public ContaBancariaModel ContaBancaria { get; set; }
+
+        public string PrimeiroNome()
+        {
+            return Nome.Split(" ")[0];
+        }
     }
 
     public class ContaBancariaModel

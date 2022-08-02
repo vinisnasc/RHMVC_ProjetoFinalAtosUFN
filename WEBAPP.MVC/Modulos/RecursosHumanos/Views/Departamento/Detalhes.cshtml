@@ -1,57 +1,55 @@
 ﻿@using WEBAPP.MVC.Modulos.RecursosHumanos.Models
 @model IEnumerable<FuncionarioDeptoModel>
 
-<!DOCTYPE html>
-<html>
-<head>
-</head>
-<body>
-    <br />
-    <br />
-    <div class="container p-4 border" style="background-color:#CEECF2;">
-        <div class="row pb-2">
-            <div class="col">
-                <h1 class="text-primary">Departamento @Model.ToArray()[0].Departamento.NomeDepartamento / @Model.ToArray()[0].Departamento.SubDepartamento</h1>
-            </div>
+    @{
+    ViewData["Title"] = "Funcionarios em " + @Model.ToArray()[0].Departamento.NomeDepartamento + "/" + @Model.ToArray()[0].Departamento.SubDepartamento;
+}
 
+@if(Model.ToList().Count == 0){<h1>Não há funcionários nesse departamento!</h1>}
+else
+{
+<br />
+<br />
+<div class="container p-4 border" style="background-color:#CEECF2;">
+    <div class="row pb-2">
+        <div class="col">
+            <h1 class="text-primary">Departamento @Model.ToArray()[0].Departamento.NomeDepartamento / @Model.ToArray()[0].Departamento.SubDepartamento</h1>
         </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        Registro
-                    </th>
-                    <th>
-                        Nome
-                    </th>
-                    <th>
-                        Função
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @item.Registro
-                        </td>
-                        <td>
-                            @item.Nome 
-                        </td>
-                        <td>
-                            @item.Funcao
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-        <div class="col-5 offset-2">
-            <a asp-action="Index" class="btn-primary btn form-control">Voltar</a>
-        </div>
-        <div class="col-5 offset-2">
-            <a asp-action="Imprimir" asp-route-value="@Model" class="btn-primary btn form-control">Voltar</a>
-        </div>
+
     </div>
-</body>
-</html>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Registro
+                </th>
+                <th>
+                    Nome
+                </th>
+                <th>
+                    Função
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Registro
+                    </td>
+                    <td>
+                        @item.Nome
+                    </td>
+                    <td>
+                        @item.Funcao
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="col-5 offset-2">
+        <a asp-action="Index" class="btn-primary btn form-control">Voltar</a>
+    </div>
+</div>
+}

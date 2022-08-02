@@ -6,6 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="EPPlus" Version="5.8.8" />
     <PackageReference Include="KissLog.AspNetCore" Version="5.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />

@@ -1,47 +1,58 @@
 ﻿@using WEBAPP.MVC.Modulos.RecursosHumanos.Models
 @model IEnumerable<FuncionarioFuncaoModel>
 
-<br />
-<br />
-<div class="container p-4 border" style="background-color:#CEECF2;">
-    <div class="row pb-2">
-        <div class="col">
-            <h1 class="text-primary">Função @Model.ToArray()[0].Funcao.NomeFuncao</h1>
-        </div>
+@{
+    ViewData["Title"] = "Funcionários " + @Model.ToArray()[0].Funcao.NomeFuncao;
+}
 
-    </div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Registro
-                </th>
-                <th>
-                    Nome
-                </th>
-                <th>
-                    Departamento
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+<br />
+<br />
+@if (Model.ToList().Count == 0)
+{
+    <h2>Não há funcionários cadastrados com essa função!</h2>
+}
+else
+{
+    <div class="container p-4 border" style="background-color:#CEECF2;">
+        <div class="row pb-2">
+            <div class="col">
+                <h1 class="text-primary">Função @Model.ToArray()[0].Funcao.NomeFuncao</h1>
+            </div>
+
+        </div>
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>
-                        @item.Registro
-                    </td>
-                    <td>
-                        @item.Nome
-                    </td>
-                    <td>
-                        @item.Departamento
-                    </td>
+                    <th>
+                        Registro
+                    </th>
+                    <th>
+                        Nome
+                    </th>
+                    <th>
+                        Departamento
+                    </th>
                 </tr>
-            }
-        </tbody>
-    </table>
-    <div class="col-5 offset-2">
-        <a asp-action="Index" class="btn-primary btn form-control">Voltar</a>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.Registro
+                        </td>
+                        <td>
+                            @item.Nome
+                        </td>
+                        <td>
+                            @item.Departamento
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="col-5 offset-2">
+            <a class="btn-primary btn form-control" href="javascript:window.history.back();">Voltar</a>
+        </div>
     </div>
-</div>
+}

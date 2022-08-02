@@ -1,5 +1,11 @@
-﻿@model WEBAPP.MVC.Modulos.RecursosHumanos.Models.FuncionarioModel
+﻿@using WEBAPP.MVC.Extensions
+@model WEBAPP.MVC.Modulos.RecursosHumanos.Models.FuncionarioModel
 
+@{
+    ViewData["Title"] = "Detalhes " + @Model.PrimeiroNome();
+}
+
+<a class="btn-primary btn form-control" href="javascript:window.history.back();">Voltar</a>
 <div class="container row">
     <div class="card container col-9 text-center" style="background-color:#CEECF2;">
         <div>
@@ -77,7 +83,7 @@
 
     <div class="card container col-3 text-center" style="background-color:#4BAABF;">
         <div class="card-body">
-            <img class="rounded-circle" src="@Model.FotoPerfil" alt="Image" height=200 width=200 />
+            <img class="rounded-circle" src="~/imagens/@Model.FotoPerfil" alt="@Model.FotoPerfil" style="width: 200px; height:200px" />
             <h2 class="">
                 @(Model.NomeSocial ?? Model.Nome)
                 @if (Model.Sexo == WEBAPP.MVC.Modulos.RecursosHumanos.Models.Enum.Genero.Masculino)
@@ -97,7 +103,7 @@
             <br />
             Nascimento: @(Model.DataNascimento.ToString("dd/MM/yyyy"))
             <br />
-            CPF: @Model.Cpf
+            CPF: @this.FormataCPF(Model.Cpf)
             <br />
             Rg: @Model.RG
         </div>

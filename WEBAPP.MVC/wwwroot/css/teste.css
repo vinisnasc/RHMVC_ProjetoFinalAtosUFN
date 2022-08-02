@@ -1,6 +1,6 @@
 ﻿@import url("//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css");
 
-.menu, .menu-bar {
+.menu, .menu-bar .rh-bar {
     position: fixed;
     bottom: 0;
     left: 0;
@@ -63,14 +63,14 @@
             content: "\f039";
         }
 
-        .menu-bar li a:hover,
+        .menu-bar .rh-bar li a:hover,
         .menu li a:hover,
         .menu li:first-child a {
             background: #267fdd;
             color: #fff;
         }
 
-.menu-bar {
+.menu-bar .rh-bar {
     overflow: hidden;
     left: 5em;
     z-index: 5;
@@ -79,7 +79,7 @@
     transition: all 0.1s ease-in-out;
 }
 
-    .menu-bar li a {
+    .menu-bar .rh-bar li a {
         display: block;
         height: 4em;
         line-height: 4em;
@@ -92,7 +92,7 @@
         transition: background 0.1s ease-in-out;
     }
 
-    .menu-bar li:first-child a {
+    .menu-bar .rh-bar li:first-child a {
         height: 5em;
         background: #267fdd;
         color: #fff;
@@ -126,11 +126,11 @@
             display: inline-block;
         }
 
-    .menu-bar li a {
+    .menu-bar .rh-bar li a {
         width: 100%;
     }
 
-    .menu-bar {
+    .menu-bar .rh-bar {
         width: 100%;
         left: 0;
         bottom: 0;
@@ -149,6 +149,7 @@
 
 @media screen and (max-height: 34em) {
     .menu li,
+    .rh-bar
     .menu-bar {
         font-size: 70%;
     }

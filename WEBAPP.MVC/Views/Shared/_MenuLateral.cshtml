@@ -1,22 +1,29 @@
 ﻿<ul class="menu">
 
-      <li title="home"><a href="#" class="menu-button home">menu</a></li>
-      <li title="about"><a href="#" class="active about">about</a></li>
-      @if (User.Identity.IsAuthenticated)
+    <li title="home"><a href="#" class="menu-button home">menu</a></li>
+    <li title="about"><a href="#" class="active about">about</a></li>
+    <li title="RH"><a href="#" class="rh-button home"></a></li>
+    @if (User.Identity.IsAuthenticated)
     {
-        <li title="RH"><a href="#" class="active"></a></li>
+        
         <li title="Estoque"><a asp-area="Estoque" asp-controller="Epi" asp-action="Index" class="active"></a></li>
     }
     @*     <li title="search"><a href="#" class="search">search</a></li>
-      <li title="pencil"><a href="#" class="pencil">pencil</a></li>
-      <li title="archive"><a href="#" class="archive">archive</a></li>
-      <li title="contact"><a href="#" class="contact">contact</a></li>*@
-    </ul>
-    
-    <ul class="menu-bar">
-        <li><a href="#" class="menu-button">Menu</a></li>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Profile</a></li>
-        <li><a href="#">Editorial</a></li>
-        <li><a href="#">About</a></li>
-    </ul>
+        <li title="pencil"><a href="#" class="pencil">pencil</a></li>
+        <li title="archive"><a href="#" class="archive">archive</a></li>
+        <li title="contact"><a href="#" class="contact">contact</a></li>*@
+</ul>
+
+<ul class="menu-bar">
+    <li><a href="#" class="menu-button">Menu</a></li>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Profile</a></li>
+    <li><a href="#">Editorial</a></li>
+    <li><a href="#">About</a></li>
+</ul>
+
+<ul class="rh-bar">
+    <li><a asp-area="RH" asp-controller="Funcionarios" asp-action="Index"></a>Funcionarios</li>
+    <li><a asp-area="RH" asp-controller="Funcionarios" asp-action="Index"></a>Funcionarios</li>
+    <li><a asp-area="RH" asp-controller="Funcionarios" asp-action="Index"></a>Funcionarios</li>
+</ul>

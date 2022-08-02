@@ -1,12 +1,11 @@
 ﻿@using WEBAPP.MVC.Modulos.RecursosHumanos.Models
 @model IEnumerable<DepartamentoModel>
 
-<!DOCTYPE html>
-<html>
-<head>
-</head>
-<body>
-    <br />
+@{
+    ViewData["Title"] = "Departamentos";
+}
+
+<br />
 <br />
 <div class="container p-4 border" style="background-color:#CEECF2;">
     <div class="row pb-2">
@@ -34,7 +33,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach(var item in Model)
+            @foreach (var item in Model)
             {
                 <tr>
                     <td>
@@ -47,10 +46,10 @@
                         @item.NumeroFuncionario
                     </td>
                     <td>
-                        <a asp-action="Atualizar" class ="btn btn-success" asp-route-id="@item.Id">
+                        <a asp-action="Atualizar" class="btn btn-success" asp-route-id="@item.Id">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <a asp-action="Detalhes" class ="btn btn-danger" asp-route-id="@item.Id">
+                        <a asp-action="Detalhes" class="btn btn-danger" asp-route-id="@item.Id">
                             <i class="fas fa-info-circle"></i>
                         </a>
                     </td>
@@ -59,5 +58,3 @@
         </tbody>
     </table>
 </div>
-</body>
-</html>

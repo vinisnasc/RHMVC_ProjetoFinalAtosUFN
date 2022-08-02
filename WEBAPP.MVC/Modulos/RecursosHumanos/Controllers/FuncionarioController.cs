@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WEBAPP.MVC.Modulos.Estoque.Services.Interfaces;
+using WEBAPP.MVC.Modulos.RecursosHumanos.Models;
 using WEBAPP.MVC.Modulos.RecursosHumanos.Models.InputModel;
 using WEBAPP.MVC.Modulos.RecursosHumanos.Services.Interfaces;
 using WEBAPP.MVC.Utils;
@@ -18,19 +20,21 @@ namespace WEBAPP.MVC.Modulos.RecursosHumanos.Controllers
         private readonly IFuncionarioEstoqueService _funcionarioEstoqueService;
         private readonly IDepartamentoService _departamentoService;
         private readonly IFuncaoService _funcaoService;
+        private readonly IMapper _mapper;
 
         public FuncionarioController(IFuncionarioService funcionarioService,
                                      IFuncionarioEstoqueService funcionarioEstoqueService,
                                      IDepartamentoService departamentoService,
-                                     IFuncaoService funcaoService)
+                                     IFuncaoService funcaoService, IMapper mapper)
         {
             _funcionarioService = funcionarioService;
             _funcionarioEstoqueService = funcionarioEstoqueService;
             _departamentoService = departamentoService;
             _funcaoService = funcaoService;
+            _mapper = mapper;
         }
 
-      //  [Route("catalogoDeFuncionarios")]
+        //  [Route("catalogoDeFuncionarios")]
         //[Route("Index")] // Sobrecarga de rota
         public async Task<IActionResult> Index()
         {
@@ -40,23 +44,23 @@ namespace WEBAPP.MVC.Modulos.RecursosHumanos.Controllers
         }
 
 
-        
+
         public async Task<IActionResult> GerarDoc()
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
             var result = await _funcionarioService.BuscarTodosAtivos(accessToken);
             List<object> nova = new();
-            foreach(var obj in result)
+            foreach (var obj in result)
             {
                 nova.Add((object)obj);
             }
-           
+
             var stream = Exportacao.Export(nova);
 
             return File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "arquivoNome");
         }
 
-        
+
         public async Task<IActionResult> Cadastrar()
         {
             ViewBag.Sex = new SelectList(new object[]
@@ -77,7 +81,7 @@ namespace WEBAPP.MVC.Modulos.RecursosHumanos.Controllers
             ViewBag.Deptos = new SelectList(setores, "Id", "NomeDepartamento");
             ViewBag.Funcs = new SelectList(funcoes, "Id", "NomeFuncao");
 
-            return View(new FuncionarioCadastro { Admissao = DateTime.Now, Email="kakatinosa@hotmail.com", Nome = "Karina", Sexo = Models.Enum.Genero.Feminino, Agencia = "423", ContaCorrente = "5455", Banco = 45, Cep = "03579240", RG = "377603908", FotoPerfil = "http://ilvideogioco.files.wordpress.com/2010/12/jan2011_cover_b_frontd.jpg", Cpf = "40931577828" });
+            return View(new FuncionarioCadastro { Admissao = DateTime.Now, Email = "kakatinosa@hotmail.com", Nome = "Karina", Sexo = Models.Enum.Genero.Feminino, Agencia = "423", ContaCorrente = "5455", Banco = 45, Cep = "03579240", RG = "377603908", FotoPerfil = "http://ilvideogioco.files.wordpress.com/2010/12/jan2011_cover_b_frontd.jpg", Cpf = "40931577828" });
         }
 
         [HttpPost]
@@ -116,7 +120,7 @@ namespace WEBAPP.MVC.Modulos.RecursosHumanos.Controllers
             return View(model);
         }
 
-    //    [Route("Detalhes/{id:Guid}")]
+        //    [Route("Detalhes/{id:Guid}")]
         public async Task<IActionResult> Detalhes(Guid id)
         {
             var accessToken = await HttpContext.GetTokenAsync("access_token");
@@ -124,7 +128,7 @@ namespace WEBAPP.MVC.Modulos.RecursosHumanos.Controllers
             return View(result);
         }
 
-      //  [Route("Atualizar/{id}")]
+        //  [Route("Atualizar/{id}")]
         public async Task<IActionResult> Atualizar(Guid id)
         {
             ViewBag.Sex = new SelectList(new object[]
@@ -147,11 +151,11 @@ namespace WEBAPP.MVC.Modulos.RecursosHumanos.Controllers
 
             var model = await _funcionarioService.FindById(id, accessToken);
 
-            return View(model);
+            return View(_mapper.Map<FuncionarioUpdate>(model));
         }
 
         [HttpPost]
-        public async Task<IActionResult> Atualizar(FuncionarioUpdate model)
+        public async Task<IActionResult> Atualizar(Guid id, FuncionarioUpdate model)
         {
             #region ViewBags
             ViewBag.Sex = new SelectList(new object[]
@@ -173,12 +177,20 @@ namespace WEBAPP.MVC.Modulos.RecursosHumanos.Controllers
             ViewBag.Deptos = new SelectList(setores, "Id", "NomeDepartamento", (model.DepartamentoId == null ? setores[0] : model.DepartamentoId));
             #endregion
 
-            if (ModelState.IsValid)
+            if (id != model.Id) return NotFound();
+
+            if (!ModelState.IsValid) return View(model);
+
+            if(model.FotoPerfilUpload != null)
             {
-                await _funcionarioService.Update(model, accessToken);
-                return RedirectToAction(nameof(Index));
+                var imgPrefixo = Guid.NewGuid() + "_";
+                if (!await UploadArquivo(model.FotoPerfilUpload, imgPrefixo)) return View(model);
+
+                model.FotoPerfil = imgPrefixo + model.FotoPerfilUpload.FileName;
             }
-            return View(model);
+
+            await _funcionarioService.Update(model, accessToken);
+            return RedirectToAction(nameof(Index));
         }
 
         private async Task<bool> UploadArquivo(IFormFile arquivo, string imgPrefixo)
@@ -186,8 +198,8 @@ namespace WEBAPP.MVC.Modulos.RecursosHumanos.Controllers
             if (arquivo.Length <= 0) return false;
 
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/imagens", imgPrefixo + arquivo.FileName);
-            
-            if(System.IO.File.Exists(path))
+
+            if (System.IO.File.Exists(path))
             {
                 ModelState.AddModelError(string.Empty, "Já existe um arquivo com esse nome!");
                 return false;

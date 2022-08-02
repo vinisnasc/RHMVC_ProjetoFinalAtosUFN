@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using WEBAPP.MVC.Modulos.RecursosHumanos.Models.Enum;
 
 namespace WEBAPP.MVC.Modulos.RecursosHumanos.Models.InputModel
@@ -22,6 +23,9 @@ namespace WEBAPP.MVC.Modulos.RecursosHumanos.Models.InputModel
 
         public string? FotoPerfil { get; set; }
 
+        [DisplayName("Foto de perfil")]
+        public IFormFile FotoPerfilUpload { get; set; }
+
         [Required]
         public DateTime DataNascimento { get; set; }
 
@@ -42,5 +46,10 @@ namespace WEBAPP.MVC.Modulos.RecursosHumanos.Models.InputModel
         // Funcao
         [Display(Name = "Função")]
         public Guid FuncaoId { get; set; }
+
+        public string PrimeiroNome()
+        {
+            return Nome.Split(" ")[0];
+        }
     }
 }
