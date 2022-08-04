@@ -1,11 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using RH.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RH.Data.Maps
 {
@@ -13,6 +8,8 @@ namespace RH.Data.Maps
     {
         public void Configure(EntityTypeBuilder<Pagamento> builder)
         {
+            builder.ToTable("Pagamentos");
+
             builder.HasKey(x => x.Id);
 
             builder.HasOne(f => f.Funcionario)

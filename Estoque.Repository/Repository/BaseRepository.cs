@@ -128,7 +128,7 @@ namespace Estoque.Data.Repository
                 SqlCommand command = new($"select * from {TableName} where id like '{id}'", cn);
                 SqlDataReader rdr = await command.ExecuteReaderAsync();
                 string json = "";
-
+                
                 while (rdr.Read())
                 {
                     IEnumerable<Dictionary<string, object>> objetos = SerializarDataReader(rdr);

@@ -47,13 +47,7 @@ namespace WEBAPP.MVC.Modulos.RecursosHumanos.Models.InputModel
         public DateTime? Admissao { get; set; }
 
         // Endereco
-        [Required]
-        public string Cep { get; set; }
-       
-        [Display(Name = "Número")]
-        [Required]
-        public int Numero { get; set; }
-        public string Complemento { get; set; }
+        public EnderecoModel Endereco { get; set; }
 
         // Banco
         [Display(Name = "Código bancário")]

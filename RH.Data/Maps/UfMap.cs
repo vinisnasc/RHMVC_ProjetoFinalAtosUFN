@@ -8,6 +8,8 @@ namespace RH.Data.Maps
     {
         public void Configure(EntityTypeBuilder<Uf> builder)
         {
+            builder.ToTable("Ufs");
+
             builder.HasKey(i => i.Id);
 
             builder.HasIndex(s => s.Sigla)

@@ -9,16 +9,16 @@ namespace RH.Data.Contexto
         public RhContext(DbContextOptions options) : base(options)
         { }
 
-        public DbSet<Funcionario> Funcionario { get; set; }
+        public DbSet<Funcionario> Funcionarios { get; set; }
         public DbSet<ContaBancaria> ContaBancaria { get; set; }
-        public DbSet<Endereco> Endereco { get; set; }
-        public DbSet<Municipio> Municipio { get; set; }
-        public DbSet<Uf> Uf { get; set; }
-        public DbSet<Departamento> Departamento { get; set; }
-        public DbSet<Funcao> Funcao { get; set; }
+        public DbSet<Endereco> Enderecos { get; set; }
+        public DbSet<Municipio> Municipios { get; set; }
+        public DbSet<Uf> Ufs { get; set; }
+        public DbSet<Departamento> Departamentos { get; set; }
+        public DbSet<Funcao> Funcoes { get; set; }
         public DbSet<DecimoTerceiro> DecimoTerceiro { get; set; }
         public DbSet<Ferias> Ferias { get; set; }
-        public DbSet<Pagamento> Pagamento { get; set; }
+        public DbSet<Pagamento> Pagamentos { get; set; }
         public DbSet<Demissao> Demissao { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

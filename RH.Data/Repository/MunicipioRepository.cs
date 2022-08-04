@@ -2,11 +2,6 @@
 using RH.Data.Contexto;
 using RH.Domain.Entities;
 using RH.Domain.Interfaces.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RH.Data.Repository
 {
@@ -17,7 +12,7 @@ namespace RH.Data.Repository
 
         public async Task<Municipio> BuscarPorNomeUfAsync(string nome, Guid ufId)
         {
-            return await _context.Municipio.FirstOrDefaultAsync(x => x.NomeMunicipio == nome && x.UfId == ufId);
+            return await _context.Municipios.FirstOrDefaultAsync(x => x.NomeMunicipio == nome && x.UfId == ufId);
         }
     }
 }

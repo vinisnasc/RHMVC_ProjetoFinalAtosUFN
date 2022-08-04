@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RH.Domain.Enums;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using RH.Domain.Enums;
 
 namespace RH.Domain.Entities
 {
@@ -8,9 +6,9 @@ namespace RH.Domain.Entities
     {
         public int Registro { get; set; }
         public string Nome { get; set; }
-        public string? NomeSocial { get; set; }
+        public string NomeSocial { get; set; }
         public DateTime DataNascimento { get; set; }
-        public string? FotoPerfil { get; set; }
+        public string FotoPerfil { get; set; }
         public string CPF { get; set; }
         public string RG { get; set; }
         public string Email { get; set; }

@@ -8,6 +8,8 @@ namespace RH.Data.Maps
     {
         public void Configure(EntityTypeBuilder<Funcionario> builder)
         {
+            builder.ToTable("Funcionarios");
+
             builder.HasKey(x => x.Id);
 
             builder.HasIndex(x => x.Registro);

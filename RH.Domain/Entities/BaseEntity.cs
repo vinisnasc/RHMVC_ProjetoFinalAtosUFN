@@ -1,10 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace RH.Domain.Entities
+﻿namespace RH.Domain.Entities
 {
     public abstract class BaseEntity
     {
-        [Key]
         public Guid Id { get; set; }
         private DateTime? _createAt;
 

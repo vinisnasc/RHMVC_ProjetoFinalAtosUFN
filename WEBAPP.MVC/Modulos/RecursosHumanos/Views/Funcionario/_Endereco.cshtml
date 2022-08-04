@@ -1,25 +1,66 @@
 ﻿@model WEBAPP.MVC.Modulos.RecursosHumanos.Models.InputModel.FuncionarioCadastro
 
 <div class="col-2">
-    <label asp-for="Cep" class="control-label pt-2" style="font-size=20px;"></label>
+    <label asp-for="Endereco.Cep" class="control-label pt-2" style="font-size=20px;"></label>
 </div>
 <div class="col-10 pb-3">
-    <input asp-for="Cep" class="form-control" />
-    <span asp-validation-for="Cep" class="text-danger"></span>
+    <input asp-for="Endereco.Cep" id="Endereco_Cep" class="form-control" />
+    <span asp-validation-for="Endereco.Cep" class="text-danger"></span>
 </div>
 
 <div class="col-2">
-    <label asp-for="Numero" class="control-label pt-2" style="font-size=20px;"></label>
+    <label asp-for="Endereco.Municipio.NomeMunicipio" class="control-label pt-2" style="font-size=20px;"></label>
 </div>
 <div class="col-10 pb-3">
-    <input asp-for="Numero" class="form-control" />
-    <span asp-validation-for="Numero" class="text-danger"></span>
+    <input asp-for="Endereco.Municipio.NomeMunicipio" id="Endereco_Bairro" class="form-control" />
+    <span asp-validation-for="Endereco.Municipio.NomeMunicipio" class="text-danger"></span>
 </div>
 
 <div class="col-2">
-    <label asp-for="Complemento" class="control-label pt-2" style="font-size=20px;"></label>
+    <label asp-for="Endereco.Municipio.NomeMunicipio" class="control-label pt-2" style="font-size=20px;"></label>
 </div>
 <div class="col-10 pb-3">
-    <input asp-for="Complemento" class="form-control" />
-    <span asp-validation-for="Complemento" class="text-danger"></span>
+    <input asp-for="Endereco.Municipio.NomeMunicipio" id="Endereco_Cidade" class="form-control" />
+    <span asp-validation-for="Endereco.Municipio.NomeMunicipio" class="text-danger"></span>
 </div>
+
+<div class="col-2">
+    <label asp-for="Endereco.Municipio.Uf.Nome" class="control-label pt-2" style="font-size=20px;"></label>
+</div>
+<div class="col-10 pb-3">
+    <input asp-for="Endereco.Municipio.Uf.Nome" id="Endereco_Estado" class="form-control" />
+    <span asp-validation-for="Endereco.Municipio.Uf.Nome" class="text-danger"></span>
+</div>
+
+<div class="col-2">
+    <label asp-for="Endereco.Rua" class="control-label pt-2" style="font-size=20px;"></label>
+</div>
+<div class="col-10 pb-3">
+    <input asp-for="Endereco.Rua" id="Endereco_Logradouro" class="form-control" />
+    <span asp-validation-for="Endereco.Rua" class="text-danger"></span>
+</div>
+
+<div class="col-2">
+    <label asp-for="Endereco.Numero" class="control-label pt-2" style="font-size=20px;"></label>
+</div>
+<div class="col-10 pb-3">
+    <input asp-for="Endereco.Numero" class="form-control" />
+    <span asp-validation-for="Endereco.Numero" class="text-danger"></span>
+</div>
+
+<div class="col-2">
+    <label asp-for="Endereco.Complemento" class="control-label pt-2" style="font-size=20px;"></label>
+</div>
+<div class="col-10 pb-3">
+    <input asp-for="Endereco.Complemento" class="form-control" />
+    <span asp-validation-for="Endereco.Complemento" class="text-danger"></span>
+</div>
+
+@section Scripts{
+    @{    await Html.RenderPartialAsync("_ValidationScriptsPartial");    }
+
+
+    <script>
+        BuscaCep();
+    </script>
+}

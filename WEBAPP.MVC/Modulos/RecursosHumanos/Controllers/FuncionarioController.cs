@@ -81,7 +81,18 @@ namespace WEBAPP.MVC.Modulos.RecursosHumanos.Controllers
             ViewBag.Deptos = new SelectList(setores, "Id", "NomeDepartamento");
             ViewBag.Funcs = new SelectList(funcoes, "Id", "NomeFuncao");
 
-            return View(new FuncionarioCadastro { Admissao = DateTime.Now, Email = "kakatinosa@hotmail.com", Nome = "Karina", Sexo = Models.Enum.Genero.Feminino, Agencia = "423", ContaCorrente = "5455", Banco = 45, Cep = "03579240", RG = "377603908", FotoPerfil = "http://ilvideogioco.files.wordpress.com/2010/12/jan2011_cover_b_frontd.jpg", Cpf = "40931577828" });
+            FuncionarioCadastro teste = new();
+            Random rnd = new();
+            teste.Cpf = "11111111" + rnd.Next(100, 999).ToString();
+            teste.RG = "333333" + rnd.Next(100, 999).ToString();
+            teste.Nome = "Fred Mercury";
+            teste.Email = "killerqueen@gmail.com";
+            teste.Admissao = DateTime.Now;
+            teste.Banco = rnd.Next(100, 999);
+            teste.ContaCorrente = rnd.Next(100, 999).ToString();
+            teste.Agencia = rnd.Next(100, 999).ToString();
+            teste.DataNascimento = DateTime.Now;
+            return View(teste);
         }
 
         [HttpPost]
@@ -109,6 +120,7 @@ namespace WEBAPP.MVC.Modulos.RecursosHumanos.Controllers
 
             if (ModelState.IsValid)
             {
+                model.Endereco.Municipio.Uf.Sigla = model.Endereco.Municipio.Uf.Nome;
                 var imgPrefixo = Guid.NewGuid() + "_";
                 if (!await UploadArquivo(model.FotoPerfilUpload, imgPrefixo)) return View(model);
                 model.FotoPerfil = imgPrefixo + model.FotoPerfilUpload.FileName;

@@ -8,9 +8,11 @@ namespace RH.Data.Maps
     {
         public void Configure(EntityTypeBuilder<Municipio> builder)
         {
+            builder.ToTable("Municipios");
+
             builder.HasKey(x => x.Id);
 
-            builder.HasOne(x => x.Uf).WithMany(x => x.Municipios);
+            builder.HasOne(x => x.Uf).WithMany(x => x.Municipios).HasForeignKey(f => f.UfId);
         }
     }
 }

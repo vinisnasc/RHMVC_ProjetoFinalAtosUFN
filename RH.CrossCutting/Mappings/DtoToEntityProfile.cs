@@ -17,6 +17,10 @@ namespace RH.CrossCutting.Mappings
             CreateMap<FuncionarioCadastroDto, Municipio>().ReverseMap();
             CreateMap<FuncionarioEditarDadosPessoaisDto, Funcionario>();
 
+            CreateMap<EnderecoDTO, Endereco>().ReverseMap();
+            CreateMap<UfDTO, Uf>().ReverseMap();
+            CreateMap<MunicipioDTO, Municipio>().ReverseMap();
+
             // Conta Bancaria
             CreateMap<FuncionarioCadastroDto, ContaBancaria>();
 

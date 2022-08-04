@@ -80,13 +80,14 @@ namespace RH.Services
 
         private async Task<Guid> CadastrarEnderecoAsync(FuncionarioCadastroDto dto)
         {
-            var enderecoExiste = await _unitOfWork.EnderecoRepository.ProcurarEndereco(dto.Cep, dto.Numero, dto.Complemento);
+            var enderecoExiste = await _unitOfWork.EnderecoRepository.ProcurarEndereco(dto.Endereco.Cep, dto.Endereco.Numero, dto.Endereco.Complemento);
 
             if (enderecoExiste == null)
             {
                 var cepResponse = await AtribuirEndereco(dto);
 
-                var entity = _mapper.Map<Endereco>(dto);
+                var entity = _mapper.Map<Endereco>(dto.Endereco);
+                entity.Complemento = "";
                 entity.Rua = cepResponse.Logradouro;
                 entity.MunicipioId = await CadastrarMunicipioAsync(dto);
                 await _unitOfWork.EnderecoRepository.Incluir(entity);
@@ -144,7 +145,7 @@ namespace RH.Services
         private async Task<CepResponse> AtribuirEndereco(FuncionarioCadastroDto dto)
         {
             var cepClient = RestService.For<ICepApiService>("https://viacep.com.br");
-            var cepResponse = await cepClient.GetAdressAsync(dto.Cep);
+            var cepResponse = await cepClient.GetAdressAsync(dto.Endereco.Cep);
             return cepResponse;
         }
 

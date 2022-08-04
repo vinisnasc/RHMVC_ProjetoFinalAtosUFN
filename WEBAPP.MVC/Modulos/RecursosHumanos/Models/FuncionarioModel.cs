@@ -8,7 +8,7 @@ namespace WEBAPP.MVC.Modulos.RecursosHumanos.Models
         public Guid? Id { get; set; }
         public int? Registro { get; set; }
         public string Nome { get; set; }
-        public string? NomeSocial { get; set; }
+        public string NomeSocial { get; set; }
         [DataType(DataType.Date)]
         public DateTime DataNascimento { get; set; }
         public string FotoPerfil { get; set; }
@@ -16,9 +16,9 @@ namespace WEBAPP.MVC.Modulos.RecursosHumanos.Models
         public string RG { get; set; }
         public string Email { get; set; }
         public Genero Sexo { get; set; }
-        public string? Funcao { get; set; }
+        public string Funcao { get; set; }
         public Guid FuncaoId { get; set; }
-        public string? Departamento { get; set; }
+        public string Departamento { get; set; }
         public Guid DepartamentoId { get; set; }
         public DateTime Demissao { get; set; }
         [DataType(DataType.Date)]
@@ -43,8 +43,10 @@ namespace WEBAPP.MVC.Modulos.RecursosHumanos.Models
     {
         public string Cep { get; set; }
         public string Rua { get; set; }
+
+        [Display(Name = "Número")]
         public int Numero { get; set; }
-        public string? Complemento { get; set; }
+        public string Complemento { get; set; }
         public MunicipioModel Municipio { get; set; }
     }
 
