@@ -6,13 +6,13 @@ namespace DuendeIdentityServerProject.Services.RHApiService.Models
     {
         public Guid? Id { get; set; }
         public int? Registro { get; set; }
-        public string Nome { get; set; }
+        public string? Nome { get; set; }
         public string? NomeSocial { get; set; }
         public DateTime DataNascimento { get; set; }
-        public string FotoPerfil { get; set; }
-        public string Cpf { get; set; }
-        public string RG { get; set; }
-        public string Email { get; set; }
+        public string? FotoPerfil { get; set; }
+        public string? Cpf { get; set; }
+        public string? RG { get; set; }
+        public string? Email { get; set; }
         public Genero Sexo { get; set; }
         public string? Funcao { get; set; }
         public Guid FuncaoId { get; set; }

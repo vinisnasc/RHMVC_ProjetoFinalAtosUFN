@@ -44,7 +44,7 @@ namespace Estoque.Services.RabbitMQConsumer
             consumer.Received += (chanel, evt) =>
             {
                 var content = Encoding.UTF8.GetString(evt.Body.ToArray());
-                AdmissaoDto dto = JsonSerializer.Deserialize<AdmissaoDto>(content);
+                AdmissaoDto dto = JsonSerializer.Deserialize<AdmissaoDto>(content)!;
                 ProcessOrder(dto).GetAwaiter().GetResult();
                 _channel.BasicAck(evt.DeliveryTag, false);
             };

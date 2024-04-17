@@ -7,7 +7,7 @@ namespace Estoque.Data.Repository
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseEntity
     {
-        public virtual string TableName { get; set; }
+        public virtual string? TableName { get; set; }
 
         #region context
         private SqlConnection cn;
@@ -52,7 +52,7 @@ namespace Estoque.Data.Repository
                 var values = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
                 string query = "";
 
-                foreach (var objeto in values)
+                foreach (var objeto in values!)
                 {
                     if (values.Last().Equals(objeto))
                     {
@@ -108,9 +108,9 @@ namespace Estoque.Data.Repository
                 SqlCommand command = new($"insert into {TableName}({atributos}) values({valores})", cn);
                 await command.ExecuteNonQueryAsync();      
 
-                return JsonConvert.DeserializeObject<T>(json);
+                return JsonConvert.DeserializeObject<T>(json)!;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

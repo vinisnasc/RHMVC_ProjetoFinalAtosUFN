@@ -45,7 +45,7 @@ builder.Services.AddSwaggerGen(c =>
 
 // Configuracao da injecao de dependencia
 DependencyContainer.RegisterServices(builder.Services,
-                                     builder.Configuration.GetConnectionString("EstoqueContext"),
+                                     builder.Configuration.GetConnectionString("EstoqueContext")!,
                                      builder.Configuration);
 
 //Configuracao do AutoMapper

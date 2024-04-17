@@ -8,10 +8,10 @@ namespace Estoque.Domain
     {
         public Guid FuncionarioId { get; set; }
         [ForeignKey("FuncionarioId")]
-        public virtual Funcionario Funcionario { get; set; }
+        public virtual Funcionario? Funcionario { get; set; }
         public Guid UniformeId { get; set; }
         [ForeignKey("UniformeId")]
-        public virtual Uniforme Uniforme { get; set; }
+        public virtual Uniforme? Uniforme { get; set; }
         public int Quantidade { get; set; }
         public DateTime DataRetirada { get; set; }
     }
