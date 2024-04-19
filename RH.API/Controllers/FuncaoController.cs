@@ -1,16 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using RH.Domain.Dtos.Input;
 using RH.Domain.Dtos.Views;
 using RH.Domain.Interfaces.Services;
 
 namespace RH.API.Controllers
 {
-    [Authorize]
-    [Route("api/[controller]")]
-    [ApiController]
-    public class FuncaoController : ControllerBase
+    public class FuncaoController : BaseController
     {
         private readonly IFuncaoService _funcaoService;
 

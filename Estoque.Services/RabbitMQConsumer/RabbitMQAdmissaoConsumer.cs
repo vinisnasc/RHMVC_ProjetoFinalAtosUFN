@@ -30,11 +30,12 @@ namespace Estoque.Services.RabbitMQConsumer
                 UserName = "guest",
                 Password = "guest"
             };
-            _connection = factory.CreateConnection();
-            _channel = _connection.CreateModel();
-            _channel.ExchangeDeclare(ExchangeName, ExchangeType.Fanout);
-            queueName = _channel.QueueDeclare().QueueName;
-            _channel.QueueBind(queueName, ExchangeName, "");
+            // todo: ocorrendo erro aqui
+            //_connection = factory.CreateConnection();
+            //_channel = _connection.CreateModel();
+            //_channel.ExchangeDeclare(ExchangeName, ExchangeType.Fanout);
+            //queueName = _channel.QueueDeclare().QueueName;
+            //_channel.QueueBind(queueName, ExchangeName, "");
         }
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
@@ -48,7 +49,8 @@ namespace Estoque.Services.RabbitMQConsumer
                 ProcessOrder(dto).GetAwaiter().GetResult();
                 _channel.BasicAck(evt.DeliveryTag, false);
             };
-            _channel.BasicConsume(queueName, false, consumer);
+            // todo: ocorrendo erro aqui
+            //_channel.BasicConsume(queueName, false, consumer);
             return Task.CompletedTask;
         }
 

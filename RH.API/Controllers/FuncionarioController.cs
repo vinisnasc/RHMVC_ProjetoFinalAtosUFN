@@ -7,9 +7,7 @@ using RH.Domain.Interfaces.Services.RabbitMQ;
 
 namespace RH.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class FuncionarioController : ControllerBase
+    public class FuncionarioController : BaseController
     {
         private readonly IFuncionarioService _funcionarioService;
         private IRabbitMQSender _rabbitMQSender;

@@ -6,10 +6,7 @@ using RH.Domain.Interfaces.Services;
 
 namespace RH.API.Controllers
 {
-    [Authorize]
-    [Route("api/[controller]")]
-    [ApiController]
-    public class DepartamentoController : ControllerBase
+    public class DepartamentoController : BaseController
     {
         private readonly IDepartamentoService _departamentoService;
 
@@ -18,6 +15,10 @@ namespace RH.API.Controllers
             _departamentoService = departamentoService;
         }
 
+        /// <summary>
+        /// Retorna todos os departamentos cadastrados
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DepartamentoViewDtoResult>>> FindAll()
         {

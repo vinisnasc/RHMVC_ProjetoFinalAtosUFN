@@ -21,7 +21,7 @@ namespace WEBAPP.MVC.Modulos.RecursosHumanos.Models.InputModel
         [Required]
         public Genero Sexo { get; set; }
 
-        public string? FotoPerfil { get; set; }
+        public string FotoPerfil { get; set; }
 
         [DisplayName("Foto de perfil")]
         public IFormFile FotoPerfilUpload { get; set; }

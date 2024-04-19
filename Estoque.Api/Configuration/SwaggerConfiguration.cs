@@ -1,7 +1,7 @@
 ﻿using Microsoft.OpenApi.Models;
 using System.Reflection;
 
-namespace RH.API.Configuration
+namespace Estoque.Api.Configuration
 {
     public static class SwaggerConfiguration
     {
@@ -14,8 +14,8 @@ namespace RH.API.Configuration
                 if (File.Exists(xmlPath))
                     c.IncludeXmlComments(xmlPath);
 
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Erp.Rh.Api", });
-
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Erp.Estoque.Api", });
+                
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = @"Enter 'Bearer' [space] and your token",
@@ -38,7 +38,6 @@ namespace RH.API.Configuration
                             Name="Bearer",
                             In=ParameterLocation.Header
                         },
-                        
                         new List<string>()
                     }
                 });
@@ -53,7 +52,6 @@ namespace RH.API.Configuration
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
             return app;
         }
     }
