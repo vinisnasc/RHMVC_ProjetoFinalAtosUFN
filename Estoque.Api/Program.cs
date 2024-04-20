@@ -1,7 +1,6 @@
 using AutoMapper;
 using Estoque.Api.Configuration;
 using Estoque.CrossCutting;
-using Estoque.CrossCutting.Security;
 using Microsoft.EntityFrameworkCore;
 using RH.CrossCutting.Mappings;
 
@@ -9,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 // Config Identity
-IdentityImplementation.SecurityImplementation(builder.Services);
+builder.Services.AddSecurityConfiguration();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerConfiguration();
@@ -30,8 +29,6 @@ builder.Services.AddSingleton(mapper);
 
 var app = builder.Build();
 app.UseSwaggerConfiguration();
-app.UseHttpsRedirection();
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseSecurityConfiguration();
 app.MapControllers();
 app.Run();
