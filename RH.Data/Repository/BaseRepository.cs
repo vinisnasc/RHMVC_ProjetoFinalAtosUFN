@@ -34,6 +34,7 @@ namespace RH.Data.Repository
 
         public virtual async Task<List<T>> SelecionarTudo()
         {
+            //throw new Exception("erro aqui");
             return await _context.Set<T>().ToListAsync();
         }
 

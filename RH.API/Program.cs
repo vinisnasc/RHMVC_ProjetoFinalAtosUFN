@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using RH.API.Configuration;
+using RH.API.MIddlewares;
 using RH.CrossCutting;
 using RH.CrossCutting.Mappings;
 using RH.Data.Contexto;
@@ -26,6 +27,7 @@ IMapper mapper = config.CreateMapper();
 builder.Services.AddSingleton(mapper);
 
 var app = builder.Build();
+app.UseErrorMiddleware();
 app.UseSwaggerConfiguration();
 app.UseSecurityConfiguration();
 app.MapControllers();

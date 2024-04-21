@@ -6,14 +6,18 @@ using RH.Domain.Interfaces.Services;
 
 namespace RH.API.Controllers
 {
+    /// <summary>
+    /// Controller de departamentos
+    /// </summary>
     public class DepartamentoController : BaseController
     {
         private readonly IDepartamentoService _departamentoService;
 
-        public DepartamentoController(IDepartamentoService departamentoService)
-        {
-            _departamentoService = departamentoService;
-        }
+        /// <summary>
+        /// Construtor da classe
+        /// </summary>
+        /// <param name="departamentoService"></param>
+        public DepartamentoController(IDepartamentoService departamentoService) => _departamentoService = departamentoService;
 
         /// <summary>
         /// Retorna todos os departamentos cadastrados
@@ -26,6 +30,11 @@ namespace RH.API.Controllers
             return Ok(departamentos);
         }
 
+        /// <summary>
+        /// Retorna os dados de um departamento a partir do id informado
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpGet("{id}")]
         public async Task<ActionResult<DepartamentoViewDtoResult>> FindById(Guid id)
@@ -34,6 +43,11 @@ namespace RH.API.Controllers
             return Ok(departamento);
         }
 
+        /// <summary>
+        /// Retorna os funcionarios de um departamento
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpGet("Funcionarios/{id}")]
         public async Task<ActionResult<IEnumerable<FuncionarioDepartamentoView>>> ListarFuncionariosDoDepartamento(Guid id)
@@ -42,23 +56,31 @@ namespace RH.API.Controllers
             return Ok(funcionarios);
         }
 
+        /// <summary>
+        /// Cadastra um novo departamento
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpPost]
         public async Task<ActionResult> Create(DepartamentoCadastroDto dto)
         {
-            if (dto == null)
-                return BadRequest();
+            if (dto == null) return BadRequest();
 
             var result = await _departamentoService.CadastrarAsync(dto);
             return Ok(result);
         }
 
+        /// <summary>
+        /// Atualiza os dados de um departamento
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [Authorize(Roles = "Admin")]
         [HttpPut]
         public async Task<ActionResult> Update(DepartamentoEditarDto dto)
         {
-            if (dto == null)
-                return BadRequest();
+            if (dto == null) return BadRequest();
 
             var result = await _departamentoService.AtualizarAsync(dto);
             return Ok(result);
