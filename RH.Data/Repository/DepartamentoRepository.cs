@@ -7,8 +7,7 @@ namespace RH.Data.Repository
 {
     public class DepartamentoRepository : BaseRepository<Departamento>, IDepartamentoRepository
     {
-        public DepartamentoRepository(RhContext context) : base(context)
-        {}
+        public DepartamentoRepository(RhContext context) : base(context) { }
 
         public async Task<int> QuantidadeFuncionarioAsync(Guid id)
         {
@@ -17,7 +16,7 @@ namespace RH.Data.Repository
 
         public IEnumerable<Funcionario> BuscarFuncDepto(Guid id)
         {
-            return  _context.Funcionarios.Where(x => x.DepartamentoId == id && x.Ativo == true);
+            return _context.Funcionarios.Where(x => x.DepartamentoId == id && x.Ativo == true);
         }
 
         public async Task<bool> ExisteDepto(string depto, string subdepto)

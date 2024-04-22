@@ -5,14 +5,20 @@ using RH.Domain.Interfaces.Services;
 
 namespace RH.API.Controllers
 {
+    /// <summary>
+    /// Controller de funcoes
+    /// </summary>
     public class FuncaoController : BaseController
     {
         private readonly IFuncaoService _funcaoService;
 
-        public FuncaoController(IFuncaoService funcaoService)
-        {
+        /// <summary>
+        /// Construtor da classe
+        /// </summary>
+        /// <param name="funcaoService"></param>
+        /// <param name="notificador"></param>
+        public FuncaoController(IFuncaoService funcaoService, INotificador notificador) : base (notificador) =>
             _funcaoService = funcaoService;
-        }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FuncaoViewDtoResult>>> FindAll()

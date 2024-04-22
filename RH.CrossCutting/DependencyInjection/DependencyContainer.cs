@@ -25,6 +25,7 @@ namespace RH.CrossCutting
             services.AddScoped<IDepartamentoService, DepartamentoService>();
             services.AddScoped<IFuncaoService, FuncaoService>();
             services.AddScoped<IPagamentosService, PagamentosService>();
+            services.AddScoped<INotificador, Notificador>();
 
             // Repositorios
             services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();

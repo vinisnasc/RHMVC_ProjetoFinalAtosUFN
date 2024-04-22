@@ -7,12 +7,22 @@ using RH.Domain.Interfaces.Services.RabbitMQ;
 
 namespace RH.API.Controllers
 {
+    /// <summary>
+    /// Controller de funcionarios
+    /// </summary>
     public class FuncionarioController : BaseController
     {
         private readonly IFuncionarioService _funcionarioService;
         private IRabbitMQSender _rabbitMQSender;
 
-        public FuncionarioController(IFuncionarioService funcionarioService, IRabbitMQSender rabbitMQSender)
+        /// <summary>
+        /// Construtor da classe
+        /// </summary>
+        /// <param name="funcionarioService"></param>
+        /// <param name="rabbitMQSender"></param>
+        /// <param name="notificador"></param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public FuncionarioController(IFuncionarioService funcionarioService, IRabbitMQSender rabbitMQSender, INotificador notificador) : base (notificador)
         {
             _funcionarioService = funcionarioService ?? throw new ArgumentNullException(nameof(funcionarioService));
             _rabbitMQSender = rabbitMQSender ?? throw new ArgumentNullException(nameof(rabbitMQSender));

@@ -5,15 +5,16 @@ using RH.Domain.Entities;
 using RH.Domain.Exceptions;
 using RH.Domain.Interfaces.Repository;
 using RH.Domain.Interfaces.Services;
+using RH.Domain.Validations;
 
 namespace RH.Services
 {
-    public class DepartamentoService : IDepartamentoService
+    public class DepartamentoService : BaseService, IDepartamentoService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public DepartamentoService(IUnitOfWork unitOfWork, IMapper mapper)
+        public DepartamentoService(IUnitOfWork unitOfWork, IMapper mapper, INotificador notificador) : base(notificador) 
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;

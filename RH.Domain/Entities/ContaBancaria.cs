@@ -6,5 +6,7 @@
         public string Agencia { get; set; }
         public string ContaCorrente { get; set; }
         public List<Funcionario> Funcionarios { get; set; }
+
+        public ContaBancaria() { }
     }
 }

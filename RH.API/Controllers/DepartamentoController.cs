@@ -17,7 +17,9 @@ namespace RH.API.Controllers
         /// Construtor da classe
         /// </summary>
         /// <param name="departamentoService"></param>
-        public DepartamentoController(IDepartamentoService departamentoService) => _departamentoService = departamentoService;
+        /// <param name="notificador"></param>
+        public DepartamentoController(IDepartamentoService departamentoService, INotificador notificador)
+                                            : base(notificador) => _departamentoService = departamentoService;
 
         /// <summary>
         /// Retorna todos os departamentos cadastrados

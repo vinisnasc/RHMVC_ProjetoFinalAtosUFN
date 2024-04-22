@@ -1,7 +1,4 @@
-using KissLog.AspNetCore;
-using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
-using System.Globalization;
 using WEBAPP.MVC.Configs;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +7,7 @@ builder.Services.AddControllersWithViews();
 IdentityConfig.AddIdentityConfig(builder);
 DIConfig.ResolveDependencias(builder);
 builder.Services.RegisterKissLogListeners();
-builder.Services.AddAutoMapper(typeof(Program));
+//builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddMVCConfiguration();
 
 // Configuração de Areas

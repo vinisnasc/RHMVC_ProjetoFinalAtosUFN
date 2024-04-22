@@ -3,12 +3,21 @@ using RH.Domain.Interfaces.Services;
 
 namespace RH.API.Controllers
 {
+    /// <summary>
+    /// Controller de pagamento
+    /// </summary>
     public class PagamentoController : BaseController
     {
         private readonly IPagamentosService _pagamentosService;
         private readonly IFuncionarioService _funcionarioService;
 
-        public PagamentoController(IPagamentosService pagamentosService, IFuncionarioService funcionarioService)
+        /// <summary>
+        /// Construtor da classe
+        /// </summary>
+        /// <param name="pagamentosService"></param>
+        /// <param name="funcionarioService"></param>
+        /// <param name="notificador"></param>
+        public PagamentoController(IPagamentosService pagamentosService, IFuncionarioService funcionarioService, INotificador notificador) : base(notificador)
         {
             _pagamentosService = pagamentosService;
             _funcionarioService = funcionarioService;
